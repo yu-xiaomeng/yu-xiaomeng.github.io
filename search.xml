@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>Postman教程-导入请求的多种方式</title>
+      <link href="/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/"/>
+      <url>/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/</url>
+      
+        <content type="html"><![CDATA[<p>Postman是一个有着图形化界面的API请求模拟平台，在构造请求时最常见的莫过于手动在对应的输入框中填入相应的内容：</p><p>根据被测HTTP请求的Method、URL、Headers、Request Params/Body，填写完成后点击Send，能够看到响应返回的Status、Headers、Boby等相应信息。为了方便下次使用，我们通常也会将其保存到Collection中。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107141525751.png" alt="image-20220107141525751"></p><p>当需要测试的接口不多时，重复这样操作看起来问题不大，但通常一个系统的接口至少是有几十上百个的，再这样一个一个手动输入的话，效率未免太低。<br>postman提供了多种方法帮助我们批量导入，点击import，我们可以看到有File、Folder、Link、Raw text、Code repository这5种导入方法，本人根据自己在工作中的经验和使用习惯，将依次介绍其中的Raw text、File、Link这3种方法。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107144841882.png" alt="postman-import-import"><br>除了Import外，Postman还可以拦截请求并将请求信息存储到对应的位置，使用过Fiddler、Charles等抓包工具的同学应该会比较熟悉这个操作，这种方法与页面操作紧密结合，也是非常不错的批量导入请求的方法。</p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109224816557.png" alt="image-20220109224816557" style="zoom:35%;" /><h3 id="1-Raw-text-粘贴curl命令"><a href="#1-Raw-text-粘贴curl命令" class="headerlink" title="1. Raw text - 粘贴curl命令"></a>1. Raw text - 粘贴curl命令</h3><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195204223.png" alt="postman-import-rawtext01"></p><p>从上图的示例中我们看到，可以直接输入<a href="https://so.csdn.net/so/search?q=curl&t=&u=">curl命令</a>，不太了解curl命令的同学可能会觉得，“这不是把事情搞得更复杂了吗？”不是的，我们在Developer Tools中有一种很快捷的方式获得接口的curl命令形式的文本：</p><p>在操作应用的前端页面时，按下F12，打开Developer Tools，我们能看到相应的接口请求信息，右键点击该请求，选择Copy -&gt; Copy as cURL， 然后粘贴到Import -&gt; Raw Text中，点击Continue -&gt; Import，就能看到Requests的相应信息都自动填写好了。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153431159.png" alt="postman-import-rawtext02"></p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153542798.png" alt="postman-import-rawtext03"></p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153648600.png" alt="postman-import-rawtext04"></p><h2 id="2-Link-通过Swagger导入"><a href="#2-Link-通过Swagger导入" class="headerlink" title="2. Link - 通过Swagger导入"></a>2. Link - 通过Swagger导入</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195504729.png" alt="postman-import-link01"></p><p>当项目使用Swagger 3.0 作为API文档工具时，我们可以直接在”Link”中填入api-docs的请求链接<code>http://localhost:8081/v3/api-docs</code>，获取方式如下图所示。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107150132216.png" alt="postman-import-link02"></p><p>填写完成后点击Continue -&gt; Import，导入成功后可以在Collection中看到所有的API请求，可以看到请求Method、URL、Body的参数都不需要我们再手动填写了。注意这里的URL中出现了<code>&#123;&#123;baseUrl&#125;&#125;</code>，这个是postman中非常好用的变量（Environment）功能，将在后面的文章中详细介绍其使用方法。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107150536072.png" alt="postman-import-link03"></p><h2 id="3-File-导入Postman-json文件"><a href="#3-File-导入Postman-json文件" class="headerlink" title="3. File - 导入Postman json文件"></a>3. File - 导入Postman json文件</h2><p>首先，对于已经保存在Collection中的多个请求，我们可以先使用“导出”功能将所有请求导出到json文件中。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110200120151.png" alt="image-20220110200120151"></p><p>json文件导出成功后，直接将对应的文件发送给团队内的其他同学或者一起放入代码仓库中，团队内其他人下载后再使用导入文件的功能，将其导入postman即可开始使用。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195742980.png" alt="image-20220110195742980"></p><h2 id="4-拦截请求"><a href="#4-拦截请求" class="headerlink" title="4. 拦截请求"></a>4. 拦截请求</h2><p>使用过Fiddler、Charles等抓包工具的小伙伴应该对拦截请求的原理及相应操作十分了解了。Postman现在提供了两种拦截请求的方法，我们可以拦截请求并将其存储到collection中。</p><h3 id="4-1-Postman-Interceptor"><a href="#4-1-Postman-Interceptor" class="headerlink" title="4.1 Postman Interceptor"></a>4.1 Postman Interceptor</h3><p>先在浏览器中安装<a href="https://chrome.google.com/webstore/detail/postman-interceptor/aicmkgpgakddgnaphhhpliifpcfhicfo">Postman Interceptor</a>，Postman中也要安装Interceptor Bridge，准备就绪后，可以看到<code>CONNECTED</code>状态，Postman就可以将符合过滤条件的请求拦截并存储在设定好的collection中。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110200256133.png" alt="image-20220110200256133"></p><p>在浏览器插件中也可以看到相应请求信息：</p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107163351690.png" alt="image-20220107163351690" style="zoom:33%;" /><p>Postman中相应请求也被保存下来了：</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107163052735.png" alt="image-20220107163052735"></p><h3 id="4-2-Proxy"><a href="#4-2-Proxy" class="headerlink" title="4.2 Proxy"></a>4.2 Proxy</h3><p>如果只需要抓取HTTP请求，则只需要先在系统中设置代理服务器。Mac OS的设置方式如下图所示。<br><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109174045444.png" alt="image-20220109174045444"></p><p>若要抓取HTTPS请求，需要先下载并安装对应的证书，具体可参考Postman<a href="https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-https-traffic/">官方文档</a>。</p><p>然后在postman中点击开始，然后在浏览器中操作页面，就能看到对应的请求保存下来了。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109173948359.png" alt="image-20220109173948359"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 接口测试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> Postman </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>接口自动化测试：Python+Pytest+Requests+Allure</title>
       <link href="/2022/01/20/jie-kou-ce-shi-zi-dong-hua-python/"/>
       <url>/2022/01/20/jie-kou-ce-shi-zi-dong-hua-python/</url>
@@ -52,54 +77,6 @@
         <tags>
             
             <tag> Daily Cost </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>TED 内向性格的力量</title>
-      <link href="/2020/01/03/ted-nei-xiang-xing-ge-de-li-liang/"/>
-      <url>/2020/01/03/ted-nei-xiang-xing-ge-de-li-liang/</url>
-      
-        <content type="html"><![CDATA[<p>I hope you will open up your suitcases for other people to see, because the world needs you and it needs the things you carry.</p><span id="more"></span><div style="max-width:854px"><div style="position:relative;height:0;padding-bottom:56.25%"><iframe src="https://embed.ted.com/talks/lang/zh-cn/susan_cain_the_power_of_introverts" width="854" height="480" style="position:absolute;left:0;top:0;width:100%;height:100%" frameborder="0" scrolling="no" allowfullscreen></iframe></div></div></br></br><p>So I just published a book about introversion, and it took me about seven years to write. And for me, that seven years was like total bliss, because I was reading, I was writing, I was thinking, I was researching. It was my version of my grandfather’s hours of the day alone in his library. But now all of a sudden my job is very different, and my job is to be out here talking about it, talking about introversion. </p><p>And that’s a lot harder for me, because as honored as I am to be here with all of you right now, this is not my natural milieu. </p><p>So I prepared for moments like these as best I could. I spent the last year practicing public speaking every chance I could get. And I call this my “year of speaking dangerously.” </p><p>And that actually helped a lot. But I’ll tell you, what helps even more is my sense, my belief, my hope that when it comes to our attitudes to introversion and to quiet and to solitude, we truly are poised on the brink on dramatic change. I mean, we are. And so I am going to leave you now with three calls for action for those who share this vision. </p><p><strong>Number one: Stop the madness for constant group work. Just stop it.</strong></p><p>And I want to be clear about what I’m saying, because I deeply believe our offices should be encouraging casual, chatty cafe-style types of interactions – you know, the kind where people come together and serendipitously have an exchange of ideas. That is great. It’s great for introverts and it’s great for extroverts. But we need much more privacy and much more freedom and much more autonomy at work. School, same thing. We need to be teaching kids to work together, for sure, but we also need to be teaching them how to work on their own. This is especially important for extroverted children too. They need to work on their own because that is where deep thought comes from in part. </p><p>Okay, <strong>number two: Go to the wilderness.</strong> Be like Buddha, have your own revelations. I’m not saying that we all have to now go off and build our own cabins in the woods and never talk to each other again, but I am saying that we could all stand to unplug and get inside our own heads a little more often. </p><p><strong>Number three: Take a good look at what’s inside your own suitcase and why you put it there.</strong> So extroverts, maybe your suitcases are also full of books. Or maybe they’re full of champagne glasses or skydiving equipment. Whatever it is, I hope you take these things out every chance you get and grace us with your energy and your joy. But introverts, you being you, you probably have the impulse to guard very carefully what’s inside your own suitcase. And that’s okay. <strong>But occasionally, just occasionally, I hope you will open up your suitcases for other people to see, because the world needs you and it needs the things you carry.</strong></p><p>So I wish you the best of all possible journeys and the courage to speak softly. </p>]]></content>
-      
-      
-      <categories>
-          
-          <category> TED </category>
-          
-      </categories>
-      
-      
-        <tags>
-            
-            <tag> TED </tag>
-            
-        </tags>
-      
-    </entry>
-    
-    
-    
-    <entry>
-      <title>Coursera视频无法观看的解决方法(亲测有效)</title>
-      <link href="/2018/11/11/coursera-shi-pin-wu-fa-guan-kan-de-jie-jue-fang-fa-qin-ce-you-xiao/"/>
-      <url>/2018/11/11/coursera-shi-pin-wu-fa-guan-kan-de-jie-jue-fang-fa-qin-ce-you-xiao/</url>
-      
-        <content type="html"><![CDATA[<p>你最近是否也会遇到Coursera中的视频打不开的情况？</p><p>该怎么解决呢？</p><span id="more"></span><p>今天满怀斗志地打开Coursera，登录账号，打开许久没有学习的Algorithms, PART 1，却发现，emmm，视频怎么放不出来呢？</p><p>怎么办？今儿还能愉快得学习了吗？</p><p>我这股学习的热情不能就这么就被浇灭了！Google一下吧。</p><p>以下是解决办法的记录。</p><p>首先怀疑的就是网络的问题，<a href="https://www.coursera.org/">https://www.coursera.org/</a> 虽然可以直接访问，但是coursera的视频是放在AWS的CDN上进行全球分发的，由于CDN域名解析的问题，导致在天朝没法观看。比较有效的方法就是修改本机的hosts文件。</p><p>下面给出windows和Ubuntu下的具体操作</p><h2 id="1-win解决办法"><a href="#1-win解决办法" class="headerlink" title="1. win解决办法"></a>1. win解决办法</h2><ol><li><p>以管理员权限打开notepad++或记事本<br>在notepad++上右键，选择以管理员权限打开</p></li><li><p>在notepad++中打开hosts文件<br>win10下hosts文件路径为：C:\Windows\System32\drivers\etc\hosts</p></li><li><p>在文件后面追加IP和域名<br>52.84.246.90    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.252    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.144    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.72    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.106    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.135    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.114    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.90    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a><br>52.84.246.227    <a href="http://d3c33hcgiwev3.cloudfront.net/">d3c33hcgiwev3.cloudfront.net</a></p></li><li><p>刷新DNS<br>WIN+R搜索cmd，输入命令ipconfig/flushdns</p></li><li><p>看，视频出来了</p></li></ol><p><img src="https://mubu.com/document_image/30cfbec7-22b6-400f-9219-4984d4f1f574-985409.jpg" alt="img"></p><h2 id="2-Ubuntu解决办法-修改hosts文件"><a href="#2-Ubuntu解决办法-修改hosts文件" class="headerlink" title="2. Ubuntu解决办法-修改hosts文件"></a>2. Ubuntu解决办法-修改hosts文件</h2><ul><li><p>编辑hosts文件<br>sudo vim /etc/hosts<br>在文件后面追加IP和域名，与win下的相同</p></li><li><p>刷新DNS<br>sudo /etc/init.d/dns-clean</p></li></ul><p>当然了，有钱的大佬们不需要这么麻烦，买一个VPN就可以了。这里我友情推荐一下蓝灯，有时候还是蛮好用的。戳链接直达 <a href="https://github.com/getlantern/lantern">https://github.com/getlantern/lantern</a>。</p>]]></content>
-      
-      
-      
-        <tags>
-            
-            <tag> coursera </tag>
-            
-            <tag> dns </tag>
-            
-            <tag> tools </tag>
             
         </tags>
       
