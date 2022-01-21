@@ -393,10 +393,10 @@
 <p><em>API（Application Programming Interface,<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>编程接口）是一些预先定义的<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%87%BD%E6%95%B0">函数</a>，目的是提供<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>与开发人员基于某<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6">软件</a>或硬件得以访问一组<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E4%BE%8B%E7%A8%8B">例程</a>的能力，而又无需访问源码，或理解内部工作<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E6%9C%BA%E5%88%B6">机制</a>的细节。</em></p>
 </blockquote>
 <p>当我们想学习如何做接口测试时，来到CSDN或其他技术平台，在搜索框内输入关键字“接口测试”，点击搜索，等待1-2秒后，就能看到页面展示了相关的搜索结果。在这个过程中我们按F12打开开发者工具，切换到network，可以看到，在点击搜索后，前端页面根据我们输入的关键词向后端服务器发送了一个请求（request），服务端收到请求并处理完成后返回相应结果（response）。</p>
-<p><img src="/Users/mengling.yu/Library/Mobile%20Documents/com~apple~CloudDocs/my_notes/assets/image-20210818180445251.png" alt="image-20210818180445251"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210818180445251.png" alt="接口请求和响应结果"></p>
 <p>由于用户可能绕过前端页面的逻辑，直接调用接口，因此需要考虑直接调用接口进行测试，确定接口是否能在功能、可靠性、性能和安全方面达到预期。从功能测试的角度来看，我们需要关注输入关键词和输出结果数据，接口测试在这方面的关注点也基本是一样的。</p>
 <h2 id="2-输入参数和输出结果"><a href="#2-输入参数和输出结果" class="headerlink" title="2. 输入参数和输出结果"></a>2. 输入参数和输出结果</h2><p>在记账本中，用户在下面的页面上选择、填入必要信息后，点击完成，会调用接口新增一条支出记录。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820215052023.png" alt="image-20210820215052023"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820215052023.png" alt="记账本-记一笔接口"></p>
 <p>可以看到，输入参数共有6个，接口测试时需要对这六个输入参数进行测试：</p>
 <ul>
 <li><code>amount</code>参数值数值类型，那么根据等价类和边界值方法，需要根据需求验证数值大小范围，小数及其位数，负数，其他非法字符类型；</li>
@@ -452,10 +452,10 @@
 </ul>
 <h3 id="权限限制"><a href="#权限限制" class="headerlink" title="权限限制"></a>权限限制</h3><p><strong>权限限制</strong>我需要单独拎出来讲，它很重要！</p>
 <p>很多系统中都存在系统管理员、普通用户等不同角色的用户，系统管理员拥有一些普通用户没有的权限，比如系统管理员可以发布公告，而普通用户则只能查看，系统管理员和用户还有组织上的划分，比如深圳市的系统管理员和普通用户，广东省的管理员和普通用户。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820221352559.png" alt="image-20210820221352559"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820221352559.png" alt="横向越权和纵向越权"></p>
 <p>就用户角色而言，需要验证低等级用户拥有管理员权限等高于自身级别访问能力，即纵向越权；就用户组织维度来看，需要验证相同组织/不同组织间，是否能访问到不属于自己权限内的资源，即横向越权。</p>
 <h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><p>很多被测逻辑可以抽象成状态机，各个状态之间根据功能逻辑，能够从一个状态转换到另一个状态。如果我们打乱了这个次序，从一个状态切换到另一个不在它下一状态集中的状态，那么逻辑将会打乱，就会出现逻辑问题。以一个二级审核功能为例，某UGC平台内，用户提交了一篇文章，要先经过初审，初审通过后才能再进行复审，即两轮审核都通过时，文章才能发布出来。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820222256978.png" alt="image-20210820222256978"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820222256978.png" alt="审核功能的状态转换"></p>
 <p>针对这种状态转换的逻辑，我们需要验证：</p>
 <ul>
 <li>正常的状态切换：用户提交 -&gt; 初审通过 -&gt; 复审通过 -&gt; 文章发布成功</li>
@@ -486,7 +486,7 @@
 </ul>
 </li>
 </ul>
-<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E7%9A%84%E6%B5%8B%E8%AF%95%E7%82%B9.png" alt="接口测试的测试点-总结"></p>
+<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E7%9A%84%E6%B5%8B%E8%AF%95%E7%82%B9.png" alt="接口测试的测试点脑图"></p>
 <h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
 <li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/11677">腾讯 TMQ 接口测试用例设计</a></li>
 <li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">测试同学必会系列之如何进行幂等性的测试</a></li>

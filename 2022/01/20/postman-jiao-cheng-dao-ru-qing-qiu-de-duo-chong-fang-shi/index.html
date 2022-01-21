@@ -390,41 +390,41 @@
             <div id="articleContent">
                 <p>Postman是一个有着图形化界面的API请求模拟平台，在构造请求时最常见的莫过于手动在对应的输入框中填入相应的内容：</p>
 <p>根据被测HTTP请求的Method、URL、Headers、Request Params/Body，填写完成后点击Send，能够看到响应返回的Status、Headers、Boby等相应信息。为了方便下次使用，我们通常也会将其保存到Collection中。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107141525751.png" alt="image-20220107141525751"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107141525751.png" alt="Postman发送请求示例"></p>
 <p>当需要测试的接口不多时，重复这样操作看起来问题不大，但通常一个系统的接口至少是有几十上百个的，再这样一个一个手动输入的话，效率未免太低。<br>postman提供了多种方法帮助我们批量导入，点击import，我们可以看到有File、Folder、Link、Raw text、Code repository这5种导入方法，本人根据自己在工作中的经验和使用习惯，将依次介绍其中的Raw text、File、Link这3种方法。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107144841882.png" alt="postman-import-import"><br>除了Import外，Postman还可以拦截请求并将请求信息存储到对应的位置，使用过Fiddler、Charles等抓包工具的同学应该会比较熟悉这个操作，这种方法与页面操作紧密结合，也是非常不错的批量导入请求的方法。</p>
-<img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109224816557.png" alt="image-20220109224816557" style="zoom:35%;" />
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107144841882.png" alt="Import的多种方式"><br>除了Import外，Postman还可以拦截请求并将请求信息存储到对应的位置，使用过Fiddler、Charles等抓包工具的同学应该会比较熟悉这个操作，这种方法与页面操作紧密结合，也是非常不错的批量导入请求的方法。</p>
+<img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109224816557.png" alt="拦截请求" style="zoom:35%;" />
 
 
-<h3 id="1-Raw-text-粘贴curl命令"><a href="#1-Raw-text-粘贴curl命令" class="headerlink" title="1. Raw text - 粘贴curl命令"></a>1. Raw text - 粘贴curl命令</h3><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195204223.png" alt="postman-import-rawtext01"></p>
+<h3 id="1-Raw-text-粘贴curl命令"><a href="#1-Raw-text-粘贴curl命令" class="headerlink" title="1. Raw text - 粘贴curl命令"></a>1. Raw text - 粘贴curl命令</h3><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195204223.png" alt="Raw text方式导入"></p>
 <p>从上图的示例中我们看到，可以直接输入<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=curl&t=&u=">curl命令</a>，不太了解curl命令的同学可能会觉得，“这不是把事情搞得更复杂了吗？”不是的，我们在Developer Tools中有一种很快捷的方式获得接口的curl命令形式的文本：</p>
 <p>在操作应用的前端页面时，按下F12，打开Developer Tools，我们能看到相应的接口请求信息，右键点击该请求，选择Copy -&gt; Copy as cURL， 然后粘贴到Import -&gt; Raw Text中，点击Continue -&gt; Import，就能看到Requests的相应信息都自动填写好了。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153431159.png" alt="postman-import-rawtext02"></p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153542798.png" alt="postman-import-rawtext03"></p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153648600.png" alt="postman-import-rawtext04"></p>
-<h2 id="2-Link-通过Swagger导入"><a href="#2-Link-通过Swagger导入" class="headerlink" title="2. Link - 通过Swagger导入"></a>2. Link - 通过Swagger导入</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195504729.png" alt="postman-import-link01"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153431159.png" alt="从浏览器复制接口的CURL命令"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153542798.png" alt="粘贴CURL命令"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107153648600.png" alt="查看导入的请求"></p>
+<h2 id="2-Link-通过Swagger导入"><a href="#2-Link-通过Swagger导入" class="headerlink" title="2. Link - 通过Swagger导入"></a>2. Link - 通过Swagger导入</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195504729.png" alt="Link方式导入"></p>
 <p>当项目使用Swagger 3.0 作为API文档工具时，我们可以直接在”Link”中填入api-docs的请求链接<code>http://localhost:8081/v3/api-docs</code>，获取方式如下图所示。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107150132216.png" alt="postman-import-link02"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107150132216.png" alt="获取api-docs请求链接"></p>
 <p>填写完成后点击Continue -&gt; Import，导入成功后可以在Collection中看到所有的API请求，可以看到请求Method、URL、Body的参数都不需要我们再手动填写了。注意这里的URL中出现了<code>&#123;&#123;baseUrl&#125;&#125;</code>，这个是postman中非常好用的变量（Environment）功能，将在后面的文章中详细介绍其使用方法。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107150536072.png" alt="postman-import-link03"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107150536072.png" alt="查看导入的请求"></p>
 <h2 id="3-File-导入Postman-json文件"><a href="#3-File-导入Postman-json文件" class="headerlink" title="3. File - 导入Postman json文件"></a>3. File - 导入Postman json文件</h2><p>首先，对于已经保存在Collection中的多个请求，我们可以先使用“导出”功能将所有请求导出到json文件中。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110200120151.png" alt="image-20220110200120151"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110200120151.png" alt="Export导出Collection"></p>
 <p>json文件导出成功后，直接将对应的文件发送给团队内的其他同学或者一起放入代码仓库中，团队内其他人下载后再使用导入文件的功能，将其导入postman即可开始使用。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195742980.png" alt="image-20220110195742980"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110195742980.png" alt="导入Postman json文件"></p>
 <h2 id="4-拦截请求"><a href="#4-拦截请求" class="headerlink" title="4. 拦截请求"></a>4. 拦截请求</h2><p>使用过Fiddler、Charles等抓包工具的小伙伴应该对拦截请求的原理及相应操作十分了解了。Postman现在提供了两种拦截请求的方法，我们可以拦截请求并将其存储到collection中。</p>
 <h3 id="4-1-Postman-Interceptor"><a href="#4-1-Postman-Interceptor" class="headerlink" title="4.1 Postman Interceptor"></a>4.1 Postman Interceptor</h3><p>先在浏览器中安装<a target="_blank" rel="noopener" href="https://chrome.google.com/webstore/detail/postman-interceptor/aicmkgpgakddgnaphhhpliifpcfhicfo">Postman Interceptor</a>，Postman中也要安装Interceptor Bridge，准备就绪后，可以看到<code>CONNECTED</code>状态，Postman就可以将符合过滤条件的请求拦截并存储在设定好的collection中。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110200256133.png" alt="image-20220110200256133"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220110200256133.png" alt="Postman Intercepter设置"></p>
 <p>在浏览器插件中也可以看到相应请求信息：</p>
-<img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107163351690.png" alt="image-20220107163351690" style="zoom:33%;" />
+<img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107163351690.png" alt="Chrome插件中查看拦截的请求" style="zoom:33%;" />
 
 
 
 <p>Postman中相应请求也被保存下来了：</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107163052735.png" alt="image-20220107163052735"></p>
-<h3 id="4-2-Proxy"><a href="#4-2-Proxy" class="headerlink" title="4.2 Proxy"></a>4.2 Proxy</h3><p>如果只需要抓取HTTP请求，则只需要先在系统中设置代理服务器。Mac OS的设置方式如下图所示。<br><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109174045444.png" alt="image-20220109174045444"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220107163052735.png" alt="Postman中查看保存的请求"></p>
+<h3 id="4-2-Proxy"><a href="#4-2-Proxy" class="headerlink" title="4.2 Proxy"></a>4.2 Proxy</h3><p>如果只需要抓取HTTP请求，则只需要先在系统中设置代理服务器。Mac OS的设置方式如下图所示。<br><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109174045444.png" alt="Mac设置系统代理服务器"></p>
 <p>若要抓取HTTPS请求，需要先下载并安装对应的证书，具体可参考Postman<a target="_blank" rel="noopener" href="https://learning.postman.com/docs/sending-requests/capturing-request-data/capturing-https-traffic/">官方文档</a>。</p>
 <p>然后在postman中点击开始，然后在浏览器中操作页面，就能看到对应的请求保存下来了。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109173948359.png" alt="image-20220109173948359"></p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220109173948359.png" alt="查看拦截到的请求"></p>
 
                 
             </div>
