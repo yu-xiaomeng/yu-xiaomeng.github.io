@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="服务端接口测试-单接口测试点, 余小梦">
-    <meta name="description" content="接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。">
+    <meta name="keywords" content="服务端性能测试-性能测试指标, 余小梦">
+    <meta name="description" content="接触过性能测试的小伙伴一定都听过响应时间（Response Time）、TPS、CPU资源利用率等术语，它们都属于性能测试的指标。本文对性能测试中涉及到的指标做了较为详细的整理。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>服务端接口测试-单接口测试点 | 余小梦</title>
+    <title>服务端性能测试-性能测试指标 | 余小梦</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/m.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/8.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">服务端接口测试-单接口测试点</h1>
+                    <h1 class="description center-align post-title">服务端性能测试-性能测试指标</h1>
                 </div>
             </div>
         </div>
@@ -323,8 +323,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/API-TEST/">
-                                <span class="chip bg-color">API TEST</span>
+                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+                                <span class="chip bg-color">服务端性能测试</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
+                                <span class="chip bg-color">性能指标</span>
                             </a>
                         
                     </div>
@@ -335,8 +339,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/" class="post-category">
-                                接口测试
+                            <a href="/categories/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" class="post-category">
+                                性能测试
                             </a>
                         
                     </div>
@@ -348,7 +352,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-21
+                    2022-01-22
                 </div>
                 
 
@@ -357,14 +361,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    2.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    7 分
                 </div>
                 
 
@@ -387,111 +391,73 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。</p>
-<p>本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。</p>
-<h2 id="1-什么是接口"><a href="#1-什么是接口" class="headerlink" title="1. 什么是接口"></a>1. 什么是接口</h2><blockquote>
-<p><em>API（Application Programming Interface,<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>编程接口）是一些预先定义的<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%87%BD%E6%95%B0">函数</a>，目的是提供<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>与开发人员基于某<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6">软件</a>或硬件得以访问一组<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E4%BE%8B%E7%A8%8B">例程</a>的能力，而又无需访问源码，或理解内部工作<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E6%9C%BA%E5%88%B6">机制</a>的细节。</em></p>
-</blockquote>
-<p>当我们想学习如何做接口测试时，来到CSDN或其他技术平台，在搜索框内输入关键字“接口测试”，点击搜索，等待1-2秒后，就能看到页面展示了相关的搜索结果。在这个过程中我们按F12打开开发者工具，切换到network，可以看到，在点击搜索后，前端页面根据我们输入的关键词向后端服务器发送了一个请求（request），服务端收到请求并处理完成后返回相应结果（response）。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210818180445251.png" alt="接口请求和响应结果"></p>
-<p>由于用户可能绕过前端页面的逻辑，直接调用接口，因此需要考虑直接调用接口进行测试，确定接口是否能在功能、可靠性、性能和安全方面达到预期。从功能测试的角度来看，我们需要关注输入关键词和输出结果数据，接口测试在这方面的关注点也基本是一样的。</p>
-<h2 id="2-输入参数和输出结果"><a href="#2-输入参数和输出结果" class="headerlink" title="2. 输入参数和输出结果"></a>2. 输入参数和输出结果</h2><p>在记账本中，用户在下面的页面上选择、填入必要信息后，点击完成，会调用接口新增一条支出记录。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820215052023.png" alt="记账本-记一笔接口"></p>
-<p>可以看到，输入参数共有6个，接口测试时需要对这六个输入参数进行测试：</p>
+                <p>接触过性能测试的小伙伴一定都听过响应时间（Response Time）、TPS、CPU资源利用率等术语，它们都属于性能测试的指标。本文对性能测试中涉及到的指标做了较为详细的整理。</p>
+<p>性能测试指标一般可以分为系统性能指标、资源指标、应用指标：</p>
 <ul>
-<li><code>amount</code>参数值数值类型，那么根据等价类和边界值方法，需要根据需求验证数值大小范围，小数及其位数，负数，其他非法字符类型；</li>
-<li><code>date</code>为字符串类型，但表示的是日期，用户在前端页面选择日期，日期的格式也有前端逻辑完成，但直接调用接口时，同样需要验证日期格式：合法的日期，不合法的日期如2021-13-01，其他字符类型；</li>
-<li><code>category</code>表示支出/收入的类别，表面看是字符串类型的，但结合功能逻辑，该参数只能接收枚举值，即用户配置过的类别中的其中一个，这种枚举值参数需要遍历所有合法的枚举值，再验证任意不在枚举值内的其他值；</li>
-<li><code>type</code>和<code>category</code>一样，也是枚举值类型，只能是”EXPENSE”和 “INCOME”；</li>
-<li>在这里还有很重要的一点要注意，<code>category</code>和<code>type</code>实际上是存在对应关系的，比如早餐这一类别只在支出中设置了，当我们传参为<code>&#123;&quot;category&quot;: &quot;breakfast&quot;, &quot;type&quot;: &quot;INCOME&quot;&#125;</code>时，预期是不能成功创建的，即对于组合参数，需要验证参数的组合方式；</li>
-<li><code>img_id</code>为数组类型，业务上来说数组内元素代表上传图片的id，id为字符串类型，需要验证元素总个数：空数组、有效个元素、超出有效范围的个数，数组内单个元素即id有效性验证：有效的图片id、无效的图片id、空字符串等，还有数组内元素重复；</li>
-<li><code>note</code>为字符串类型，为该账单的备注，需要验证字符串中的字符类型：中文、英文、特殊字符如空格！@%*和emoji等，还有字符串长度，如果该内容是用户评论、用户名、UGC文章内容等，通常还需要验证是否有做<a target="_blank" rel="noopener" href="https://cloud.baidu.com/doc/ANTIPORN/s/Vk3h6xaga">敏感词</a>过滤；</li>
-<li>根据需求，金额、日期、分类和类型是必填项，图片和备注是选填项，在测试时也需要覆盖到这一点。</li>
+<li>系统性能指标：如并发用户数、TPS（系统每秒处理事务数）、成功率、响应时间。</li>
+<li>资源指标：如CPU资源利用率、内存利用率、I/O、内核参数（信号量、打开文件数）等。</li>
+<li>应用指标：如空闲线程数、数据库连接数、GC/FULL GC次数、函数耗时等。</li>
 </ul>
-<p>除了输入参数，输出结果也是需要测试的：</p>
+<h2 id="1-系统性能指标"><a href="#1-系统性能指标" class="headerlink" title="1. 系统性能指标"></a>1. 系统性能指标</h2><h3 id="1-1-响应时间-Response-Time-RT"><a href="#1-1-响应时间-Response-Time-RT" class="headerlink" title="1.1 响应时间(Response Time, RT)"></a>1.1 响应时间(Response Time, RT)</h3><h4 id="指标说明"><a href="#指标说明" class="headerlink" title="指标说明"></a>指标说明</h4><p>响应时间指用户从客户端发起一个请求开始，到客户端接收到从服务器端返回的响应结束，整个过程所耗费的时间。在性能测试中一般以压力发起端到被压测服务器返回处理结果的时间为计量，单位一般为毫秒。</p>
+<p>平均响应时间指系统稳定运行时间段内，同一接口多次请求的平均响应时间。通常性能指标中的响应时间都是指平均响应时间。</p>
+<p>如下图所示，以一个简单的客户端-服务器-数据库的应用架构来看，响应时间可以被分解为网络传输时间（N1+N2+N3+N4）和应用延迟时间（A1+A2+A3），而应用延迟时间又可以分解为数据库延迟时间（A2）和应用服务器延迟时间（A1+A3）。对响应时间进行分解使得我们能够更有效率得定位性能瓶颈。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220121200137996.png" alt="Web应用的响应时间分解"></p>
+<h4 id="参考标准"><a href="#参考标准" class="headerlink" title="参考标准"></a>参考标准</h4><p>不同行业不同业务可接受的响应时间是不一样的，需要根据自身情况设定合适的符合用户使用要求的响应时间。</p>
+<p>一般情况，对于在线实时交易：</p>
 <ul>
-<li>最重要的一点当然是当我使用正确的参数发请求后，能够收到正确的响应：返回码为200，返回json中各值均正确；</li>
-<li>当传入不合法的参数时，对于所有可能出现的业务错误，code和message都能对应给到清晰明确的提示，让用户知道自己哪里操作有误；</li>
-<li>由于其他原因导致服务器无法正确响应时，也应返回统一的错误码提示用户；</li>
-<li>有些任务处理要花费很长时间，这就会导致接口超时，接口超时后前端不应再接收返回响应。</li>
+<li>互联网企业：500毫秒以下，例如淘宝业务10毫秒左右。</li>
+<li>金融企业：1秒以下为佳，部分复杂业务3秒以下。</li>
+<li>保险企业：3秒以下为佳。</li>
+<li>制造业：5秒以下为佳。</li>
 </ul>
-<p>其他叮嘱：</p>
+<h3 id="1-2-成功率-Success-Rate-SR"><a href="#1-2-成功率-Success-Rate-SR" class="headerlink" title="1.2 成功率(Success Rate, SR)"></a>1.2 成功率(Success Rate, SR)</h3><h4 id="指标说明-1"><a href="#指标说明-1" class="headerlink" title="指标说明"></a>指标说明</h4><p>成功率指系统在负载情况下，失败成功的概率。可以根据交易数或请求数直接计算得出。对于稳定性较好的系统，其错误大概率由超时引起，即为超时率。</p>
+<p>成功率＝（失败成功数/交易总数）×100%。</p>
+<h4 id="参考标准-1"><a href="#参考标准-1" class="headerlink" title="参考标准"></a>参考标准</h4><p>不同的系统对成功率的要求不同，但通常会要求成功率不低于99.4%，即错误率不超过千分之六。</p>
+<h3 id="1-3-并发用户数"><a href="#1-3-并发用户数" class="headerlink" title="1.3 并发用户数"></a>1.3 并发用户数</h3><h4 id="指标说明-2"><a href="#指标说明-2" class="headerlink" title="指标说明"></a>指标说明</h4><p>性能测试当然要模拟真实的用户访问，那该模拟多少用户来访问系统呢？从服务端承受的压力来考虑，系统毫无疑问是在大量用户<strong>同时</strong>访问（操作）系统时，承受了最大的压力。服务端在某一时刻承受最大并发访问数时的用户数就是“并发用户数”。在一些性能测试工具中，一般称为虚拟用户数(Virutal User, VUser)</p>
+<p>与并发用户数相关的概念还包括系统注册用户数和在线用户数。以记账应用为例，该系统有1000个注册用户，最高峰时一共有500个用户是登录状态，此时有50个用户在页面点击了查看年度账单Tab，100个用户点击了记一笔的提交按钮，80个用户点击了明细页的日期切换查看账单列表，其他用户无操作可能在任意界面查看或填写表单。那么系统注册用户数为1000，在线用户数为500，并发用户数为50+100+80=230。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220121225547812.png" alt="image-20220121225547812"></p>
+<h4 id="标准"><a href="#标准" class="headerlink" title="标准"></a>标准</h4><p>一般情况下，性能测试不会测试并发用户数，而是将系统处理能力容量测出来。除了服务器长连接可能影响并发用户数外，系统处理能力不受并发用户数影响，可以用最小的用户数将系统处理能力容量测试出来，也可以用更多的用户将系统处理能力容量测试出来。</p>
+<h3 id="1-4-吞吐量"><a href="#1-4-吞吐量" class="headerlink" title="1.4 吞吐量"></a>1.4 吞吐量</h3><h4 id="指标说明-3"><a href="#指标说明-3" class="headerlink" title="指标说明"></a>指标说明</h4><p>吞吐量直接体现软件系统的性能承载能力，是指单位时间内系统处理的用户请求的数量。在容量规划的测试中，吞吐量是一个重点关注的指标，因为它能够说明系统级别的负载能力，另外，在性能调优过程中，吞吐量指标也有重要的价值。一般来说，吞吐量可以用以下几个更具体的指标来衡量：</p>
 <ul>
-<li>分页接口中pageSize参数也应当设计成枚举类型，比如前端只能切换为10/20/50条每页，那么如果我们pageSize传参为100，接口报错，而不应该返回100条数据</li>
-<li>接口在不应该暴露任何后端接口名称、不打印堆栈等信息</li>
+<li>RPS（Request per Second）：系统每秒处理请求次数，单位是次/秒。 </li>
+<li>TPS(Transaction per Second)：系统每秒处理事务数，单位是笔/秒。</li>
 </ul>
-<h2 id="3-业务逻辑"><a href="#3-业务逻辑" class="headerlink" title="3. 业务逻辑"></a>3. 业务逻辑</h2><h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>约束条件的测试在功能测试中经常遇到，在接口测试中更为重要。它的意义在于：用户进行操作时，在该操作的前端可以已经进行了约束条件的限制，故用户无法直接触发请求该接口。但是实际上，如果有其他手段：例如 UI 有 bug 或者通过技术手段直接调用接口，那么接口是否针对这些条件进行了限制就更为重要。</p>
-<p><strong><a target="_blank" rel="noopener" href="https://testerhome.com/topics/9265">一个案例</a></strong></p>
-<p>某公司发现，价值 100 元的商品，在该公司网上商城被以 0.01 元买走了很多。攻城狮们火速定位，问题原因很快被找到了，原来是购买商品接口的 bug。该接口需要 3 个参数：商品 id、商品单价、购买数量，而服务器根据接口传过来的商品单价（0.01 元）生成了订单。服务器本应根据数据库中的商品单价 100 元来生成订单。我们将单价修改后，再购买，提交到服务器的商品单价就是 0.01 元。这个接口在设计阶段就已经存在问题，正确应该是后台程序根据传入的商品id，查询到对应商品的价格，而不应该直接使用接口传入的价格。</p>
-<p>业务功能中最常见的约束条件主要有数值限制、状态限制、关系限制和权限限制，以在购物网站下单时使用优惠券为例：</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
-	<span class="token property">"product_id"</span><span class="token operator">:</span> <span class="token string">"12345678890644"</span><span class="token punctuation">,</span>
-	<span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-	<span class="token property">"coupon_id"</span><span class="token operator">:</span> <span class="token string">"thisiscouponid"</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
+<p>事务是用户某一步或几步操作的集合，这些操作共同构成一个有意义的业务场景。比如用户对某一个页面的一次请求，用户对某系统的一次登录，商场用户对商品的一次确认支付过程。这些我们都可以看作一个事务。</p>
+<h4 id="参考标准-2"><a href="#参考标准-2" class="headerlink" title="参考标准"></a>参考标准</h4><p>无论TPS、QPS、HPS，此指标是衡量系统处理能力非常重要的指标，越大越好，具体数值还是要根据系统自身业务情况确定。<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/29338.html">阿里云性能测试PTS的文档</a>中给出了一些经验值可供参考。</p>
 <ul>
-<li><p><strong>数值限制</strong></p>
-<ul>
-<li>用户购买的商品只有在<strong>订单总金额达到300</strong>时才可使用该优惠券下单成功</li>
-<li>订单中商品库存大于等于2时才可以下单成功</li>
+<li>金融行业：1000 TPS~50000 TPS，不包括互联网化的活动。</li>
+<li>保险行业：100 TPS~100000 TPS，不包括互联网化的活动。</li>
+<li>制造行业：10 TPS~5000 TPS。</li>
+<li>互联网电子商务：10000 TPS~1000000 TPS。</li>
+<li>互联网中型网站：1000 TPS~50000 TPS。</li>
+<li>互联网小型网站：500 TPS~10000 TPS。</li>
 </ul>
+<h3 id="1-5-VUser和TPS的关系"><a href="#1-5-VUser和TPS的关系" class="headerlink" title="1.5 VUser和TPS的关系"></a>1.5 VUser和TPS的关系</h3><p>TPS是系统每秒处理事务数，这些事务要靠VUser触发的：</p>
+<ul>
+<li><p>假如某个业务响应时间是1秒，那么1个VUser在1秒内能完成1个事务，TPS为1。要想达到 1000 TPS至少需要1000个用户。</p>
 </li>
-<li><p><strong>状态限制</strong></p>
-<ul>
-<li>只能使用在有效期内的优惠券（同时也是时间限制）</li>
-<li>只能使用未使用状态的优惠券</li>
-</ul>
-</li>
-<li><p><strong>关系限制</strong></p>
-<ul>
-<li>只能使用与当前用户账号绑定的优惠券</li>
-</ul>
-<p>在上面的接口参数中，我们其实并没有传入用户ID等内容，用户的身份鉴别通常是通过headers中的Token等实现的。</p>
+<li><p>如果某个业务响应时间是1毫秒，那么1个VUser在1秒内能完成1000个事务，TPS为1000。</p>
 </li>
 </ul>
-<h3 id="权限限制"><a href="#权限限制" class="headerlink" title="权限限制"></a>权限限制</h3><p><strong>权限限制</strong>我需要单独拎出来讲，它很重要！</p>
-<p>很多系统中都存在系统管理员、普通用户等不同角色的用户，系统管理员拥有一些普通用户没有的权限，比如系统管理员可以发布公告，而普通用户则只能查看，系统管理员和用户还有组织上的划分，比如深圳市的系统管理员和普通用户，广东省的管理员和普通用户。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820221352559.png" alt="横向越权和纵向越权"></p>
-<p>就用户角色而言，需要验证低等级用户拥有管理员权限等高于自身级别访问能力，即纵向越权；就用户组织维度来看，需要验证相同组织/不同组织间，是否能访问到不属于自己权限内的资源，即横向越权。</p>
-<h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><p>很多被测逻辑可以抽象成状态机，各个状态之间根据功能逻辑，能够从一个状态转换到另一个状态。如果我们打乱了这个次序，从一个状态切换到另一个不在它下一状态集中的状态，那么逻辑将会打乱，就会出现逻辑问题。以一个二级审核功能为例，某UGC平台内，用户提交了一篇文章，要先经过初审，初审通过后才能再进行复审，即两轮审核都通过时，文章才能发布出来。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820222256978.png" alt="审核功能的状态转换"></p>
-<p>针对这种状态转换的逻辑，我们需要验证：</p>
+<p>因此根据响应时间的快慢，1个用户可以产生 1000 TPS，1000个用户也可以产生1000 TPS。</p>
+<p>由此我们可以得出几个结论：</p>
 <ul>
-<li>正常的状态切换：用户提交 -&gt; 初审通过 -&gt; 复审通过 -&gt; 文章发布成功</li>
-<li>非正常的状态切换：<ul>
-<li>用户提交 -&gt; 初审驳回 -&gt; 复审通过</li>
-<li>用户提交 -&gt; 复审通过</li>
-</ul>
+<li><p>系统的性能由TPS决定，跟并发用户数没有多大关系。</p>
+</li>
+<li><p>系统的最大TPS是一定的（在一个范围内），但并发用户数不一定，可以调整。</p>
 </li>
 </ul>
-<h2 id="4-幂等性"><a href="#4-幂等性" class="headerlink" title="4. 幂等性"></a>4. 幂等性</h2><blockquote>
-<p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。</p>
-</blockquote>
-<p>举个最简单的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">例子</a>，那就是支付，用户购买商品后支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额返发现多扣钱了，流水记录也变成了两条，这就没有保证接口的幂等性、只要调用接口成功，外部对接口的多次调用得到的结果是相同的，即执行多次和一次的效果是一样的，用户在后续再支付时，不会重复扣款。</p>
-<p>接口幂等性测试，需要测试人员在需求分析的时候，就能识别出需要实现幂等的接口，并提前要求开发同学去实现。</p>
-<h2 id="5-文件上传-下载接口"><a href="#5-文件上传-下载接口" class="headerlink" title="5. 文件上传/下载接口"></a>5. 文件上传/下载接口</h2><p>文件的上传下载也是很多产品里会有的功能了。在测试文件上传/下载接口基本功能时，主要还是从文件本身的属性来考虑，即文件名称、文件类型、文件大小、文件内容/规格。</p>
+<h2 id="2-资源指标"><a href="#2-资源指标" class="headerlink" title="2. 资源指标"></a>2. 资源指标</h2><h3 id="2-1-CPU"><a href="#2-1-CPU" class="headerlink" title="2.1 CPU"></a>2.1 CPU</h3><p>CPU指标主要指的CPU使用率、利用率，包括用户态（user）、系统态（sys）、等待态（wait）、空闲态（idle）。CPU使用率、利用率要低于业界警戒值范围之内，即小于或者等于75%、CPU sys%小于或者等于30%，CPU wait%小于或者等于5%。单核CPU也需遵循上述指标要求。</p>
+<h3 id="2-2-内存"><a href="#2-2-内存" class="headerlink" title="2.2 内存"></a>2.2 内存</h3><p>现代的操作系统为了最大利用内存，在内存中存放了缓存，因此内存利用率100%并不代表内存有瓶颈，衡量系统内有瓶颈主要靠SWAP（与虚拟内存交换）交换空间利用率，一般情况下，SWAP交换空间利用率要低于70%，太多的交换将会引起系统性能低下。</p>
+<h3 id="2-3-磁盘"><a href="#2-3-磁盘" class="headerlink" title="2.3 磁盘"></a>2.3 磁盘</h3><p>磁盘指标主要有每秒读写多少兆，磁盘繁忙率，磁盘队列数，平均服务时间，平均等待时间，空间利用率。其中磁盘繁忙率是直接反映磁盘是否有瓶颈的重要依据，一般情况下，磁盘繁忙率要低于70%。</p>
+<h3 id="2-4-网络I-O"><a href="#2-4-网络I-O" class="headerlink" title="2.4 网络I/O"></a>2.4 网络I/O</h3><p>网络吞吐量指标主要有每秒有多少兆流量进出，一般情况下不能超过设备或链路最大传输能力的70%。</p>
+<h3 id="3-数据库指标"><a href="#3-数据库指标" class="headerlink" title="3. 数据库指标"></a>3. 数据库指标</h3><p>常用的数据库例如ＭySQL指标主要包括SQL、吞吐量、缓存命中率、连接数等，<a target="_blank" rel="noopener" href="https://help.aliyun.com/document_detail/29338.html">具体如下</a>：</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220122003159504.png" alt="image-20220122003159504"></p>
 <ul>
-<li>文件上传<ul>
-<li>文件名称：文件名的字符串长度；文件名中的特殊字符如空格、@#¥%-等</li>
-<li>文件类型：验证文件后缀名，保证使用的是白名单</li>
-<li>文件大小校验：上传文件请求头等也有大小，必须校验的是文件本身的大小</li>
-<li>文件内容/规格校验：若上传的文件需要后台解析其内容，当然也需要测试填入不同内容；规格主要指图片/视频的尺寸和时长等限制</li>
-<li>文件上传成功后服务器保存的文件与上传的文件内容一致</li>
+<li>SQL耗时越小越好，一般情况下微秒级别。</li>
+<li>命中率越高越好，一般情况下不能低于95%。</li>
+<li>锁等待次数越低越好，等待时间越短越好。</li>
 </ul>
-</li>
-<li>文件下载<ul>
-<li>文件本身：验证下载的文件的文件名；下来的文件可以正常打开并查看，内容与上传时的一致/内容正确</li>
-<li>文件下载链接敏感文件内容使用一次性下载链接/短时间内有效下载链接（如身份证图片）</li>
-</ul>
-</li>
-</ul>
-<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E7%9A%84%E6%B5%8B%E8%AF%95%E7%82%B9.png" alt="接口测试的测试点脑图"></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/11677">腾讯 TMQ 接口测试用例设计</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">测试同学必会系列之如何进行幂等性的测试</a></li>
-<li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/29928">服务端接口测试指南</a></li>
-</ol>
 
                 
             </div>
@@ -518,7 +484,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuxiaomeng.me/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/">https://yuxiaomeng.me/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/</a>
+                    <a href="https://yuxiaomeng.me/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/">https://yuxiaomeng.me/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -556,8 +522,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/API-TEST/">
-                                    <span class="chip bg-color">API TEST</span>
+                                <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+                                    <span class="chip bg-color">服务端性能测试</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
+                                    <span class="chip bg-color">性能指标</span>
                                 </a>
                             
                         </div>
@@ -602,9 +572,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/">
                     <div class="card-image">
@@ -622,9 +593,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -637,6 +608,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -659,24 +631,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/">
+                <a href="/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/17.jpg" class="responsive-img" alt="Postman教程-导入请求的多种方式">
+                        <img src="/medias/featureimages/8.jpg" class="responsive-img" alt="服务端接口测试-单接口测试点">
                         
-                        <span class="card-title">Postman教程-导入请求的多种方式</span>
+                        <span class="card-title">服务端接口测试-单接口测试点</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-21
                             </span>
                         <span class="publish-author">
                             
@@ -693,8 +665,8 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Postman/">
-                        <span class="chip bg-color">Postman</span>
+                    <a href="/tags/API-TEST/">
+                        <span class="chip bg-color">API TEST</span>
                     </a>
                     
                 </div>
