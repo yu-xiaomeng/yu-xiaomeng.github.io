@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="接口测试-单接口测试点, 余小梦">
-    <meta name="description" content="接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。">
+    <meta name="keywords" content="性能测试实施流程, 余小梦">
+    <meta name="description" content="性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>接口测试-单接口测试点 | 余小梦</title>
+    <title>性能测试实施流程 | 余小梦</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/m.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">接口测试-单接口测试点</h1>
+                    <h1 class="description center-align post-title">性能测试实施流程</h1>
                 </div>
             </div>
         </div>
@@ -323,12 +323,12 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%8D%95%E6%8E%A5%E5%8F%A3/">
-                                <span class="chip bg-color">单接口</span>
+                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+                                <span class="chip bg-color">服务端性能测试</span>
                             </a>
                         
-                            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%82%B9/">
-                                <span class="chip bg-color">测试点</span>
+                            <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
+                                <span class="chip bg-color">实施流程</span>
                             </a>
                         
                     </div>
@@ -339,8 +339,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/" class="post-category">
-                                接口测试
+                            <a href="/categories/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" class="post-category">
+                                性能测试
                             </a>
                         
                     </div>
@@ -352,7 +352,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-21
+                    2022-03-18
                 </div>
                 
 
@@ -361,14 +361,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    4.5k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    15 分
                 </div>
                 
 
@@ -391,111 +391,188 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。</p>
-<p>本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。</p>
-<h2 id="1-什么是接口"><a href="#1-什么是接口" class="headerlink" title="1. 什么是接口"></a>1. 什么是接口</h2><blockquote>
-<p><em>API（Application Programming Interface,<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>编程接口）是一些预先定义的<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%87%BD%E6%95%B0">函数</a>，目的是提供<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>与开发人员基于某<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6">软件</a>或硬件得以访问一组<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E4%BE%8B%E7%A8%8B">例程</a>的能力，而又无需访问源码，或理解内部工作<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E6%9C%BA%E5%88%B6">机制</a>的细节。</em></p>
+                <blockquote>
+<p>性能测试是通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试。</p>
 </blockquote>
-<p>当我们想学习如何做接口测试时，来到CSDN或其他技术平台，在搜索框内输入关键字“接口测试”，点击搜索，等待1-2秒后，就能看到页面展示了相关的搜索结果。在这个过程中我们按F12打开开发者工具，切换到network，可以看到，在点击搜索后，前端页面根据我们输入的关键词向后端服务器发送了一个请求（request），服务端收到请求并处理完成后返回相应结果（response）。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210818180445251.png" alt="接口请求和响应结果"></p>
-<p>由于用户可能绕过前端页面的逻辑，直接调用接口，因此需要考虑直接调用接口进行测试，确定接口是否能在功能、可靠性、性能和安全方面达到预期。从功能测试的角度来看，我们需要关注输入关键词和输出结果数据，接口测试在这方面的关注点也基本是一样的。</p>
-<h2 id="2-输入参数和输出结果"><a href="#2-输入参数和输出结果" class="headerlink" title="2. 输入参数和输出结果"></a>2. 输入参数和输出结果</h2><p>在记账本中，用户在下面的页面上选择、填入必要信息后，点击完成，会调用接口新增一条支出记录。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820215052023.png" alt="记账本-记一笔接口"></p>
-<p>可以看到，输入参数共有6个，接口测试时需要对这六个输入参数进行测试：</p>
-<ul>
-<li><code>amount</code>参数值数值类型，那么根据等价类和边界值方法，需要根据需求验证数值大小范围，小数及其位数，负数，其他非法字符类型；</li>
-<li><code>date</code>为字符串类型，但表示的是日期，用户在前端页面选择日期，日期的格式也有前端逻辑完成，但直接调用接口时，同样需要验证日期格式：合法的日期，不合法的日期如2021-13-01，其他字符类型；</li>
-<li><code>category</code>表示支出/收入的类别，表面看是字符串类型的，但结合功能逻辑，该参数只能接收枚举值，即用户配置过的类别中的其中一个，这种枚举值参数需要遍历所有合法的枚举值，再验证任意不在枚举值内的其他值；</li>
-<li><code>type</code>和<code>category</code>一样，也是枚举值类型，只能是”EXPENSE”和 “INCOME”；</li>
-<li>在这里还有很重要的一点要注意，<code>category</code>和<code>type</code>实际上是存在对应关系的，比如早餐这一类别只在支出中设置了，当我们传参为<code>&#123;&quot;category&quot;: &quot;breakfast&quot;, &quot;type&quot;: &quot;INCOME&quot;&#125;</code>时，预期是不能成功创建的，即对于组合参数，需要验证参数的组合方式；</li>
-<li><code>img_id</code>为数组类型，业务上来说数组内元素代表上传图片的id，id为字符串类型，需要验证元素总个数：空数组、有效个元素、超出有效范围的个数，数组内单个元素即id有效性验证：有效的图片id、无效的图片id、空字符串等，还有数组内元素重复；</li>
-<li><code>note</code>为字符串类型，为该账单的备注，需要验证字符串中的字符类型：中文、英文、特殊字符如空格！@%*和emoji等，还有字符串长度，如果该内容是用户评论、用户名、UGC文章内容等，通常还需要验证是否有做<a target="_blank" rel="noopener" href="https://cloud.baidu.com/doc/ANTIPORN/s/Vk3h6xaga">敏感词</a>过滤；</li>
-<li>根据需求，金额、日期、分类和类型是必填项，图片和备注是选填项，在测试时也需要覆盖到这一点。</li>
-</ul>
-<p>除了输入参数，输出结果也是需要测试的：</p>
-<ul>
-<li>最重要的一点当然是当我使用正确的参数发请求后，能够收到正确的响应：返回码为200，返回json中各值均正确；</li>
-<li>当传入不合法的参数时，对于所有可能出现的业务错误，code和message都能对应给到清晰明确的提示，让用户知道自己哪里操作有误；</li>
-<li>由于其他原因导致服务器无法正确响应时，也应返回统一的错误码提示用户；</li>
-<li>有些任务处理要花费很长时间，这就会导致接口超时，接口超时后前端不应再接收返回响应。</li>
-</ul>
-<p>其他叮嘱：</p>
-<ul>
-<li>分页接口中pageSize参数也应当设计成枚举类型，比如前端只能切换为10/20/50条每页，那么如果我们pageSize传参为100，接口报错，而不应该返回100条数据</li>
-<li>接口在不应该暴露任何后端接口名称、不打印堆栈等信息</li>
-</ul>
-<h2 id="3-业务逻辑"><a href="#3-业务逻辑" class="headerlink" title="3. 业务逻辑"></a>3. 业务逻辑</h2><h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>约束条件的测试在功能测试中经常遇到，在接口测试中更为重要。它的意义在于：用户进行操作时，在该操作的前端可以已经进行了约束条件的限制，故用户无法直接触发请求该接口。但是实际上，如果有其他手段：例如 UI 有 bug 或者通过技术手段直接调用接口，那么接口是否针对这些条件进行了限制就更为重要。</p>
-<p><strong><a target="_blank" rel="noopener" href="https://testerhome.com/topics/9265">一个案例</a></strong></p>
-<p>某公司发现，价值 100 元的商品，在该公司网上商城被以 0.01 元买走了很多。攻城狮们火速定位，问题原因很快被找到了，原来是购买商品接口的 bug。该接口需要 3 个参数：商品 id、商品单价、购买数量，而服务器根据接口传过来的商品单价（0.01 元）生成了订单。服务器本应根据数据库中的商品单价 100 元来生成订单。我们将单价修改后，再购买，提交到服务器的商品单价就是 0.01 元。这个接口在设计阶段就已经存在问题，正确应该是后台程序根据传入的商品id，查询到对应商品的价格，而不应该直接使用接口传入的价格。</p>
-<p>业务功能中最常见的约束条件主要有数值限制、状态限制、关系限制和权限限制，以在购物网站下单时使用优惠券为例：</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
-	<span class="token property">"product_id"</span><span class="token operator">:</span> <span class="token string">"12345678890644"</span><span class="token punctuation">,</span>
-	<span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-	<span class="token property">"coupon_id"</span><span class="token operator">:</span> <span class="token string">"thisiscouponid"</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li><p><strong>数值限制</strong></p>
-<ul>
-<li>用户购买的商品只有在<strong>订单总金额达到300</strong>时才可使用该优惠券下单成功</li>
-<li>订单中商品库存大于等于2时才可以下单成功</li>
-</ul>
-</li>
-<li><p><strong>状态限制</strong></p>
-<ul>
-<li>只能使用在有效期内的优惠券（同时也是时间限制）</li>
-<li>只能使用未使用状态的优惠券</li>
-</ul>
-</li>
-<li><p><strong>关系限制</strong></p>
-<ul>
-<li>只能使用与当前用户账号绑定的优惠券</li>
-</ul>
-<p>在上面的接口参数中，我们其实并没有传入用户ID等内容，用户的身份鉴别通常是通过headers中的Token等实现的。</p>
-</li>
-</ul>
-<h3 id="权限限制"><a href="#权限限制" class="headerlink" title="权限限制"></a>权限限制</h3><p><strong>权限限制</strong>我需要单独拎出来讲，它很重要！</p>
-<p>很多系统中都存在系统管理员、普通用户等不同角色的用户，系统管理员拥有一些普通用户没有的权限，比如系统管理员可以发布公告，而普通用户则只能查看，系统管理员和用户还有组织上的划分，比如深圳市的系统管理员和普通用户，广东省的管理员和普通用户。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820221352559.png" alt="横向越权和纵向越权"></p>
-<p>就用户角色而言，需要验证低等级用户拥有管理员权限等高于自身级别访问能力，即纵向越权；就用户组织维度来看，需要验证相同组织/不同组织间，是否能访问到不属于自己权限内的资源，即横向越权。</p>
-<h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><p>很多被测逻辑可以抽象成状态机，各个状态之间根据功能逻辑，能够从一个状态转换到另一个状态。如果我们打乱了这个次序，从一个状态切换到另一个不在它下一状态集中的状态，那么逻辑将会打乱，就会出现逻辑问题。以一个二级审核功能为例，某UGC平台内，用户提交了一篇文章，要先经过初审，初审通过后才能再进行复审，即两轮审核都通过时，文章才能发布出来。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820222256978.png" alt="审核功能的状态转换"></p>
-<p>针对这种状态转换的逻辑，我们需要验证：</p>
-<ul>
-<li>正常的状态切换：用户提交 -&gt; 初审通过 -&gt; 复审通过 -&gt; 文章发布成功</li>
-<li>非正常的状态切换：<ul>
-<li>用户提交 -&gt; 初审驳回 -&gt; 复审通过</li>
-<li>用户提交 -&gt; 复审通过</li>
-</ul>
-</li>
-</ul>
-<h2 id="4-幂等性"><a href="#4-幂等性" class="headerlink" title="4. 幂等性"></a>4. 幂等性</h2><blockquote>
-<p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。</p>
+<p>高楼老师对性能测试的定义十分明确得描述了性能测试的方法和流程：</p>
+<blockquote>
+<p>性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。   —— <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/178068">高楼 《性能测试实战30讲》</a></p>
 </blockquote>
-<p>举个最简单的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">例子</a>，那就是支付，用户购买商品后支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额返发现多扣钱了，流水记录也变成了两条，这就没有保证接口的幂等性、只要调用接口成功，外部对接口的多次调用得到的结果是相同的，即执行多次和一次的效果是一样的，用户在后续再支付时，不会重复扣款。</p>
-<p>接口幂等性测试，需要测试人员在需求分析的时候，就能识别出需要实现幂等的接口，并提前要求开发同学去实现。</p>
-<h2 id="5-文件上传-下载接口"><a href="#5-文件上传-下载接口" class="headerlink" title="5. 文件上传/下载接口"></a>5. 文件上传/下载接口</h2><p>文件的上传下载也是很多产品里会有的功能了。在测试文件上传/下载接口基本功能时，主要还是从文件本身的属性来考虑，即文件名称、文件类型、文件大小、文件内容/规格。</p>
+<p>我将其与自己的实践经验结合，重新整理了项目中通用的性能测试实施流程。</p>
+<h2 id="0-前期准备"><a href="#0-前期准备" class="headerlink" title="0. 前期准备"></a>0. 前期准备</h2><p>在正式开始性能测试之前，至少完成以下几个方面的准备工作</p>
 <ul>
-<li>文件上传<ul>
-<li>文件名称：文件名的字符串长度；文件名中的特殊字符如空格、@#¥%-等</li>
-<li>文件类型：验证文件后缀名，保证使用的是白名单</li>
-<li>文件大小校验：上传文件请求头等也有大小，必须校验的是文件本身的大小</li>
-<li>文件内容/规格校验：若上传的文件需要后台解析其内容，当然也需要测试填入不同内容；规格主要指图片/视频的尺寸和时长等限制</li>
-<li>文件上传成功后服务器保存的文件与上传的文件内容一致</li>
+<li><p>系统基础功能验证</p>
+<ul>
+<li>性能测试一般是软件系统已经基本完成开发或部署之后的测试活动，要求被测对象在功能上基本满足需求，且具有一定的稳定性。必须保证在性能测试之前至少进行一次系统的功能覆盖测试。</li>
 </ul>
 </li>
-<li>文件下载<ul>
-<li>文件本身：验证下载的文件的文件名；下来的文件可以正常打开并查看，内容与上传时的一致/内容正确</li>
-<li>文件下载链接敏感文件内容使用一次性下载链接/短时间内有效下载链接（如身份证图片）</li>
+<li><p>预先的业务和架构分析</p>
+<p>为了对系统性能建立直观上的认识和分析，应对系统较重要和常用的业务场景模块进行针对性的分析，以对接下来的测试计划设计进行准备。</p>
+</li>
+<li><p>组建性能团队</p>
+<ul>
+<li>根据需求组建性能测试团队，至少要报括性能测试设计和执行人员、开发和运维人员。</li>
 </ul>
 </li>
 </ul>
-<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E7%9A%84%E6%B5%8B%E8%AF%95%E7%82%B9.png" alt="接口测试的测试点脑图"></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/11677">腾讯 TMQ 接口测试用例设计</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">测试同学必会系列之如何进行幂等性的测试</a></li>
-<li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/29928">服务端接口测试指南</a></li>
+<h2 id="1-性能需求分析"><a href="#1-性能需求分析" class="headerlink" title="1. 性能需求分析"></a>1. 性能需求分析</h2><p>和做功能测试一样，我们需要花费一定的精力弄清楚<strong>性能需求</strong>到底是什么的。在这一步，我们需要与客户、项目经理、产品、开发等相关人员进行沟通，收集各种资料，对被测系统进行分析，确认性能测试目标，确定需要覆盖的性能场景，并最终将其转化为可衡量的性能指标和监控策略。</p>
+<h3 id="1-1-性能测试目的分析"><a href="#1-1-性能测试目的分析" class="headerlink" title="1.1 性能测试目的分析"></a>1.1 性能测试目的分析</h3><p>我曾经负责过一个新系统上线前的性能测试工作，客户对这个系统的性能需求很明确：关键业务流程上的接口能达到100TPS，响应时间在200ms内，且在所有接口都达到100TPS的情况下能够稳定运行24小时。</p>
+<p>显然，这一次的我是幸运的，但很难一直这么幸运。很多时候做出<strong>要做性能测试</strong>这个决定时，其目的通常并没有这么明确，需要我们持续追问并挖掘出性能测试要达到的目的。测试目的通常逃不出下面列举的范围：</p>
+<ol>
+<li>测试出系统的最大容量，上线后心里有底</li>
+<li>新版本和旧版本对比，性能不下降</li>
+<li>验证系统在一定的负载压力下能稳定运行</li>
+<li>系统性能调优到可接受范围内</li>
 </ol>
+<p>也可以用<strong>应用领域</strong>来更为简洁得归纳总结性能测试目的：</p>
+<ul>
+<li>能力验证：验证系统在给定环境中的性能能力，就是针对给定的指标，只做性能验证。</li>
+<li>规划能力：测试出系统的最大容量，验证系统的性能扩展力，找出系统能力扩充的关键点，给出改善其性能扩展能力的建议。</li>
+<li>性能调优：针对给定的系统，做全面的性能测试，同时提高系统的性能表现。</li>
+</ul>
+<h3 id="1-2-业务模型"><a href="#1-2-业务模型" class="headerlink" title="1.2 业务模型"></a>1.2 业务模型</h3><p>在前期准备中，我们已经对系统所涉及的多种业务有了基本的了解。一般而言，性能测试不会针对系统所有功能来进行，选取重点的、具备足够代表性的业务功能，确定并建立起相应的业务模型是必不可少的。每种业务的逻辑、业务量、消耗的系统资源都存在差别，例如电商系统在不同的促销形式下，用户使用不同功能的配比是完全不一样的，系统承受的压力自然也不一样，因此业务模型直接影响着我们对系统的处理能力的判断。如果业务模型中业务和占比的选取跟生产差异非常大，将直接导致测试结果没有任何参考价值。 </p>
+<p>系统中的代表性业务如何选取呢？一般情况下遵循的规则是选取业务量高的、用户经常使用的、有风险的、未来有增长趋势的业务。已上线的系统可以<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/358483">通过系统日志分析</a>出高峰时间段内的接口请求和所占比例，再结合系统业务逻辑梳理出业务种类和业务占比，以便更真实的模拟生产业务场景；不同时间段内的业务种类和业务占比存在较大差异时，需要选用多个代表性的业务模型。未上线的新系统则可以结合业务团队的判断和用户调研来确定业务种类和业务占比。</p>
+<p>通用的业务模型如下，部分比例为0的业务未在表格中列出：</p>
+<table>
+<thead>
+<tr>
+<th align="center">业务名</th>
+<th align="center">测试场景业务比例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">业务1</td>
+<td align="center">2.56%</td>
+</tr>
+<tr>
+<td align="center">业务2</td>
+<td align="center">20.34%</td>
+</tr>
+<tr>
+<td align="center">业务5</td>
+<td align="center">40.25%</td>
+</tr>
+<tr>
+<td align="center">业务7</td>
+<td align="center">36.85%</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-性能目标"><a href="#1-3-性能目标" class="headerlink" title="1.3 性能目标"></a>1.3 性能目标</h3><p>对于不同的性能测试应用领域，性能目标也会存在差异，下面是对各领域性能目标的类似描述：</p>
+<ul>
+<li>能力验证领域：该应用能够以1秒的最大响应时间处理200个并发用户对用户A的访问；峰值时刻有400用户，允许响应时间延长为2秒；</li>
+<li>规划能力领域：系统的A业务在未来的3个月内每天的业务吞吐量达到4000笔，找出系统的性能瓶颈并给出可支持这种业务量的建议；</li>
+<li>性能调优领域：通过性能调优测试，本系统的A业务和B业务在200个并发用户的条件下，响应时间提高到1秒。</li>
+</ul>
+<p>在这些性能目标描述中，对具体系统业务的响应时间、并发用户数、吞吐量等性能测试指标都进行了明确的定义，当然，还应该加上此时对系统资源的定义，如：该应用能够以1秒的最大响应时间处理200个并发用户对用户A的访问，此时服务器的CPU占用不超过70%，内存使用率不超过80%；峰值时刻有400用户，允许响应时间延长为2秒，此时此时服务器的CPU占用不超过85%，内存使用率不超过90%。</p>
+<p>在《性能测试指标》一文中，已经对性能测试中常用的业务指标和资源指标进行了详细的介绍，在实际确定性能测试目标时可从中选取恰当的指标，并根据业务需要确定各指标的具体取值，确定好后可以最终可以得出下表：</p>
+<table>
+<thead>
+<tr>
+<th align="center">业务名</th>
+<th align="center">测试场景业务比例</th>
+<th align="center">业务目标TPS</th>
+<th align="center">业务响应时间(ms)</th>
+<th align="center">CPU占用率</th>
+<th align="center">内存使用率</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">业务1</td>
+<td align="center">2.56%</td>
+<td align="center">150</td>
+<td align="center">&lt;= 1000</td>
+<td align="center">&lt;= 70%</td>
+<td align="center">&lt;= 80%</td>
+</tr>
+<tr>
+<td align="center">业务2</td>
+<td align="center">20.34%</td>
+<td align="center">520</td>
+<td align="center">&lt;= 1000</td>
+<td align="center">&lt;= 70%</td>
+<td align="center">&lt;= 80%</td>
+</tr>
+<tr>
+<td align="center">业务5</td>
+<td align="center">40.25%</td>
+<td align="center">730</td>
+<td align="center">&lt;= 1000</td>
+<td align="center">&lt;= 70%</td>
+<td align="center">&lt;= 80%</td>
+</tr>
+<tr>
+<td align="center">业务7</td>
+<td align="center">36.85%</td>
+<td align="center">600</td>
+<td align="center">&lt;= 1000</td>
+<td align="center">&lt;= 70%</td>
+<td align="center">&lt;= 80%</td>
+</tr>
+</tbody></table>
+<h2 id="2-性能测试设计和准备"><a href="#2-性能测试设计和准备" class="headerlink" title="2. 性能测试设计和准备"></a>2. 性能测试设计和准备</h2><h3 id="2-1-性能测试环境"><a href="#2-1-性能测试环境" class="headerlink" title="2.1 性能测试环境"></a>2.1 性能测试环境</h3><p>通常来讲，性能测试需要有独立的测试环境，其配置生产环境保持一致，但通常由于成本较高，会采用等比构建（1/2，1/4等）。但由于资源申请、预算、环境搭建步骤繁多的限制，可能没有办法拥有独立的测试环境，这个时候可以考虑使用的已有的测试环境或生产环境来进行测试，并提前识别出使用这些环境面临的风险。同时还需要考虑涉及到第三方服务的业务是否需要使用Mock来代替，如果不能则需要提前与第三方服务负责人沟通排期。</p>
+<p>在我所参与过的一个性能测试项目中，我们最终采用了这样的环境策略：To C业务相关的服务采用独立、1/2等比构建的性能测试环境，To B业务则在功能测试环境中进行。这样做，虽然终于能够有环境来进行测试，但显然最后的测试结果参考意义降低了，而且由于功能测试环境还用于新功能的测试，我们的性能测试与功能测试在产生了严重的冲突，当压测开始之后，由于系统承受不住那么大量的请求，崩溃了，为了不影响功能测试的进度，性能测试的执行基本都要等到功能测试执行人员下班之后才能进行。</p>
+<p>性能测试环境方案确定后就可以让运维同事开始部署性能环境了，性能环境部署完成后要先验证环境可用性。</p>
+<h3 id="2-2-性能场景设计"><a href="#2-2-性能场景设计" class="headerlink" title="2.2 性能场景设计"></a>2.2 性能场景设计</h3><p>场景来源于英文scenario，本意是指：影视剧情中的人物在特定时间与空间内发生的行动。</p>
+<p>对性能场景中的“场景”比较正宗的描述是：在既定的环境（包括动态扩展等策略）、既定的数据（包括场景执行中的数据变化）、既定的执行策略、既定的监控之下，执行性能脚本，同时观察系统各层级的性能状态参数变化，并实时判断分析场景是否符合预期。</p>
+<p>性能场景不会超出下面这几个分类：</p>
+<table>
+<thead>
+<tr>
+<th align="center">场景</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">基准性能场景</td>
+<td>也可称为单交易容量。将每一个业务都压到最大TPS，从而为后续场景做数据对比。</td>
+</tr>
+<tr>
+<td align="center">容量性能场景</td>
+<td>也可称为混合容量性能场景。将所有业务根据比例加到一个场景中，在数据、软硬件环境、监控等的配合下，分析瓶颈并调优。</td>
+</tr>
+<tr>
+<td align="center">稳定性性能场景</td>
+<td>核心是时长。在长时间的运行下，观察系统的性能表现，分析瓶颈并调优。</td>
+</tr>
+<tr>
+<td align="center">异常性能场景</td>
+<td>其中异常的定义最为重要。常用的手段包括宕主机、宕应用、宕容器、宕缓存、宕流控等。实际需要根据系统的业务架构和部署架构分析得出。</td>
+</tr>
+</tbody></table>
+<p>在实际测试执行时，我们要对涉及的业务一个一个地做基准，找出每个业务在系统中的最大TPS和对应的响应时间；接下来是容量性能场景，根据性能目标中各业务的比例，不断增加压力，在加压过程中需要注意始终保持各业务的业务比例，最终得出混合业务的最大TPS及响应时间，当然，如果在你的项目中存在多个不同的业务比例的场景，也是需要都测试一遍的；然后是稳定性性能场景，这需要业务和运维部门联合给出一个指标：系统要稳定运行一周、支持2000万业务量，据此我们可以计算出<strong>稳定性性能场景中的时长</strong>：2000万 ➗根据容量性能场景中得到的容量TPS（所有业务TPS之和）；最后是异常性能场景，这时可以采用容量性能场景中最大 TPS 的 50%来做，然后对业务服务器、数据库服务器等做异常操作。</p>
+<h3 id="2-3-性能测试数据"><a href="#2-3-性能测试数据" class="headerlink" title="2.3 性能测试数据"></a>2.3 性能测试数据</h3><p>在性能测试中，我们要关注的数据主要有基础铺底数据和参数化数据。</p>
+<ol>
+<li><p>基础铺底数据</p>
+<p>在生产环境中，系统肯定不会一直是一个刚部署的空系统，会有一定量的数据已经存储在数据库、文件CDN、Redis缓存等中。因此在性能测试执行开始前，我们需要模拟出真实场景中业务操作的实际数据量。</p>
+</li>
+<li><p>参数化数据</p>
+<p>在性能场景运行过程中，我们会用到两类数据：唯一性数据和可重复使用的数据。参数化数据量取决于场景运行时间和TPS。</p>
+<p>对于唯一性数据，比如删除操作所需要的数据，在被删除后是不可再次被使用的。所需的数据量计算方式很简单，比如一个运行20分钟的场景，TPS 如果是 100 的话，那就至少需要20min * 60s * 100 = 12 万条数据。</p>
+<p>对于可重复使用的数据，比如查询单条记录，重复使用同一个参数（ID）进行查询显然是不符合真实场景的。这种场景下没有固定的条数限制，只能根据实际的业务进行判断。当然了，也可以先按唯一性数据的数据量计算方法计算，然后在实际执行中按需使用。</p>
+<p>除了数据量要能满足性能场景的运行外，也要满足生产环境中的数据分布。比如记账应用中，用户每天记账的笔数通常会在5-20之间，上千甚至上万的数据量肯定是不合理的。</p>
+<p>那么如何将设计好的参数化数据放到系统中呢？参数化数据可以分为两类：第一类是已存在后台数据库中，第二类是脚本执行成功后才会将数据Insert到数据库中；</p>
+<p>对于第一类数据，以用户登录为例，登陆接口需要将其中的参数与后台数据库中的数据对比，这就要求数据库中要先存在这些数据，且压力工具也能够知道具体数据取值。实际项目中，通常会涉及多个数据库表，要先梳理清楚表之间的关联。</p>
+<p>对于第二类数据，以记账应用的记一笔功能为例，只需要在压力工具中将相应数据参数化即可。</p>
+</li>
+</ol>
+<h3 id="2-4-监控设计"><a href="#2-4-监控设计" class="headerlink" title="2.4 监控设计"></a>2.4 监控设计</h3><p>在性能测试中，监控是非常重要的环节，监控是做性能分析的前提。</p>
+<p>首先要分析系统的架构，在知道架构中使用的组件、服务之后，再有针对性的找对应的监控手段和方式。具体在设计时，可以使用从全局到定向的思路，列出要采用的计数器，形成可供分析证据链。</p>
+<p>至于使用什么监控工具来获取这些计数器的值，推荐采用Prometheus + Exporter的思路。具体方案还是需要跟运维同事进一步确认，并由运维同事来实施监控工具的部署。</p>
+<p>性能监控是一个很大的话题，真的要做好还是需要花费较大的精力去学习和实践，本文只能作为一个引子，还是需要大家自己去仔细钻研。</p>
+<h3 id="2-5-性能测试脚本"><a href="#2-5-性能测试脚本" class="headerlink" title="2.5 性能测试脚本"></a>2.5 性能测试脚本</h3><p>首先要确定性能测试的工具，比如Jmeter、Gatling、Locust等，这些工具的对比及具体使用教程在网上已经有很多有用的资料了，本文就不介绍具体工具的使用方法了。</p>
+<p>选定工具之后就可以开始写对应的脚本并调试啦，这部分内容我会单独再出一篇文章做示例。</p>
+<p>在这里还有一个步骤需要强调的是，性能脚本执行时是需要<strong>执行机</strong>的，具体需要几台需要大家根据自己的实际情况判断。而执行机通常也是需要提前申请的，配置高的为佳。</p>
+<p>在性能测试设计完成后就可以开始编写《性能测试方案》的文档了。</p>
+<h2 id="3-性能测试执行"><a href="#3-性能测试执行" class="headerlink" title="3. 性能测试执行"></a>3. 性能测试执行</h2><p>有了前面的设计和准备工作，终于可以开始执行性能场景了。</p>
+<p>这部分没有太多要说的内容，只需要关注下执行过程中的业务指标和监控的资源指标是否都记录上即可。</p>
+<h2 id="4-性能测试结果分析及调优"><a href="#4-性能测试结果分析及调优" class="headerlink" title="4. 性能测试结果分析及调优"></a>4. 性能测试结果分析及调优</h2><p>每一个性能场景执行完后，要先从压力工具和监控工具中整理输出相应的结果，通常是表格和图表形式的。然后根据这些结果，判断测试是否通过。若性能不达标，需要针对性得进一步分析出影响性能的根本原因，但性能问题通常是相互关联相互影响的，表面上看到的现象很可能不是根本问题，而是另一处出现问题后引起的反应，这就要求监控收集数据时的证据链要完整，能帮助我们一步步得探寻到真相。</p>
+<p>调优可能是一个漫长的过程，需要我们不断去尝试，要有耐心也要有信心。</p>
+<p>影响性能的点及调优的方法如下，仅供参考：</p>
+<ol>
+<li>数据库：检查索引设置，检查SQL语句是否可以优化</li>
+<li>业务接口：流程是否有冗余；返回的数据是否有冗余；数据处理逻辑是否可以优化</li>
+</ol>
+<h2 id="5-性能测试报告"><a href="#5-性能测试报告" class="headerlink" title="5. 性能测试报告"></a>5. 性能测试报告</h2><p>最后就可以输出性能测试报告了，阐明性能测试目标、测试环境、数据构造规则、性能结果、风险等内容。</p>
 
                 
             </div>
@@ -522,7 +599,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuxiaomeng.me/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/">https://yuxiaomeng.me/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/</a>
+                    <a href="https://yuxiaomeng.me/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/">https://yuxiaomeng.me/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -560,12 +637,12 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%8D%95%E6%8E%A5%E5%8F%A3/">
-                                    <span class="chip bg-color">单接口</span>
+                                <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+                                    <span class="chip bg-color">服务端性能测试</span>
                                 </a>
                             
-                                <a href="/tags/%E6%B5%8B%E8%AF%95%E7%82%B9/">
-                                    <span class="chip bg-color">测试点</span>
+                                <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
+                                    <span class="chip bg-color">实施流程</span>
                                 </a>
                             
                         </div>
@@ -610,9 +687,64 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
+            <div class="card">
+                <a href="/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="性能测试实施流程">
+                        
+                        <span class="card-title">性能测试实施流程</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" class="post-category">
+                                    性能测试
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+                        <span class="chip bg-color">服务端性能测试</span>
+                    </a>
+                    
+                    <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
+                        <span class="chip bg-color">实施流程</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
             <div class="card">
                 <a href="/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/">
                     <div class="card-image">
@@ -630,9 +762,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -654,55 +786,6 @@
                     
                     <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
                         <span class="chip bg-color">性能指标</span>
-                    </a>
-                    
-                </div>
-                
-            </div>
-        </div>
-        
-        
-        <div class="article col s12 m6" data-aos="fade-up">
-            <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
-            </div>
-            <div class="card">
-                <a href="/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/">
-                    <div class="card-image">
-                        
-                        
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Postman导入请求的多种方式">
-                        
-                        <span class="card-title">Postman导入请求的多种方式</span>
-                    </div>
-                </a>
-                <div class="card-content article-content">
-                    <div class="summary block-with-text">
-                        
-                            
-                        
-                    </div>
-                    <div class="publish-info">
-                            <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-20
-                            </span>
-                        <span class="publish-author">
-                            
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/" class="post-category">
-                                    接口测试
-                                </a>
-                            
-                            
-                        </span>
-                    </div>
-                </div>
-                
-                <div class="card-action article-tags">
-                    
-                    <a href="/tags/Postman/">
-                        <span class="chip bg-color">Postman</span>
                     </a>
                     
                 </div>

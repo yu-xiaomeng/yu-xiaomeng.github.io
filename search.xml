@@ -4,7 +4,34 @@
   
     
     <entry>
-      <title>服务端性能测试-性能测试指标</title>
+      <title>性能测试实施流程</title>
+      <link href="/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/"/>
+      <url>/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/</url>
+      
+        <content type="html"><![CDATA[<blockquote><p>性能测试是通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试。</p></blockquote><p>高楼老师对性能测试的定义十分明确得描述了性能测试的方法和流程：</p><blockquote><p>性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。   —— <a href="https://time.geekbang.org/column/article/178068">高楼 《性能测试实战30讲》</a></p></blockquote><p>我将其与自己的实践经验结合，重新整理了项目中通用的性能测试实施流程。</p><h2 id="0-前期准备"><a href="#0-前期准备" class="headerlink" title="0. 前期准备"></a>0. 前期准备</h2><p>在正式开始性能测试之前，至少完成以下几个方面的准备工作</p><ul><li><p>系统基础功能验证</p><ul><li>性能测试一般是软件系统已经基本完成开发或部署之后的测试活动，要求被测对象在功能上基本满足需求，且具有一定的稳定性。必须保证在性能测试之前至少进行一次系统的功能覆盖测试。</li></ul></li><li><p>预先的业务和架构分析</p><p>为了对系统性能建立直观上的认识和分析，应对系统较重要和常用的业务场景模块进行针对性的分析，以对接下来的测试计划设计进行准备。</p></li><li><p>组建性能团队</p><ul><li>根据需求组建性能测试团队，至少要报括性能测试设计和执行人员、开发和运维人员。</li></ul></li></ul><h2 id="1-性能需求分析"><a href="#1-性能需求分析" class="headerlink" title="1. 性能需求分析"></a>1. 性能需求分析</h2><p>和做功能测试一样，我们需要花费一定的精力弄清楚<strong>性能需求</strong>到底是什么的。在这一步，我们需要与客户、项目经理、产品、开发等相关人员进行沟通，收集各种资料，对被测系统进行分析，确认性能测试目标，确定需要覆盖的性能场景，并最终将其转化为可衡量的性能指标和监控策略。</p><h3 id="1-1-性能测试目的分析"><a href="#1-1-性能测试目的分析" class="headerlink" title="1.1 性能测试目的分析"></a>1.1 性能测试目的分析</h3><p>我曾经负责过一个新系统上线前的性能测试工作，客户对这个系统的性能需求很明确：关键业务流程上的接口能达到100TPS，响应时间在200ms内，且在所有接口都达到100TPS的情况下能够稳定运行24小时。</p><p>显然，这一次的我是幸运的，但很难一直这么幸运。很多时候做出<strong>要做性能测试</strong>这个决定时，其目的通常并没有这么明确，需要我们持续追问并挖掘出性能测试要达到的目的。测试目的通常逃不出下面列举的范围：</p><ol><li>测试出系统的最大容量，上线后心里有底</li><li>新版本和旧版本对比，性能不下降</li><li>验证系统在一定的负载压力下能稳定运行</li><li>系统性能调优到可接受范围内</li></ol><p>也可以用<strong>应用领域</strong>来更为简洁得归纳总结性能测试目的：</p><ul><li>能力验证：验证系统在给定环境中的性能能力，就是针对给定的指标，只做性能验证。</li><li>规划能力：测试出系统的最大容量，验证系统的性能扩展力，找出系统能力扩充的关键点，给出改善其性能扩展能力的建议。</li><li>性能调优：针对给定的系统，做全面的性能测试，同时提高系统的性能表现。</li></ul><h3 id="1-2-业务模型"><a href="#1-2-业务模型" class="headerlink" title="1.2 业务模型"></a>1.2 业务模型</h3><p>在前期准备中，我们已经对系统所涉及的多种业务有了基本的了解。一般而言，性能测试不会针对系统所有功能来进行，选取重点的、具备足够代表性的业务功能，确定并建立起相应的业务模型是必不可少的。每种业务的逻辑、业务量、消耗的系统资源都存在差别，例如电商系统在不同的促销形式下，用户使用不同功能的配比是完全不一样的，系统承受的压力自然也不一样，因此业务模型直接影响着我们对系统的处理能力的判断。如果业务模型中业务和占比的选取跟生产差异非常大，将直接导致测试结果没有任何参考价值。 </p><p>系统中的代表性业务如何选取呢？一般情况下遵循的规则是选取业务量高的、用户经常使用的、有风险的、未来有增长趋势的业务。已上线的系统可以<a href="https://time.geekbang.org/column/article/358483">通过系统日志分析</a>出高峰时间段内的接口请求和所占比例，再结合系统业务逻辑梳理出业务种类和业务占比，以便更真实的模拟生产业务场景；不同时间段内的业务种类和业务占比存在较大差异时，需要选用多个代表性的业务模型。未上线的新系统则可以结合业务团队的判断和用户调研来确定业务种类和业务占比。</p><p>通用的业务模型如下，部分比例为0的业务未在表格中列出：</p><table><thead><tr><th align="center">业务名</th><th align="center">测试场景业务比例</th></tr></thead><tbody><tr><td align="center">业务1</td><td align="center">2.56%</td></tr><tr><td align="center">业务2</td><td align="center">20.34%</td></tr><tr><td align="center">业务5</td><td align="center">40.25%</td></tr><tr><td align="center">业务7</td><td align="center">36.85%</td></tr></tbody></table><h3 id="1-3-性能目标"><a href="#1-3-性能目标" class="headerlink" title="1.3 性能目标"></a>1.3 性能目标</h3><p>对于不同的性能测试应用领域，性能目标也会存在差异，下面是对各领域性能目标的类似描述：</p><ul><li>能力验证领域：该应用能够以1秒的最大响应时间处理200个并发用户对用户A的访问；峰值时刻有400用户，允许响应时间延长为2秒；</li><li>规划能力领域：系统的A业务在未来的3个月内每天的业务吞吐量达到4000笔，找出系统的性能瓶颈并给出可支持这种业务量的建议；</li><li>性能调优领域：通过性能调优测试，本系统的A业务和B业务在200个并发用户的条件下，响应时间提高到1秒。</li></ul><p>在这些性能目标描述中，对具体系统业务的响应时间、并发用户数、吞吐量等性能测试指标都进行了明确的定义，当然，还应该加上此时对系统资源的定义，如：该应用能够以1秒的最大响应时间处理200个并发用户对用户A的访问，此时服务器的CPU占用不超过70%，内存使用率不超过80%；峰值时刻有400用户，允许响应时间延长为2秒，此时此时服务器的CPU占用不超过85%，内存使用率不超过90%。</p><p>在《性能测试指标》一文中，已经对性能测试中常用的业务指标和资源指标进行了详细的介绍，在实际确定性能测试目标时可从中选取恰当的指标，并根据业务需要确定各指标的具体取值，确定好后可以最终可以得出下表：</p><table><thead><tr><th align="center">业务名</th><th align="center">测试场景业务比例</th><th align="center">业务目标TPS</th><th align="center">业务响应时间(ms)</th><th align="center">CPU占用率</th><th align="center">内存使用率</th></tr></thead><tbody><tr><td align="center">业务1</td><td align="center">2.56%</td><td align="center">150</td><td align="center">&lt;= 1000</td><td align="center">&lt;= 70%</td><td align="center">&lt;= 80%</td></tr><tr><td align="center">业务2</td><td align="center">20.34%</td><td align="center">520</td><td align="center">&lt;= 1000</td><td align="center">&lt;= 70%</td><td align="center">&lt;= 80%</td></tr><tr><td align="center">业务5</td><td align="center">40.25%</td><td align="center">730</td><td align="center">&lt;= 1000</td><td align="center">&lt;= 70%</td><td align="center">&lt;= 80%</td></tr><tr><td align="center">业务7</td><td align="center">36.85%</td><td align="center">600</td><td align="center">&lt;= 1000</td><td align="center">&lt;= 70%</td><td align="center">&lt;= 80%</td></tr></tbody></table><h2 id="2-性能测试设计和准备"><a href="#2-性能测试设计和准备" class="headerlink" title="2. 性能测试设计和准备"></a>2. 性能测试设计和准备</h2><h3 id="2-1-性能测试环境"><a href="#2-1-性能测试环境" class="headerlink" title="2.1 性能测试环境"></a>2.1 性能测试环境</h3><p>通常来讲，性能测试需要有独立的测试环境，其配置生产环境保持一致，但通常由于成本较高，会采用等比构建（1/2，1/4等）。但由于资源申请、预算、环境搭建步骤繁多的限制，可能没有办法拥有独立的测试环境，这个时候可以考虑使用的已有的测试环境或生产环境来进行测试，并提前识别出使用这些环境面临的风险。同时还需要考虑涉及到第三方服务的业务是否需要使用Mock来代替，如果不能则需要提前与第三方服务负责人沟通排期。</p><p>在我所参与过的一个性能测试项目中，我们最终采用了这样的环境策略：To C业务相关的服务采用独立、1/2等比构建的性能测试环境，To B业务则在功能测试环境中进行。这样做，虽然终于能够有环境来进行测试，但显然最后的测试结果参考意义降低了，而且由于功能测试环境还用于新功能的测试，我们的性能测试与功能测试在产生了严重的冲突，当压测开始之后，由于系统承受不住那么大量的请求，崩溃了，为了不影响功能测试的进度，性能测试的执行基本都要等到功能测试执行人员下班之后才能进行。</p><p>性能测试环境方案确定后就可以让运维同事开始部署性能环境了，性能环境部署完成后要先验证环境可用性。</p><h3 id="2-2-性能场景设计"><a href="#2-2-性能场景设计" class="headerlink" title="2.2 性能场景设计"></a>2.2 性能场景设计</h3><p>场景来源于英文scenario，本意是指：影视剧情中的人物在特定时间与空间内发生的行动。</p><p>对性能场景中的“场景”比较正宗的描述是：在既定的环境（包括动态扩展等策略）、既定的数据（包括场景执行中的数据变化）、既定的执行策略、既定的监控之下，执行性能脚本，同时观察系统各层级的性能状态参数变化，并实时判断分析场景是否符合预期。</p><p>性能场景不会超出下面这几个分类：</p><table><thead><tr><th align="center">场景</th><th>作用</th></tr></thead><tbody><tr><td align="center">基准性能场景</td><td>也可称为单交易容量。将每一个业务都压到最大TPS，从而为后续场景做数据对比。</td></tr><tr><td align="center">容量性能场景</td><td>也可称为混合容量性能场景。将所有业务根据比例加到一个场景中，在数据、软硬件环境、监控等的配合下，分析瓶颈并调优。</td></tr><tr><td align="center">稳定性性能场景</td><td>核心是时长。在长时间的运行下，观察系统的性能表现，分析瓶颈并调优。</td></tr><tr><td align="center">异常性能场景</td><td>其中异常的定义最为重要。常用的手段包括宕主机、宕应用、宕容器、宕缓存、宕流控等。实际需要根据系统的业务架构和部署架构分析得出。</td></tr></tbody></table><p>在实际测试执行时，我们要对涉及的业务一个一个地做基准，找出每个业务在系统中的最大TPS和对应的响应时间；接下来是容量性能场景，根据性能目标中各业务的比例，不断增加压力，在加压过程中需要注意始终保持各业务的业务比例，最终得出混合业务的最大TPS及响应时间，当然，如果在你的项目中存在多个不同的业务比例的场景，也是需要都测试一遍的；然后是稳定性性能场景，这需要业务和运维部门联合给出一个指标：系统要稳定运行一周、支持2000万业务量，据此我们可以计算出<strong>稳定性性能场景中的时长</strong>：2000万 ➗根据容量性能场景中得到的容量TPS（所有业务TPS之和）；最后是异常性能场景，这时可以采用容量性能场景中最大 TPS 的 50%来做，然后对业务服务器、数据库服务器等做异常操作。</p><h3 id="2-3-性能测试数据"><a href="#2-3-性能测试数据" class="headerlink" title="2.3 性能测试数据"></a>2.3 性能测试数据</h3><p>在性能测试中，我们要关注的数据主要有基础铺底数据和参数化数据。</p><ol><li><p>基础铺底数据</p><p>在生产环境中，系统肯定不会一直是一个刚部署的空系统，会有一定量的数据已经存储在数据库、文件CDN、Redis缓存等中。因此在性能测试执行开始前，我们需要模拟出真实场景中业务操作的实际数据量。</p></li><li><p>参数化数据</p><p>在性能场景运行过程中，我们会用到两类数据：唯一性数据和可重复使用的数据。参数化数据量取决于场景运行时间和TPS。</p><p>对于唯一性数据，比如删除操作所需要的数据，在被删除后是不可再次被使用的。所需的数据量计算方式很简单，比如一个运行20分钟的场景，TPS 如果是 100 的话，那就至少需要20min * 60s * 100 = 12 万条数据。</p><p>对于可重复使用的数据，比如查询单条记录，重复使用同一个参数（ID）进行查询显然是不符合真实场景的。这种场景下没有固定的条数限制，只能根据实际的业务进行判断。当然了，也可以先按唯一性数据的数据量计算方法计算，然后在实际执行中按需使用。</p><p>除了数据量要能满足性能场景的运行外，也要满足生产环境中的数据分布。比如记账应用中，用户每天记账的笔数通常会在5-20之间，上千甚至上万的数据量肯定是不合理的。</p><p>那么如何将设计好的参数化数据放到系统中呢？参数化数据可以分为两类：第一类是已存在后台数据库中，第二类是脚本执行成功后才会将数据Insert到数据库中；</p><p>对于第一类数据，以用户登录为例，登陆接口需要将其中的参数与后台数据库中的数据对比，这就要求数据库中要先存在这些数据，且压力工具也能够知道具体数据取值。实际项目中，通常会涉及多个数据库表，要先梳理清楚表之间的关联。</p><p>对于第二类数据，以记账应用的记一笔功能为例，只需要在压力工具中将相应数据参数化即可。</p></li></ol><h3 id="2-4-监控设计"><a href="#2-4-监控设计" class="headerlink" title="2.4 监控设计"></a>2.4 监控设计</h3><p>在性能测试中，监控是非常重要的环节，监控是做性能分析的前提。</p><p>首先要分析系统的架构，在知道架构中使用的组件、服务之后，再有针对性的找对应的监控手段和方式。具体在设计时，可以使用从全局到定向的思路，列出要采用的计数器，形成可供分析证据链。</p><p>至于使用什么监控工具来获取这些计数器的值，推荐采用Prometheus + Exporter的思路。具体方案还是需要跟运维同事进一步确认，并由运维同事来实施监控工具的部署。</p><p>性能监控是一个很大的话题，真的要做好还是需要花费较大的精力去学习和实践，本文只能作为一个引子，还是需要大家自己去仔细钻研。</p><h3 id="2-5-性能测试脚本"><a href="#2-5-性能测试脚本" class="headerlink" title="2.5 性能测试脚本"></a>2.5 性能测试脚本</h3><p>首先要确定性能测试的工具，比如Jmeter、Gatling、Locust等，这些工具的对比及具体使用教程在网上已经有很多有用的资料了，本文就不介绍具体工具的使用方法了。</p><p>选定工具之后就可以开始写对应的脚本并调试啦，这部分内容我会单独再出一篇文章做示例。</p><p>在这里还有一个步骤需要强调的是，性能脚本执行时是需要<strong>执行机</strong>的，具体需要几台需要大家根据自己的实际情况判断。而执行机通常也是需要提前申请的，配置高的为佳。</p><p>在性能测试设计完成后就可以开始编写《性能测试方案》的文档了。</p><h2 id="3-性能测试执行"><a href="#3-性能测试执行" class="headerlink" title="3. 性能测试执行"></a>3. 性能测试执行</h2><p>有了前面的设计和准备工作，终于可以开始执行性能场景了。</p><p>这部分没有太多要说的内容，只需要关注下执行过程中的业务指标和监控的资源指标是否都记录上即可。</p><h2 id="4-性能测试结果分析及调优"><a href="#4-性能测试结果分析及调优" class="headerlink" title="4. 性能测试结果分析及调优"></a>4. 性能测试结果分析及调优</h2><p>每一个性能场景执行完后，要先从压力工具和监控工具中整理输出相应的结果，通常是表格和图表形式的。然后根据这些结果，判断测试是否通过。若性能不达标，需要针对性得进一步分析出影响性能的根本原因，但性能问题通常是相互关联相互影响的，表面上看到的现象很可能不是根本问题，而是另一处出现问题后引起的反应，这就要求监控收集数据时的证据链要完整，能帮助我们一步步得探寻到真相。</p><p>调优可能是一个漫长的过程，需要我们不断去尝试，要有耐心也要有信心。</p><p>影响性能的点及调优的方法如下，仅供参考：</p><ol><li>数据库：检查索引设置，检查SQL语句是否可以优化</li><li>业务接口：流程是否有冗余；返回的数据是否有冗余；数据处理逻辑是否可以优化</li></ol><h2 id="5-性能测试报告"><a href="#5-性能测试报告" class="headerlink" title="5. 性能测试报告"></a>5. 性能测试报告</h2><p>最后就可以输出性能测试报告了，阐明性能测试目标、测试环境、数据构造规则、性能结果、风险等内容。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 性能测试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 服务端性能测试 </tag>
+            
+            <tag> 实施流程 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>性能测试指标</title>
       <link href="/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/"/>
       <url>/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/</url>
       
@@ -31,7 +58,7 @@
     
     
     <entry>
-      <title>服务端接口测试-单接口测试点</title>
+      <title>接口测试-单接口测试点</title>
       <link href="/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/"/>
       <url>/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/</url>
       
@@ -47,7 +74,9 @@
       
         <tags>
             
-            <tag> API TEST </tag>
+            <tag> 单接口 </tag>
+            
+            <tag> 测试点 </tag>
             
         </tags>
       
@@ -56,7 +85,7 @@
     
     
     <entry>
-      <title>Postman教程-导入请求的多种方式</title>
+      <title>Postman导入请求的多种方式</title>
       <link href="/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/"/>
       <url>/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/</url>
       
@@ -81,7 +110,7 @@
     
     
     <entry>
-      <title>接口自动化测试：Python+Pytest+Requests+Allure</title>
+      <title>接口自动化测试的Python实现</title>
       <link href="/2022/01/20/jie-kou-ce-shi-zi-dong-hua-python/"/>
       <url>/2022/01/20/jie-kou-ce-shi-zi-dong-hua-python/</url>
       
@@ -97,11 +126,11 @@
       
         <tags>
             
-            <tag> API TEST </tag>
-            
             <tag> Python </tag>
             
             <tag> Pytest </tag>
+            
+            <tag> Requests </tag>
             
             <tag> Allure </tag>
             
@@ -116,7 +145,7 @@
       <link href="/2022/01/13/daily-cost-jie-shao/"/>
       <url>/2022/01/13/daily-cost-jie-shao/</url>
       
-        <content type="html"><![CDATA[<p><strong>Daily Cost</strong>是我为了学习前后端开发的产出成果。从应用名可以看出是一个记账本应用，主要参考了<a href="https://www.shayujizhang.com/">鲨鱼记账</a>，我从中挑选了一部分核心功能来自己开发实现。</p><h2 id="1-功能模块"><a href="#1-功能模块" class="headerlink" title="1. 功能模块"></a>1. 功能模块</h2><p>作为一个正经的记账本应用，肯定要能满足用户的基本记账需求，因此Daily Cost 实现了以下功能：</p><ol><li>用户注册和登录</li><li>用户可管理自己的记账类别</li><li>用户可新增、查看、编辑、删除一笔账单</li><li>用户可按月、按年查看总的收支数据</li></ol><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220113165520167.png" alt="image-20220113165520167"></p><p>说明：由于我水平和精力有限，部分功能未完全开发完成，具体如下所示。灰掉的部分功能后端接口已开发完成，但前端UI未完全开发完成，后续开发完成后会更新下图，大家也可在<a href="https://trello.com/b/AYAxICxo/%E8%AE%B0%E8%B4%A6%E6%9C%AC-daily-cost">记账本-Daily Cost</a>中查看最新进度。</p><div  align="center"><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220113175321025.png" alt="image-20220113175321025" style="zoom: 33%;" /></div><h2 id="2-技术栈"><a href="#2-技术栈" class="headerlink" title="2. 技术栈"></a>2. 技术栈</h2><p>2.1  前端主要依赖模块</p><ul><li><a href="https://reactjs.org/">react</a>(前端框架，daily cost使用<a href="https://create-react-app.dev/">create-react-app</a>创建)</li><li><a href="https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md">react-router-dom</a>(路由控制)</li><li><a href="https://ant.design/index-cn">antd</a>(蚂蚁金服开源的 react ui 组件框架)</li><li><a href="https://mobile.ant.design/zh">antd-mobile</a>(antd的移动端组件框架)</li><li><a href="https://github.com/mzabriskie/axios">axios</a>(http请求模块)</li></ul><p>2.2 后端</p><ul><li><a href="https://spring.io/projects/spring-boot">Spring Boot 2</a></li><li><a href="https://spring.io/projects/spring-security">Spring Security</a>(身份验证和访问控制)</li><li><a href="https://maven.apache.org/">maven</a>(项目构建)</li><li><a href="https://swagger.io/">Swagger 3</a>(接口文档)</li><li><a href="https://flywaydb.org/">Flyway</a>(数据库版本控制工具)</li><li><a href="https://www.mysql.com/">MySQL</a>(数据库)</li><li><a href="https://www.nginx.com/">Nginx</a>(解决请求跨域问题)</li></ul><h2 id="3-安装和运行"><a href="#3-安装和运行" class="headerlink" title="3. 安装和运行"></a>3. 安装和运行</h2><p>3.1 前端</p><ol><li><p>下载或克隆<a href="https://github.com/yu-xiaomeng/dailycost-front">项目前端源码</a></p></li><li><p><code>npm install </code> 安装依赖</p></li><li><p><code>npm start</code> 启动项目</p></li></ol><p>3.2 后端</p><ol><li>下载并安装<a href="https://www.java.com/zh-CN/download/">Java</a>、<a href="https://www.mysql.com/">MySQL</a>、<a href="https://www.jetbrains.com/idea/download/">Intellij IDEA</a></li><li>下载或克隆<a href="https://github.com/yu-xiaomeng/dailycost">项目后端源码</a></li><li>在IDEA中打开项目，等待maven下载所有依赖</li><li>在application.properties中修改MySQL数据库配置（连接url、用户名、密码）</li><li><code>./mvnw spring-boot:run</code>构建并运行daily cost应用</li><li>应用在8081端口运行成功：<ol><li>可在浏览器中输入<code>http://localhost:8081/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/</code>查看和调试接口</li><li>检查MySQL数据库，数据表及数据初始化成功</li></ol></li></ol><p>3.3 Nginx</p><ol><li><p>安装Nginx</p></li><li><p>修改Nginx的配置文件nginx.conf，Mac OS该文件目录为<code>/usr/local/etc/nginx/nginx.conf</code></p><pre class="line-numbers language-none"><code class="language-none">server &#123;listen       8080;server_name  localhost;# 以下为需要新增的内容location &#x2F;api&#x2F; &#123;proxy_pass http:&#x2F;&#x2F;127.0.0.1:8081&#x2F;;&#125;location &#x2F; &#123;proxy_pass http:&#x2F;&#x2F;127.0.0.1:3000&#x2F;;&#125;# 新增结束# 原本的内容无需更改&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p><code>nginx -s reload</code>重新启动Nginx</p></li></ol><p>3.4 访问页面</p><p>​    在浏览器中输入<a href="http://localhost:8080/%EF%BC%8C%E8%83%BD%E5%A4%9F%E7%9C%8B%E5%88%B0%E4%BB%A5%E4%B8%8B%E9%A1%B5%E9%9D%A2%E5%88%99%E8%AF%81%E6%98%8E%E8%BF%90%E8%A1%8C%E6%88%90%E5%8A%9F%E3%80%82%E4%B8%8B%E5%9B%BE%E4%B8%AD%E6%88%91%E6%89%93%E5%BC%80%E4%BA%86%E7%A7%BB%E5%8A%A8%E7%AB%AF%E6%A8%A1%E5%BC%8F%EF%BC%8C%E5%B9%B6%E5%B0%86%E5%A4%A7%E5%B0%8F%E8%AE%BE%E4%B8%BA375%E2%9C%96%EF%B8%8F">http://localhost:8080/，能够看到以下页面则证明运行成功。下图中我打开了移动端模式，并将大小设为375✖️</a> 812的最佳使用大小。</p><div  align="center"><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220113230947432.png" alt="image-20220113230947432" style="zoom:30%;" /></div>]]></content>
+        <content type="html"><![CDATA[<p><strong>Daily Cost</strong>是我为了学习前后端开发的产出成果。从应用名可以看出是一个记账本应用，主要参考了<a href="https://www.shayujizhang.com/">鲨鱼记账</a>，我从中挑选了一部分核心功能来自己开发实现。</p><h2 id="1-功能模块"><a href="#1-功能模块" class="headerlink" title="1. 功能模块"></a>1. 功能模块</h2><p>作为一个正经的记账本应用，肯定要能满足用户的基本记账需求，因此Daily Cost 实现了以下功能：</p><ol><li>用户注册和登录</li><li>用户可管理自己的记账类别</li><li>用户可新增、查看、编辑、删除一笔账单</li><li>用户可按月、按年查看总的收支数据</li></ol><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220113165520167.png" alt="Daily Cost部分功能截图"></p><p>说明：由于我水平和精力有限，部分功能未完全开发完成，具体如下所示。灰掉的部分功能后端接口已开发完成，但前端UI未完全开发完成，后续开发完成后会更新下图，大家也可在<a href="https://trello.com/b/AYAxICxo/%E8%AE%B0%E8%B4%A6%E6%9C%AC-daily-cost">记账本-Daily Cost</a>中查看最新进度。</p><div  align="center"><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220113175321025.png" alt="Daily Cost 功能全景" style="zoom: 33%;" /></div><h2 id="2-技术栈"><a href="#2-技术栈" class="headerlink" title="2. 技术栈"></a>2. 技术栈</h2><p>2.1  前端主要依赖模块</p><ul><li><a href="https://reactjs.org/">react</a>(前端框架，daily cost使用<a href="https://create-react-app.dev/">create-react-app</a>创建)</li><li><a href="https://github.com/remix-run/react-router/blob/main/docs/getting-started/tutorial.md">react-router-dom</a>(路由控制)</li><li><a href="https://ant.design/index-cn">antd</a>(蚂蚁金服开源的 react ui 组件框架)</li><li><a href="https://mobile.ant.design/zh">antd-mobile</a>(antd的移动端组件框架)</li><li><a href="https://github.com/mzabriskie/axios">axios</a>(http请求模块)</li></ul><p>2.2 后端</p><ul><li><a href="https://spring.io/projects/spring-boot">Spring Boot 2</a></li><li><a href="https://spring.io/projects/spring-security">Spring Security</a>(身份验证和访问控制)</li><li><a href="https://maven.apache.org/">maven</a>(项目构建)</li><li><a href="https://swagger.io/">Swagger 3</a>(接口文档)</li><li><a href="https://flywaydb.org/">Flyway</a>(数据库版本控制工具)</li><li><a href="https://www.mysql.com/">MySQL</a>(数据库)</li><li><a href="https://www.nginx.com/">Nginx</a>(解决请求跨域问题)</li></ul><h2 id="3-安装和运行"><a href="#3-安装和运行" class="headerlink" title="3. 安装和运行"></a>3. 安装和运行</h2><p>3.1 前端</p><ol><li><p>下载或克隆<a href="https://github.com/yu-xiaomeng/dailycost-front">项目前端源码</a></p></li><li><p><code>npm install </code> 安装依赖</p></li><li><p><code>npm start</code> 启动项目</p></li></ol><p>3.2 后端</p><ol><li>下载并安装<a href="https://www.java.com/zh-CN/download/">Java</a>、<a href="https://www.mysql.com/">MySQL</a>、<a href="https://www.jetbrains.com/idea/download/">Intellij IDEA</a></li><li>下载或克隆<a href="https://github.com/yu-xiaomeng/dailycost">项目后端源码</a></li><li>在IDEA中打开项目，等待maven下载所有依赖</li><li>在application.properties中修改MySQL数据库配置（连接url、用户名、密码）</li><li><code>./mvnw spring-boot:run</code>构建并运行daily cost应用</li><li>应用在8081端口运行成功：<ol><li>可在浏览器中输入<code>http://localhost:8081/swagger-ui/index.html?configUrl=/v3/api-docs/swagger-config#/</code>查看和调试接口</li><li>检查MySQL数据库，数据表及数据初始化成功</li></ol></li></ol><p>3.3 Nginx</p><ol><li><p>安装Nginx</p></li><li><p>修改Nginx的配置文件nginx.conf，Mac OS该文件目录为<code>/usr/local/etc/nginx/nginx.conf</code></p><pre class="line-numbers language-none"><code class="language-none">server &#123;listen       8080;server_name  localhost;# 以下为需要新增的内容location &#x2F;api&#x2F; &#123;proxy_pass http:&#x2F;&#x2F;127.0.0.1:8081&#x2F;;&#125;location &#x2F; &#123;proxy_pass http:&#x2F;&#x2F;127.0.0.1:3000&#x2F;;&#125;# 新增结束# 原本的内容无需更改&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre></li><li><p><code>nginx -s reload</code>重新启动Nginx</p></li></ol><p>3.4 访问页面</p><p>​在浏览器中输入<a href="http://localhost:8080/">http://localhost:8080/</a> ，能够看到以下页面则证明运行成功。下图中我打开了移动端模式，并将大小设为375 ✖️ 812的最佳使用大小。</p><div  align="center"><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220113230947432.png" alt="成功访问页面" style="zoom:30%;" /></div>]]></content>
       
       
       <categories>
@@ -129,6 +158,85 @@
         <tags>
             
             <tag> Daily Cost </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>敏捷软件测试推荐学习资料</title>
+      <link href="/2021/08/06/min-jie-ruan-jian-ce-shi-tui-jian-xue-xi-zi-liao/"/>
+      <url>/2021/08/06/min-jie-ruan-jian-ce-shi-tui-jian-xue-xi-zi-liao/</url>
+      
+        <content type="html"><![CDATA[<p>本资料清单更适合0-2年的测试人，请按需取用。</p><p><strong>废话不多说，直接上清单！朋友们，冲啊！</strong></p><h2 id="测试基础必看"><a href="#测试基础必看" class="headerlink" title="测试基础必看"></a><strong>测试基础必看</strong></h2><ul><li>《软件测试的艺术》 （基础中的基础）</li><li>《测试工程师全栈技术进阶与实践》（极客时间也有课程，强烈推荐）</li><li>《Google软件测试之道》 （经典书籍，必看）</li><li>《探索式测试实践之路》/《探索式软件测试》 （这两本选一本看就行）</li><li>《深入敏捷测试——整个敏捷团队的学习之旅》 （敏捷测试为数不多的书）</li><li>  拉勾教育：高效敏捷测试49讲 （还挺全面的）</li></ul><p>附上豆瓣书单链接：<a href="https://www.douban.com/doulist/121547287/">【书单】软件测试和敏捷</a></p><h2 id="值得一学工具和框架"><a href="#值得一学工具和框架" class="headerlink" title="值得一学工具和框架"></a><strong>值得一学工具和框架</strong></h2><ul><li><a href="https://learning.postman.com/docs/getting-started/introduction/">postman</a> （不多说，必须要掌握！照着官网教程操作一遍就够了）</li><li>charles/fiddler/burp suite （抓包工具，会用其中一个就行）</li><li>UI自动化：selenium，cypress （只学框架本身是不够用的哦，测试数据和测试用例的维护学问更大，多多实践吧）</li><li>API自动化:  HttpRunner，Rest Assured 等（比UI测试框架还多）</li><li>性能：jmeter，locust （工具是次要，要先学基础理论哦）</li><li>移动端：adb命令，appium （有机会接触移动端的时候再学）</li></ul><h2 id="有空多看看的社区-博客-课程"><a href="#有空多看看的社区-博客-课程" class="headerlink" title="有空多看看的社区/博客/课程"></a><strong>有空多看看的社区/博客/课程</strong></h2><ul><li>testerhome （社区很活跃，干货超多，强烈推荐！）</li><li>慕课网、极客时间有很多质量不错的课程 （不要像我一样买了课又不学）</li></ul><h2 id="到底什么是敏捷"><a href="#到底什么是敏捷" class="headerlink" title="到底什么是敏捷"></a><strong>到底什么是敏捷</strong></h2><ul><li>《用户故事与敏捷方法》</li><li>《看板实战》</li><li>《持续交付》</li></ul><h2 id="计算机基础知识"><a href="#计算机基础知识" class="headerlink" title="计算机基础知识"></a><strong>计算机基础知识</strong></h2><ul><li>《图解HTTP》 （虽然我没看过，但看到很多人推荐了）</li><li>《计算机网络 - 自顶向下方法》 （本科时候用的教材，讲得稍有点啰嗦）</li><li>《MYSQL必知必会》 （小白入门看的，大佬请跳过！）</li><li>牛课网：数据库sql实战 / leetcode 数据库题 （多实践！）</li><li>linux基础命令：<a href="http://www.52cxfz.com/courses/show.html">实验楼 - linux基础入门</a>（鸟哥的linux私房菜太厚了，先学会基础用法再深入学习哦）</li></ul><p>希望上面的学习资料对你有所帮助哦！祝大家万事胜意！</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 软件测试 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 敏捷 </tag>
+            
+            <tag> 学习资料 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>测试用例的设计方法-实践篇</title>
+      <link href="/2021/08/04/ce-shi-yong-li-de-she-ji-fang-fa-shi-jian-pian/"/>
+      <url>/2021/08/04/ce-shi-yong-li-de-she-ji-fang-fa-shi-jian-pian/</url>
+      
+        <content type="html"><![CDATA[<h1 id="02-测试用例的设计方法-实践篇之微信红包"><a href="#02-测试用例的设计方法-实践篇之微信红包" class="headerlink" title="02 测试用例的设计方法 - 实践篇之微信红包"></a>02 测试用例的设计方法 - 实践篇之微信红包</h1><p>在[测试用例的设计方法 - 理论篇]中，我们已经了解了常用的4种用例设计方法，今天我们就来看看如何将其应用到实际的测试工作中去。</p><p>说实话，我在第一次正式进入项目之前，也就是看过一两本书、百度过一些例子的水平。第一次正式开始测一个需求之前，我翻看了Jira里已有的其他需求的测试用例，又仔细拜读了写测试用例时整理的思维导图。经过自己在项目上一段时间的摸索和实践，我渐渐地对测试用例的理解越来越深入，也找到了目前最适合自己的方式。</p><p>今天小梦就以微信红包为例，说说在实际项目中如何设计测试用例！希望也能对你有一些启发 : )</p><h2 id="1-设计测试用例的一般步骤"><a href="#1-设计测试用例的一般步骤" class="headerlink" title="1. 设计测试用例的一般步骤"></a>1. 设计测试用例的一般步骤</h2><p>我先简单讲一下我写测试用例的操作步骤：</p><ol><li>详细了解并梳理系统功能需求，必要时找产品进行需求澄清；</li><li>如果是比较复杂，或者对原有功能改动较多，在梳理需求的过程最好能画出业务流程图；</li><li>根据需求/流程图列出所有功能测试点；</li><li>根据测试点编写详细的功能测试用例。</li></ol><h2 id="2-实例-微信红包"><a href="#2-实例-微信红包" class="headerlink" title="2. 实例 - 微信红包"></a>2. 实例 - 微信红包</h2><h3 id="2-1-需求"><a href="#2-1-需求" class="headerlink" title="2.1 需求"></a>2.1 需求</h3><h4 id="微信红包的诞生"><a href="#微信红包的诞生" class="headerlink" title="微信红包的诞生"></a>微信红包的诞生</h4><p>我还记得微信红包的大流行是在2015年，那一年我边看春晚，边拿着两个手机摇一摇。此后每年的春节期间，抢红包，发红包，成了和支付宝集五福一样的新习俗。</p><p>微信红包的灵感来源于腾讯公司线下发红包的习俗，我们现在已经很熟悉微信红包的用法了，但，它是怎么诞生的呢？好奇具体细节的同学可以前往阅读*<a href="https://36kr.com/p/5062954">前微信支付总经理:微信支付是这样诞生的</a>*。</p><p>在这里我们要明确的一点是：一开始微信并不是为了做微信红包而做微信红包功能，而是为了提高微信支付的使用率、支付成功率，这是市场的需求，到了具体的产品功能，就很具体了——就是做微信红包，在实际设计微信红包功能的时候，用户需求是不能被忽略的，用户才是真正使用微信红包的人。</p><h4 id="功能需求"><a href="#功能需求" class="headerlink" title="功能需求"></a>功能需求</h4><p>从微信红包的诞生，我们了解到，微信红包功能需求简单来说就是要实现将线下发红包的行为转移到线上。让我们先抛开你已经知道的微信红包已经有的功能，自己先想一想，在使用微信红包之前，我们线下给孩子们发红包的时候是怎么做的？</p><p>以下纯属个人经历，如有雷同，也别见怪：</p><blockquote><p>首先，当然要准备好钱：算算要给多少人发红包，打开钱包数数钱够不够，不够就得先去银行取钱</p><p>然后，准备好红包信封，一一把钱塞进去，里面金额不一样的话还得做好记号呢</p><p>再然后，小朋友来你家拜年，可可爱爱得给你说着吉祥话，你心甘情愿地把包好的红包给他，并祝他好好学习，天天向上</p><p>小朋友收下红包，甜甜地说谢谢，当着你的面拆开/在你看不到的地方拆开。</p><p>等客人们都走了，你大概还要跟爸妈或朋友盘点一下，今天发了多少红包，再顺便感叹一下时间过得真快，转眼自己就从收红包的变成发红包的了。</p></blockquote><p>简单总结一下全过程就是：发红包的人准备好钱和红包 -&gt; 包好红包 -&gt; 把红包发出去 -&gt; 收红包的人拆开红包 -&gt; 将红包里的钱存进储蓄罐/妈妈的钱包。</p><p>看下来整个体验基本就是跟微信红包现在所实现的功能差不多的：</p><p>（发送方）发红包：</p><ol><li>个人聊天窗口 -&gt; + -&gt; 红包</li><li>输入总金额，祝福语，选择表情</li><li>点击塞钱进红包，并使用微信支付红包金额</li></ol><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210802230718480.png" alt="发红包-截图"></p><p>（接收方）拆红包：</p><ol><li>收到红包消息提醒，进入聊天页面</li><li>点击红包消息，点击「开」</li><li>显示领取到红包金额，并将其存入零钱</li><li>查看红包记录或进入微信支付查看零钱余额，都能看到我已领取了红包</li></ol><p>![收红包-截图](<a href="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/Screen">https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/Screen</a> Shot 2021-08-02 at 11.07.35 PM.png)</p><p>从微信红包诞生到现在，已经经过了很多次版本更新（截止发稿Version 8.0.9 ），微信团队为红包增加了很多其他的功能，比如红包封面，面对面红包等扩展功能，这些都不在本文讨论的范围内，本文将聚焦在微信红包最基本的收发红包功能上。</p><h3 id="2-2-业务流程图"><a href="#2-2-业务流程图" class="headerlink" title="2.2 业务流程图"></a>2.2 业务流程图</h3><p>在理论篇中，我们已经介绍了场景/流程分析法，下面让我们来一起整理一下微信红包的流程图。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E7%BA%A2%E5%8C%85.jpg" alt="微信红包"></p><h3 id="2-3-列出测试点"><a href="#2-3-列出测试点" class="headerlink" title="2.3 列出测试点"></a>2.3 列出测试点</h3><p>是时候进入到测试点的编写了，等价类划分、边界值法和场景/流程分析法、错误推断法将在这里派上用场！</p><p>看到这里你可以先自己思考，使用脑图的方式列出你的测试点，然后再接着往下看。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E5%BE%AE%E4%BF%A1%E7%BA%A2%E5%8C%85%E6%B5%8B%E8%AF%95%E7%82%B9.png" alt="微信红包测试点"></p><p>测试点文字版可点击<a href="https://www.mubucm.com/doc/1CtMfcM-_ZO">幕布-微信红包测试点</a>查看。</p><p>如果你的团队/领导没有关于测试用例的强制要求/KPI，也可以在整理完测试点后就按照测试点进入测试执行。（补一个测试点和测试用例的区别链接）</p><h3 id="2-4-测试用例设计"><a href="#2-4-测试用例设计" class="headerlink" title="2.4 测试用例设计"></a>2.4 测试用例设计</h3><p>有了上面的测试点，我们再按照测试用例的要求对测试点进行加工，如下图所示，是我使用xmind编写的测试用例，这里只展示了红包金额填写的部分。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210802172406872.png" alt="红包金额填写测试用例"></p><p>常用的测试用例编写和管理工具还包括Excel表格，禅道，PingCode等其他测试平台，按需选用就好。</p><p><strong>如果你有关于测试用例设计的其他问题，欢迎在下方的评论区留言互动，我会尽力帮你解答。</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试用例 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试用例 </tag>
+            
+            <tag> 微信红包 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>测试用例的设计方法-理论篇</title>
+      <link href="/2021/05/23/ce-shi-yong-li-de-she-ji-fang-fa-li-lun-pian/"/>
+      <url>/2021/05/23/ce-shi-yong-li-de-she-ji-fang-fa-li-lun-pian/</url>
+      
+        <content type="html"><![CDATA[<p>对于QA来说，测试用例就是我们的源码库。测试用例的重要性自然也是不言而喻的，相信每一个QA都曾在“写不完”的测试用例文档里挣扎过，也可能至今还有着——到底什么样的测试用例才是是好的测试用例——这样的疑问。</p><p>今天想从实用的角度总结一下测试用例的设计方法，本文是理论篇，内容包括什么是测试用例，为什么需要测试用例，以及常用的测试用例设计方法；后续还会有实用篇向大家分享，我在平常的工作中是怎么写测试用例的。</p><h2 id="1-什么是测试用例"><a href="#1-什么是测试用例" class="headerlink" title="1. 什么是测试用例"></a><strong>1. 什么是测试用例</strong></h2><blockquote><p><strong>软件测试员做些什么</strong>:  发现软件缺陷 (而不是简单得验证功能是否实现) ;  尽可能早地找出软件缺陷; 并确保其得以修复。      ——Ron Patton 《软件测试》</p></blockquote><p>测试用例（Test Case），就是为了验证某个需求是否实现、是否存在缺陷，在测试执行之前设计的一套详细的测试方案。测试用例通常由测试标题、前置条件、测试数据、测试步骤、预期结果等组成。</p><p>下面的示例是“豆瓣PC端登陆功能”的测试用例：</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323121722520.png" alt="豆瓣PC端登陆测试用例"></p><p>Note：只用作示例</p><p>敏捷开发团队中，测试用例的设计和执行通常都是一个人，这时，对测试用例文档通常没有严格的格式要求，清晰准确即可！</p><h2 id="2-为什么我们需要测试用例"><a href="#2-为什么我们需要测试用例" class="headerlink" title="2. 为什么我们需要测试用例"></a><strong>2. 为什么我们需要测试用例</strong></h2><p><em>- 如果我们不使用测试用例，难道就没办法检查出缺陷吗？</em></p><p><em>- 可以不编写测试用例直接进行测试，但这样是有风险的，不能够保证全面覆盖。除此之外，测试用例还可以：</em></p><ul><li><strong>体现QA了解需求的过程</strong></li></ul><blockquote><p>敏捷开发团队中，QA通常是从IPM阶段开始接触到新的需求，此时用户故事的需求描述、Acceptance Criteria、原型图等都已基本完成。QA在编写用例的过程中，将仔细梳理整体业务流程、充分思考产品需求的细节，找出需求是否存在不合理、有矛盾、不明确等问题，从而推动BA/UX完成更加详细的设计。</p></blockquote><ul><li><strong>帮助QA理清测试思路及测试过程</strong></li></ul><blockquote><p>测试用例的编写，实际上是把需求转换为一种可操作步骤的行为。QA也没有那么强大的大脑能够把所有的操作步骤都记在脑海里，写下来不仅能帮我们记住，写下来的这个过程也是梳理测试思路的过程。特别是，当你将当前需求的用例都罗列出来时，也能很清晰规划之后的测试顺序。</p></blockquote><ul><li><strong>规划测试数据的准备</strong></li></ul><blockquote><p>我们可以看到，在测试实践中，测试数据是与测试步骤分离的。在测试执行前，按照测试用例准备一组或若干组测试数据，特别是一些需要其他人协助准备的测试数据，这十分有助于高效的测试执行工作。</p></blockquote><ul><li><strong>记录测试所覆盖的测试内容，同时反应测试进度</strong></li></ul><blockquote><p>依照测试用例执行测试，并及时记录每一个测试用例的测试结果，这样项目成员都能够清楚地了解到目前已经完成了哪些测试，这些测试覆盖了哪些需求。那么在一些突发情况下，比如你被调离或离职，别人也能迅速了解测试覆盖内容及测试进度。</p></blockquote><ul><li><strong>为后续的测试提供可参考的依据</strong></li></ul><blockquote><p>新加入的功能可能会影响已有功能，新的需求是对原来的功能进行优化，新版本要上线等，项目进行过程中有这很多情况，都需要QA进行回归测试，有了测试用例，回归测试就能按部就班进行。</p></blockquote><ul><li><strong>是分析缺陷的标准</strong></li></ul><blockquote><p>测试用例并不是一写完就再也不用更新了。通过记录的缺陷数据，与测试用例进行对比，分析是否存在漏测情况，即当前测试用例是否能够覆盖该缺陷，若未能覆盖，说明当前测试用例集不完善，应补充相应测试用例；若已有相应测试用例，则表明测试执行过程中存在问题。</p></blockquote><p>简单来讲，测试用例能够帮助我们在测试执行前澄清需求、梳理测试过程，并提前规划好测试数据；在测试执行中作为清单使用，记录测试覆盖的内容、反应测试进度；测试执行后也能作为回归测试等的参考，能与缺陷记录结合分析，来不断完善测试用例本身。</p><h2 id="3-常见的测试用例设计方法"><a href="#3-常见的测试用例设计方法" class="headerlink" title="3. 常见的测试用例设计方法"></a><strong>3. 常见的测试用例设计方法</strong></h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323170949077.png" alt="常用的测试用例设计方法"></p><p>测试用例的设计方法有很多，但在实践中，最常用也是最有用的方法就是上图所示的这四种方法，下面我会详细介绍这些方法。</p><h3 id="3-1-等价类划分法"><a href="#3-1-等价类划分法" class="headerlink" title="3.1 等价类划分法"></a><strong>3.1 等价类划分</strong>法</h3><p>有这样一条测试基本原则：<strong>穷尽测试是不可能的。</strong>即使是看起来规模很小的软件产品，其输入数据的组合或逻辑路径也几乎是无穷的，也就是说，想对测试对象进行完全的检查和覆盖，基本上是不可能的。</p><p>*- 既然无法用穷举法来测试，那我们是否能从大量可能出现的数据中，选取一部分进行测试？可以随机选择任意一个值么？*</p><p><em>- 当然不能是随意值！但是如果我们使用合适的数据选择方法，可以达到与穷举法相同的测试效果！我们可以依照数据的特性，将所有的测试数据分为若干个类，每一类的代表性数据在测试中的作用等价于这一类中的其他值，也就是说，如果某一类中的一个例子发现了错误A，这一等价类中的其他例子也能发现这个错误A；反之，如果某一类中的一个例子没有发现错误，则这一类中的其他例子也不会查出错误。</em></p><p>我们将这种划分数据的方法称为<strong>等价类划分方法。</strong>划分等价类时遵循以下3个标准：</p><ul><li> 完备性：划分的子集合的并集是整个集合;  </li><li>无冗余性：子集互不相交; </li><li>等价性：属于同一等价类的测试数据，映射到”相同的执行路径”。</li></ul><p>通过这种选择适当的数据子集来代表整个数据集的方法，既降低了测试的数目，又实现了“合理的”覆盖。</p><p>⚠️ 注意：软件不仅要能接收合理的数据，也要能经受意外的考验。因此在划分等价类的时候不仅要考虑合理的、有意义的输入数据构成的集合，还要考虑不合理的或无意义的输入数据所构成的集合。我们将前者称为有效等价类，它能验证需求是否实现，后者则为无效等价类，能检验是否会出现异常。无效等价类至少应有一个，也可能有多个，视具体情况而定。</p><p><strong>EXAMPLE</strong> </p><p><strong>需求：</strong>要求用户输入年份，年份限定在1980年~2020年，由4位数字表示。</p><p>使用等价类划分法，首先确定有效等价类：4位数字字符且年份为1990~2020，然后确定无效等价类：如输入的类型和长度不合理，年份超出范围等，具体如下表所示：</p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323142425526.png" alt="image-20200323142425526" style="zoom:50%;" /><p>设计测试用例，覆盖所有的有效等价类和无效等价类：</p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323142938911.png" alt="image-20200323142938911" style="zoom:47%;" /><h3 id="3-2-边界值"><a href="#3-2-边界值" class="headerlink" title="3.2 边界值"></a><strong>3.2 边界值</strong></h3><p>从过往的经验来看，大量的错误发生在输入或输出范围的边界上，而不是在输入输出范围的内部。因此针对各种边界情况设计测试用例，有很大的概率可以查出更多的错误。</p><p>这种对输入或输出的边界值进行测试的方法就是边界值法。边界值法多用于对数据进行测试，在数据测试的时候，除了要关注边界值还要关注默认值，空白，空值，零值和无。除上述常规数据外，非常规的数据还要关注非法值、错误值、不正确值和垃圾数据，即所有可能的无效等价类数据。</p><p>具体应用边界值法时，应当选取正好等于，刚刚大于或刚刚小于边界的值作为测试数据，而不是选取等价类中的典型值或任意值作为测试数据。要特别说明的是，使用边界值法不仅只考虑输入数据，也应该考虑输出数据。</p><p><strong>EXAMPLE</strong></p><p>需求：豆瓣用户可在首页搜索框内输入关键词搜索感兴趣的内容。如<a href="https://www.douban.com/search?q=%E6%98%9F%E9%99%85%E7%A9%BF%E8%B6%8A">在豆瓣搜索“星际穿越”</a>。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323144146225.png" alt="豆瓣搜索示例"></p><p>使用边界值法设计测试用例，覆盖输入数据和输出数据：</p><ul><li><p>关键词（输入数据）：</p><ul><li>为空</li><li>关键词长度为1（最小长度）</li><li>关键词长度为60（最大长度）</li><li>关键词长度为61</li></ul></li><li><p>搜索结果（输出数据）</p><ul><li>搜索结果为空</li><li>有一个搜索结果</li><li>有20个搜索结果（一次最多展示20条数据）</li><li>有21个搜索结果（通过更多按钮查看）</li></ul></li></ul><h3 id="3-3-场景法-流程分析法"><a href="#3-3-场景法-流程分析法" class="headerlink" title="3.3 场景法/流程分析法"></a><strong>3.3 场景法/流程分析法</strong></h3><p>上面介绍的这两种方法对于单点测试是十分有效的，例如用户想使用Amazon买东西，搜索输入框的测试我们可以运用边界值法。但是搜索可能只是用户使用Amazon的第一步，Ta还可能点击某商品查看详情、将商品加入购物车、从购物车中进行结算或者使用直接购买功能结算，用户的操作会触发事件，不同事件触发的顺序不同，会形成不同的事件结果。</p><p>根据场景来设计测试用例的方法我们称之为场景法，也称为流程分析法。使用场景法的第一步自然是画出业务流程图，通常我们能从BA/UX处获取到流程图，如果没有，那就需要自己去梳理了。场景法一般包含基本流、备用流和异常流，基本流表示通过业务流程时输入都正确，能达到目标；备选流表示通过业务流程时输入错误（或者操作错误）导致流程存在反复，但是经过纠正后仍能达到能达到目标；异常流是指通过业务流程时输入错误（或者操作错误）产生异常终止流程 。</p><p>画流程图可以先从基本流开始，也就是先确定Happy Path，然后补充备选流，最后还要考虑异常场景来确定异常流。有了流程图，就可以从中选取测试路径来构造测试用例。</p><p><strong>EXAMPLE 需求</strong>：”豆瓣评分“微信小程序支持用户使用微信登陆，并在登陆时获取用户的手机号码。</p><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323154424688.png" alt="流程图示例"></p><p>上图左为已开发完成的微信登陆功能截图，右图为根据要求画出的业务流程图，图中实际上只包括了基本流和备选流，异常流留给大家自己补充。根据流程图设计的测试用例的过程较为简单，我在这里也不再赘述。</p><h3 id="3-4-错误推断法"><a href="#3-4-错误推断法" class="headerlink" title="3.4 错误推断法"></a><strong>3.4 错误推断法</strong></h3><p>在测试程序时，人们可以根据经验或直觉推测程序中可能存在的各种错误，从而有针对性地编写检查这些错误的测试用例的方法，这种方法被称为错误推断法。</p><p>错误推断法没有固定的形式，依靠的是经验和直觉，很多时候，我们都会不知不觉的使用到。</p><blockquote><p>错误推测法和目前非常流行的“探索式测试方法”的基本思想和理念是不谋而合的，这类方法在目前的敏捷开发模式下的投入产出比很高，因此被广泛应用。但是，这个方法的缺点也显而易见，那就是<strong>难以系统化</strong>，并且<strong>过度依赖个人能力</strong>。</p></blockquote><p>因此，对于像我这样的新人QA来讲，就要多多实践，可以准备一份清单，将自己遇到过的错误记录下来，也可以向有经验的QA请教，不断丰富自己的经验。</p><h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a><strong>4. 总结</strong></h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323171836131.png" alt="总结"></p><p>文中介绍了4种最常用的测试用例设计方法，希望能够对你的工作有所帮助。测试用例的设计方法其实还有很多种，具体大家可以去看《软件测试》或《软件测试的艺术》等书籍，我在这里就不再赘述了。</p><p>值得注意的是，本文介绍的这4种测试用例设计方法，通常都不会单独使用。在“实践篇”中，我会有具体的例子，详细讲解，我们在实际工作中应该怎么综合运用这些方法。</p><h2 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a><strong>REFERENCES</strong></h2><p>[1] <a href="https://www.douban.com/group/topic/130795236/">豆瓣-作为测试，为什么要写测试用例</a></p><p>[2] <a href="https://zhuanlan.zhihu.com/p/68193886">知乎-真的有必要写测试用例吗？</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> 测试用例 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 测试用例 </tag>
             
         </tags>
       

@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="接口测试-单接口测试点, 余小梦">
-    <meta name="description" content="接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。">
+    <meta name="keywords" content="测试用例的设计方法-理论篇, 余小梦">
+    <meta name="description" content="对于QA来说，测试用例就是我们的源码库。测试用例的重要性自然也是不言而喻的。今天想从实用的角度总结一下测试用例的设计方法，本文是理论篇，内容包括什么是测试用例，为什么需要测试用例，以及常用的测试用例设计方法。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>接口测试-单接口测试点 | 余小梦</title>
+    <title>测试用例的设计方法-理论篇 | 余小梦</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/m.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/2.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">接口测试-单接口测试点</h1>
+                    <h1 class="description center-align post-title">测试用例的设计方法-理论篇</h1>
                 </div>
             </div>
         </div>
@@ -323,12 +323,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E5%8D%95%E6%8E%A5%E5%8F%A3/">
-                                <span class="chip bg-color">单接口</span>
-                            </a>
-                        
-                            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%82%B9/">
-                                <span class="chip bg-color">测试点</span>
+                            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">
+                                <span class="chip bg-color">测试用例</span>
                             </a>
                         
                     </div>
@@ -339,8 +335,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/" class="post-category">
-                                接口测试
+                            <a href="/categories/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" class="post-category">
+                                测试用例
                             </a>
                         
                     </div>
@@ -352,7 +348,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-01-21
+                    2021-05-23
                 </div>
                 
 
@@ -361,14 +357,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    3k
+                    3.4k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    10 分
+                    11 分
                 </div>
                 
 
@@ -391,111 +387,118 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>接口测试与系统功能测试的关注点没有太多不同，只是我们直接面对的测试对象由页面变成了接口。</p>
-<p>本文以HTTP(S)协议接口为例，归纳总结了单接口测试时的测试点。</p>
-<h2 id="1-什么是接口"><a href="#1-什么是接口" class="headerlink" title="1. 什么是接口"></a>1. 什么是接口</h2><blockquote>
-<p><em>API（Application Programming Interface,<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>编程接口）是一些预先定义的<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%87%BD%E6%95%B0">函数</a>，目的是提供<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F">应用程序</a>与开发人员基于某<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E8%BD%AF%E4%BB%B6">软件</a>或硬件得以访问一组<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E4%BE%8B%E7%A8%8B">例程</a>的能力，而又无需访问源码，或理解内部工作<a href="https://link.zhihu.com/?target=http://baike.baidu.com/item/%E6%9C%BA%E5%88%B6">机制</a>的细节。</em></p>
+                <p>对于QA来说，测试用例就是我们的源码库。测试用例的重要性自然也是不言而喻的，相信每一个QA都曾在“写不完”的测试用例文档里挣扎过，也可能至今还有着——到底什么样的测试用例才是是好的测试用例——这样的疑问。</p>
+<p>今天想从实用的角度总结一下测试用例的设计方法，本文是理论篇，内容包括什么是测试用例，为什么需要测试用例，以及常用的测试用例设计方法；后续还会有实用篇向大家分享，我在平常的工作中是怎么写测试用例的。</p>
+<h2 id="1-什么是测试用例"><a href="#1-什么是测试用例" class="headerlink" title="1. 什么是测试用例"></a><strong>1. 什么是测试用例</strong></h2><blockquote>
+<p><strong>软件测试员做些什么</strong>:  发现软件缺陷 (而不是简单得验证功能是否实现) ;  尽可能早地找出软件缺陷; 并确保其得以修复。      ——Ron Patton 《软件测试》</p>
 </blockquote>
-<p>当我们想学习如何做接口测试时，来到CSDN或其他技术平台，在搜索框内输入关键字“接口测试”，点击搜索，等待1-2秒后，就能看到页面展示了相关的搜索结果。在这个过程中我们按F12打开开发者工具，切换到network，可以看到，在点击搜索后，前端页面根据我们输入的关键词向后端服务器发送了一个请求（request），服务端收到请求并处理完成后返回相应结果（response）。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210818180445251.png" alt="接口请求和响应结果"></p>
-<p>由于用户可能绕过前端页面的逻辑，直接调用接口，因此需要考虑直接调用接口进行测试，确定接口是否能在功能、可靠性、性能和安全方面达到预期。从功能测试的角度来看，我们需要关注输入关键词和输出结果数据，接口测试在这方面的关注点也基本是一样的。</p>
-<h2 id="2-输入参数和输出结果"><a href="#2-输入参数和输出结果" class="headerlink" title="2. 输入参数和输出结果"></a>2. 输入参数和输出结果</h2><p>在记账本中，用户在下面的页面上选择、填入必要信息后，点击完成，会调用接口新增一条支出记录。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820215052023.png" alt="记账本-记一笔接口"></p>
-<p>可以看到，输入参数共有6个，接口测试时需要对这六个输入参数进行测试：</p>
+<p>测试用例（Test Case），就是为了验证某个需求是否实现、是否存在缺陷，在测试执行之前设计的一套详细的测试方案。测试用例通常由测试标题、前置条件、测试数据、测试步骤、预期结果等组成。</p>
+<p>下面的示例是“豆瓣PC端登陆功能”的测试用例：</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323121722520.png" alt="豆瓣PC端登陆测试用例"></p>
+<p>Note：只用作示例</p>
+<p>敏捷开发团队中，测试用例的设计和执行通常都是一个人，这时，对测试用例文档通常没有严格的格式要求，清晰准确即可！</p>
+<h2 id="2-为什么我们需要测试用例"><a href="#2-为什么我们需要测试用例" class="headerlink" title="2. 为什么我们需要测试用例"></a><strong>2. 为什么我们需要测试用例</strong></h2><p><em>- 如果我们不使用测试用例，难道就没办法检查出缺陷吗？</em></p>
+<p><em>- 可以不编写测试用例直接进行测试，但这样是有风险的，不能够保证全面覆盖。除此之外，测试用例还可以：</em></p>
 <ul>
-<li><code>amount</code>参数值数值类型，那么根据等价类和边界值方法，需要根据需求验证数值大小范围，小数及其位数，负数，其他非法字符类型；</li>
-<li><code>date</code>为字符串类型，但表示的是日期，用户在前端页面选择日期，日期的格式也有前端逻辑完成，但直接调用接口时，同样需要验证日期格式：合法的日期，不合法的日期如2021-13-01，其他字符类型；</li>
-<li><code>category</code>表示支出/收入的类别，表面看是字符串类型的，但结合功能逻辑，该参数只能接收枚举值，即用户配置过的类别中的其中一个，这种枚举值参数需要遍历所有合法的枚举值，再验证任意不在枚举值内的其他值；</li>
-<li><code>type</code>和<code>category</code>一样，也是枚举值类型，只能是”EXPENSE”和 “INCOME”；</li>
-<li>在这里还有很重要的一点要注意，<code>category</code>和<code>type</code>实际上是存在对应关系的，比如早餐这一类别只在支出中设置了，当我们传参为<code>&#123;&quot;category&quot;: &quot;breakfast&quot;, &quot;type&quot;: &quot;INCOME&quot;&#125;</code>时，预期是不能成功创建的，即对于组合参数，需要验证参数的组合方式；</li>
-<li><code>img_id</code>为数组类型，业务上来说数组内元素代表上传图片的id，id为字符串类型，需要验证元素总个数：空数组、有效个元素、超出有效范围的个数，数组内单个元素即id有效性验证：有效的图片id、无效的图片id、空字符串等，还有数组内元素重复；</li>
-<li><code>note</code>为字符串类型，为该账单的备注，需要验证字符串中的字符类型：中文、英文、特殊字符如空格！@%*和emoji等，还有字符串长度，如果该内容是用户评论、用户名、UGC文章内容等，通常还需要验证是否有做<a target="_blank" rel="noopener" href="https://cloud.baidu.com/doc/ANTIPORN/s/Vk3h6xaga">敏感词</a>过滤；</li>
-<li>根据需求，金额、日期、分类和类型是必填项，图片和备注是选填项，在测试时也需要覆盖到这一点。</li>
+<li><strong>体现QA了解需求的过程</strong></li>
 </ul>
-<p>除了输入参数，输出结果也是需要测试的：</p>
+<blockquote>
+<p>敏捷开发团队中，QA通常是从IPM阶段开始接触到新的需求，此时用户故事的需求描述、Acceptance Criteria、原型图等都已基本完成。QA在编写用例的过程中，将仔细梳理整体业务流程、充分思考产品需求的细节，找出需求是否存在不合理、有矛盾、不明确等问题，从而推动BA/UX完成更加详细的设计。</p>
+</blockquote>
 <ul>
-<li>最重要的一点当然是当我使用正确的参数发请求后，能够收到正确的响应：返回码为200，返回json中各值均正确；</li>
-<li>当传入不合法的参数时，对于所有可能出现的业务错误，code和message都能对应给到清晰明确的提示，让用户知道自己哪里操作有误；</li>
-<li>由于其他原因导致服务器无法正确响应时，也应返回统一的错误码提示用户；</li>
-<li>有些任务处理要花费很长时间，这就会导致接口超时，接口超时后前端不应再接收返回响应。</li>
+<li><strong>帮助QA理清测试思路及测试过程</strong></li>
 </ul>
-<p>其他叮嘱：</p>
+<blockquote>
+<p>测试用例的编写，实际上是把需求转换为一种可操作步骤的行为。QA也没有那么强大的大脑能够把所有的操作步骤都记在脑海里，写下来不仅能帮我们记住，写下来的这个过程也是梳理测试思路的过程。特别是，当你将当前需求的用例都罗列出来时，也能很清晰规划之后的测试顺序。</p>
+</blockquote>
 <ul>
-<li>分页接口中pageSize参数也应当设计成枚举类型，比如前端只能切换为10/20/50条每页，那么如果我们pageSize传参为100，接口报错，而不应该返回100条数据</li>
-<li>接口在不应该暴露任何后端接口名称、不打印堆栈等信息</li>
+<li><strong>规划测试数据的准备</strong></li>
 </ul>
-<h2 id="3-业务逻辑"><a href="#3-业务逻辑" class="headerlink" title="3. 业务逻辑"></a>3. 业务逻辑</h2><h3 id="约束条件"><a href="#约束条件" class="headerlink" title="约束条件"></a>约束条件</h3><p>约束条件的测试在功能测试中经常遇到，在接口测试中更为重要。它的意义在于：用户进行操作时，在该操作的前端可以已经进行了约束条件的限制，故用户无法直接触发请求该接口。但是实际上，如果有其他手段：例如 UI 有 bug 或者通过技术手段直接调用接口，那么接口是否针对这些条件进行了限制就更为重要。</p>
-<p><strong><a target="_blank" rel="noopener" href="https://testerhome.com/topics/9265">一个案例</a></strong></p>
-<p>某公司发现，价值 100 元的商品，在该公司网上商城被以 0.01 元买走了很多。攻城狮们火速定位，问题原因很快被找到了，原来是购买商品接口的 bug。该接口需要 3 个参数：商品 id、商品单价、购买数量，而服务器根据接口传过来的商品单价（0.01 元）生成了订单。服务器本应根据数据库中的商品单价 100 元来生成订单。我们将单价修改后，再购买，提交到服务器的商品单价就是 0.01 元。这个接口在设计阶段就已经存在问题，正确应该是后台程序根据传入的商品id，查询到对应商品的价格，而不应该直接使用接口传入的价格。</p>
-<p>业务功能中最常见的约束条件主要有数值限制、状态限制、关系限制和权限限制，以在购物网站下单时使用优惠券为例：</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
-	<span class="token property">"product_id"</span><span class="token operator">:</span> <span class="token string">"12345678890644"</span><span class="token punctuation">,</span>
-	<span class="token property">"count"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
-	<span class="token property">"coupon_id"</span><span class="token operator">:</span> <span class="token string">"thisiscouponid"</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+<blockquote>
+<p>我们可以看到，在测试实践中，测试数据是与测试步骤分离的。在测试执行前，按照测试用例准备一组或若干组测试数据，特别是一些需要其他人协助准备的测试数据，这十分有助于高效的测试执行工作。</p>
+</blockquote>
+<ul>
+<li><strong>记录测试所覆盖的测试内容，同时反应测试进度</strong></li>
+</ul>
+<blockquote>
+<p>依照测试用例执行测试，并及时记录每一个测试用例的测试结果，这样项目成员都能够清楚地了解到目前已经完成了哪些测试，这些测试覆盖了哪些需求。那么在一些突发情况下，比如你被调离或离职，别人也能迅速了解测试覆盖内容及测试进度。</p>
+</blockquote>
+<ul>
+<li><strong>为后续的测试提供可参考的依据</strong></li>
+</ul>
+<blockquote>
+<p>新加入的功能可能会影响已有功能，新的需求是对原来的功能进行优化，新版本要上线等，项目进行过程中有这很多情况，都需要QA进行回归测试，有了测试用例，回归测试就能按部就班进行。</p>
+</blockquote>
+<ul>
+<li><strong>是分析缺陷的标准</strong></li>
+</ul>
+<blockquote>
+<p>测试用例并不是一写完就再也不用更新了。通过记录的缺陷数据，与测试用例进行对比，分析是否存在漏测情况，即当前测试用例是否能够覆盖该缺陷，若未能覆盖，说明当前测试用例集不完善，应补充相应测试用例；若已有相应测试用例，则表明测试执行过程中存在问题。</p>
+</blockquote>
+<p>简单来讲，测试用例能够帮助我们在测试执行前澄清需求、梳理测试过程，并提前规划好测试数据；在测试执行中作为清单使用，记录测试覆盖的内容、反应测试进度；测试执行后也能作为回归测试等的参考，能与缺陷记录结合分析，来不断完善测试用例本身。</p>
+<h2 id="3-常见的测试用例设计方法"><a href="#3-常见的测试用例设计方法" class="headerlink" title="3. 常见的测试用例设计方法"></a><strong>3. 常见的测试用例设计方法</strong></h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323170949077.png" alt="常用的测试用例设计方法"></p>
+<p>测试用例的设计方法有很多，但在实践中，最常用也是最有用的方法就是上图所示的这四种方法，下面我会详细介绍这些方法。</p>
+<h3 id="3-1-等价类划分法"><a href="#3-1-等价类划分法" class="headerlink" title="3.1 等价类划分法"></a><strong>3.1 等价类划分</strong>法</h3><p>有这样一条测试基本原则：<strong>穷尽测试是不可能的。</strong>即使是看起来规模很小的软件产品，其输入数据的组合或逻辑路径也几乎是无穷的，也就是说，想对测试对象进行完全的检查和覆盖，基本上是不可能的。</p>
+<p>*- 既然无法用穷举法来测试，那我们是否能从大量可能出现的数据中，选取一部分进行测试？可以随机选择任意一个值么？*</p>
+<p><em>- 当然不能是随意值！但是如果我们使用合适的数据选择方法，可以达到与穷举法相同的测试效果！我们可以依照数据的特性，将所有的测试数据分为若干个类，每一类的代表性数据在测试中的作用等价于这一类中的其他值，也就是说，如果某一类中的一个例子发现了错误A，这一等价类中的其他例子也能发现这个错误A；反之，如果某一类中的一个例子没有发现错误，则这一类中的其他例子也不会查出错误。</em></p>
+<p>我们将这种划分数据的方法称为<strong>等价类划分方法。</strong>划分等价类时遵循以下3个标准：</p>
+<ul>
+<li> 完备性：划分的子集合的并集是整个集合;  </li>
+<li>无冗余性：子集互不相交; </li>
+<li>等价性：属于同一等价类的测试数据，映射到”相同的执行路径”。</li>
+</ul>
+<p>通过这种选择适当的数据子集来代表整个数据集的方法，既降低了测试的数目，又实现了“合理的”覆盖。</p>
+<p>⚠️ 注意：软件不仅要能接收合理的数据，也要能经受意外的考验。因此在划分等价类的时候不仅要考虑合理的、有意义的输入数据构成的集合，还要考虑不合理的或无意义的输入数据所构成的集合。我们将前者称为有效等价类，它能验证需求是否实现，后者则为无效等价类，能检验是否会出现异常。无效等价类至少应有一个，也可能有多个，视具体情况而定。</p>
+<p><strong>EXAMPLE</strong> </p>
+<p><strong>需求：</strong>要求用户输入年份，年份限定在1980年~2020年，由4位数字表示。</p>
+<p>使用等价类划分法，首先确定有效等价类：4位数字字符且年份为1990~2020，然后确定无效等价类：如输入的类型和长度不合理，年份超出范围等，具体如下表所示：</p>
+<img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323142425526.png" alt="image-20200323142425526" style="zoom:50%;" />
 
+<p>设计测试用例，覆盖所有的有效等价类和无效等价类：</p>
+<img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323142938911.png" alt="image-20200323142938911" style="zoom:47%;" />
+
+<h3 id="3-2-边界值"><a href="#3-2-边界值" class="headerlink" title="3.2 边界值"></a><strong>3.2 边界值</strong></h3><p>从过往的经验来看，大量的错误发生在输入或输出范围的边界上，而不是在输入输出范围的内部。因此针对各种边界情况设计测试用例，有很大的概率可以查出更多的错误。</p>
+<p>这种对输入或输出的边界值进行测试的方法就是边界值法。边界值法多用于对数据进行测试，在数据测试的时候，除了要关注边界值还要关注默认值，空白，空值，零值和无。除上述常规数据外，非常规的数据还要关注非法值、错误值、不正确值和垃圾数据，即所有可能的无效等价类数据。</p>
+<p>具体应用边界值法时，应当选取正好等于，刚刚大于或刚刚小于边界的值作为测试数据，而不是选取等价类中的典型值或任意值作为测试数据。要特别说明的是，使用边界值法不仅只考虑输入数据，也应该考虑输出数据。</p>
+<p><strong>EXAMPLE</strong></p>
+<p>需求：豆瓣用户可在首页搜索框内输入关键词搜索感兴趣的内容。如<a target="_blank" rel="noopener" href="https://www.douban.com/search?q=%E6%98%9F%E9%99%85%E7%A9%BF%E8%B6%8A">在豆瓣搜索“星际穿越”</a>。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323144146225.png" alt="豆瓣搜索示例"></p>
+<p>使用边界值法设计测试用例，覆盖输入数据和输出数据：</p>
 <ul>
-<li><p><strong>数值限制</strong></p>
+<li><p>关键词（输入数据）：</p>
 <ul>
-<li>用户购买的商品只有在<strong>订单总金额达到300</strong>时才可使用该优惠券下单成功</li>
-<li>订单中商品库存大于等于2时才可以下单成功</li>
+<li>为空</li>
+<li>关键词长度为1（最小长度）</li>
+<li>关键词长度为60（最大长度）</li>
+<li>关键词长度为61</li>
 </ul>
 </li>
-<li><p><strong>状态限制</strong></p>
+<li><p>搜索结果（输出数据）</p>
 <ul>
-<li>只能使用在有效期内的优惠券（同时也是时间限制）</li>
-<li>只能使用未使用状态的优惠券</li>
-</ul>
-</li>
-<li><p><strong>关系限制</strong></p>
-<ul>
-<li>只能使用与当前用户账号绑定的优惠券</li>
-</ul>
-<p>在上面的接口参数中，我们其实并没有传入用户ID等内容，用户的身份鉴别通常是通过headers中的Token等实现的。</p>
-</li>
-</ul>
-<h3 id="权限限制"><a href="#权限限制" class="headerlink" title="权限限制"></a>权限限制</h3><p><strong>权限限制</strong>我需要单独拎出来讲，它很重要！</p>
-<p>很多系统中都存在系统管理员、普通用户等不同角色的用户，系统管理员拥有一些普通用户没有的权限，比如系统管理员可以发布公告，而普通用户则只能查看，系统管理员和用户还有组织上的划分，比如深圳市的系统管理员和普通用户，广东省的管理员和普通用户。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820221352559.png" alt="横向越权和纵向越权"></p>
-<p>就用户角色而言，需要验证低等级用户拥有管理员权限等高于自身级别访问能力，即纵向越权；就用户组织维度来看，需要验证相同组织/不同组织间，是否能访问到不属于自己权限内的资源，即横向越权。</p>
-<h3 id="状态转换"><a href="#状态转换" class="headerlink" title="状态转换"></a>状态转换</h3><p>很多被测逻辑可以抽象成状态机，各个状态之间根据功能逻辑，能够从一个状态转换到另一个状态。如果我们打乱了这个次序，从一个状态切换到另一个不在它下一状态集中的状态，那么逻辑将会打乱，就会出现逻辑问题。以一个二级审核功能为例，某UGC平台内，用户提交了一篇文章，要先经过初审，初审通过后才能再进行复审，即两轮审核都通过时，文章才能发布出来。</p>
-<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20210820222256978.png" alt="审核功能的状态转换"></p>
-<p>针对这种状态转换的逻辑，我们需要验证：</p>
-<ul>
-<li>正常的状态切换：用户提交 -&gt; 初审通过 -&gt; 复审通过 -&gt; 文章发布成功</li>
-<li>非正常的状态切换：<ul>
-<li>用户提交 -&gt; 初审驳回 -&gt; 复审通过</li>
-<li>用户提交 -&gt; 复审通过</li>
+<li>搜索结果为空</li>
+<li>有一个搜索结果</li>
+<li>有20个搜索结果（一次最多展示20条数据）</li>
+<li>有21个搜索结果（通过更多按钮查看）</li>
 </ul>
 </li>
 </ul>
-<h2 id="4-幂等性"><a href="#4-幂等性" class="headerlink" title="4. 幂等性"></a>4. 幂等性</h2><blockquote>
-<p>一个HTTP方法是幂等的，指的是同样的请求被执行一次与连续执行多次的效果是一样的，服务器的状态也是一样的。换句话说就是，幂等方法不应该具有副作用（统计用途除外）。在正确实现的条件下，GET，HEAD，PUT和DELETE 等方法都是幂等的，而 POST 方法不是。</p>
+<h3 id="3-3-场景法-流程分析法"><a href="#3-3-场景法-流程分析法" class="headerlink" title="3.3 场景法/流程分析法"></a><strong>3.3 场景法/流程分析法</strong></h3><p>上面介绍的这两种方法对于单点测试是十分有效的，例如用户想使用Amazon买东西，搜索输入框的测试我们可以运用边界值法。但是搜索可能只是用户使用Amazon的第一步，Ta还可能点击某商品查看详情、将商品加入购物车、从购物车中进行结算或者使用直接购买功能结算，用户的操作会触发事件，不同事件触发的顺序不同，会形成不同的事件结果。</p>
+<p>根据场景来设计测试用例的方法我们称之为场景法，也称为流程分析法。使用场景法的第一步自然是画出业务流程图，通常我们能从BA/UX处获取到流程图，如果没有，那就需要自己去梳理了。场景法一般包含基本流、备用流和异常流，基本流表示通过业务流程时输入都正确，能达到目标；备选流表示通过业务流程时输入错误（或者操作错误）导致流程存在反复，但是经过纠正后仍能达到能达到目标；异常流是指通过业务流程时输入错误（或者操作错误）产生异常终止流程 。</p>
+<p>画流程图可以先从基本流开始，也就是先确定Happy Path，然后补充备选流，最后还要考虑异常场景来确定异常流。有了流程图，就可以从中选取测试路径来构造测试用例。</p>
+<p><strong>EXAMPLE 需求</strong>：”豆瓣评分“微信小程序支持用户使用微信登陆，并在登陆时获取用户的手机号码。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323154424688.png" alt="流程图示例"></p>
+<p>上图左为已开发完成的微信登陆功能截图，右图为根据要求画出的业务流程图，图中实际上只包括了基本流和备选流，异常流留给大家自己补充。根据流程图设计的测试用例的过程较为简单，我在这里也不再赘述。</p>
+<h3 id="3-4-错误推断法"><a href="#3-4-错误推断法" class="headerlink" title="3.4 错误推断法"></a><strong>3.4 错误推断法</strong></h3><p>在测试程序时，人们可以根据经验或直觉推测程序中可能存在的各种错误，从而有针对性地编写检查这些错误的测试用例的方法，这种方法被称为错误推断法。</p>
+<p>错误推断法没有固定的形式，依靠的是经验和直觉，很多时候，我们都会不知不觉的使用到。</p>
+<blockquote>
+<p>错误推测法和目前非常流行的“探索式测试方法”的基本思想和理念是不谋而合的，这类方法在目前的敏捷开发模式下的投入产出比很高，因此被广泛应用。但是，这个方法的缺点也显而易见，那就是<strong>难以系统化</strong>，并且<strong>过度依赖个人能力</strong>。</p>
 </blockquote>
-<p>举个最简单的<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">例子</a>，那就是支付，用户购买商品后支付，支付扣款成功，但是返回结果的时候网络异常，此时钱已经扣了，用户再次点击按钮，此时会进行第二次扣款，返回结果成功，用户查询余额返发现多扣钱了，流水记录也变成了两条，这就没有保证接口的幂等性、只要调用接口成功，外部对接口的多次调用得到的结果是相同的，即执行多次和一次的效果是一样的，用户在后续再支付时，不会重复扣款。</p>
-<p>接口幂等性测试，需要测试人员在需求分析的时候，就能识别出需要实现幂等的接口，并提前要求开发同学去实现。</p>
-<h2 id="5-文件上传-下载接口"><a href="#5-文件上传-下载接口" class="headerlink" title="5. 文件上传/下载接口"></a>5. 文件上传/下载接口</h2><p>文件的上传下载也是很多产品里会有的功能了。在测试文件上传/下载接口基本功能时，主要还是从文件本身的属性来考虑，即文件名称、文件类型、文件大小、文件内容/规格。</p>
-<ul>
-<li>文件上传<ul>
-<li>文件名称：文件名的字符串长度；文件名中的特殊字符如空格、@#¥%-等</li>
-<li>文件类型：验证文件后缀名，保证使用的是白名单</li>
-<li>文件大小校验：上传文件请求头等也有大小，必须校验的是文件本身的大小</li>
-<li>文件内容/规格校验：若上传的文件需要后台解析其内容，当然也需要测试填入不同内容；规格主要指图片/视频的尺寸和时长等限制</li>
-<li>文件上传成功后服务器保存的文件与上传的文件内容一致</li>
-</ul>
-</li>
-<li>文件下载<ul>
-<li>文件本身：验证下载的文件的文件名；下来的文件可以正常打开并查看，内容与上传时的一致/内容正确</li>
-<li>文件下载链接敏感文件内容使用一次性下载链接/短时间内有效下载链接（如身份证图片）</li>
-</ul>
-</li>
-</ul>
-<h2 id="6-总结"><a href="#6-总结" class="headerlink" title="6. 总结"></a>6. 总结</h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95%E7%9A%84%E6%B5%8B%E8%AF%95%E7%82%B9.png" alt="接口测试的测试点脑图"></p>
-<h2 id="Reference"><a href="#Reference" class="headerlink" title="Reference"></a>Reference</h2><ol>
-<li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/11677">腾讯 TMQ 接口测试用例设计</a></li>
-<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/271722169">测试同学必会系列之如何进行幂等性的测试</a></li>
-<li><a target="_blank" rel="noopener" href="https://testerhome.com/topics/29928">服务端接口测试指南</a></li>
-</ol>
+<p>因此，对于像我这样的新人QA来讲，就要多多实践，可以准备一份清单，将自己遇到过的错误记录下来，也可以向有经验的QA请教，不断丰富自己的经验。</p>
+<h2 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a><strong>4. 总结</strong></h2><p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20200323171836131.png" alt="总结"></p>
+<p>文中介绍了4种最常用的测试用例设计方法，希望能够对你的工作有所帮助。测试用例的设计方法其实还有很多种，具体大家可以去看《软件测试》或《软件测试的艺术》等书籍，我在这里就不再赘述了。</p>
+<p>值得注意的是，本文介绍的这4种测试用例设计方法，通常都不会单独使用。在“实践篇”中，我会有具体的例子，详细讲解，我们在实际工作中应该怎么综合运用这些方法。</p>
+<h2 id="REFERENCES"><a href="#REFERENCES" class="headerlink" title="REFERENCES"></a><strong>REFERENCES</strong></h2><p>[1] <a target="_blank" rel="noopener" href="https://www.douban.com/group/topic/130795236/">豆瓣-作为测试，为什么要写测试用例</a></p>
+<p>[2] <a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/68193886">知乎-真的有必要写测试用例吗？</a></p>
 
                 
             </div>
@@ -522,7 +525,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuxiaomeng.me/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/">https://yuxiaomeng.me/2022/01/21/fu-wu-duan-jie-kou-ce-shi-dan-jie-kou-ce-shi-dian/</a>
+                    <a href="https://yuxiaomeng.me/2021/05/23/ce-shi-yong-li-de-she-ji-fang-fa-li-lun-pian/">https://yuxiaomeng.me/2021/05/23/ce-shi-yong-li-de-she-ji-fang-fa-li-lun-pian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -560,12 +563,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E5%8D%95%E6%8E%A5%E5%8F%A3/">
-                                    <span class="chip bg-color">单接口</span>
-                                </a>
-                            
-                                <a href="/tags/%E6%B5%8B%E8%AF%95%E7%82%B9/">
-                                    <span class="chip bg-color">测试点</span>
+                                <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">
+                                    <span class="chip bg-color">测试用例</span>
                                 </a>
                             
                         </div>
@@ -614,31 +613,31 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/">
+                <a href="/2021/08/04/ce-shi-yong-li-de-she-ji-fang-fa-shi-jian-pian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="性能测试指标">
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="测试用例的设计方法-实践篇">
                         
-                        <span class="card-title">性能测试指标</span>
+                        <span class="card-title">测试用例的设计方法-实践篇</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            接触过性能测试的小伙伴一定都听过响应时间（Response Time）、TPS、CPU资源利用率等术语，它们都属于性能测试的指标。本文对性能测试中涉及到的指标做了较为详细的整理。
+                            以微信红包为例，详细讲解在实际项目中如何设计测试用例！
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
+                            <i class="far fa-clock fa-fw icon-date"></i>2021-08-04
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/" class="post-category">
-                                    性能测试
+                            <a href="/categories/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" class="post-category">
+                                    测试用例
                                 </a>
                             
                             
@@ -648,12 +647,12 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
-                        <span class="chip bg-color">服务端性能测试</span>
+                    <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">
+                        <span class="chip bg-color">测试用例</span>
                     </a>
                     
-                    <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
-                        <span class="chip bg-color">性能指标</span>
+                    <a href="/tags/%E5%BE%AE%E4%BF%A1%E7%BA%A2%E5%8C%85/">
+                        <span class="chip bg-color">微信红包</span>
                     </a>
                     
                 </div>
@@ -664,45 +663,46 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
             </div>
             <div class="card">
-                <a href="/2022/01/20/postman-jiao-cheng-dao-ru-qing-qiu-de-duo-chong-fang-shi/">
+                <a href="/2021/05/23/ce-shi-yong-li-de-she-ji-fang-fa-li-lun-pian/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/18.jpg" class="responsive-img" alt="Postman导入请求的多种方式">
+                        <img src="/medias/featureimages/2.jpg" class="responsive-img" alt="测试用例的设计方法-理论篇">
                         
-                        <span class="card-title">Postman导入请求的多种方式</span>
+                        <span class="card-title">测试用例的设计方法-理论篇</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            
+                            对于QA来说，测试用例就是我们的源码库。测试用例的重要性自然也是不言而喻的。今天想从实用的角度总结一下测试用例的设计方法，本文是理论篇，内容包括什么是测试用例，为什么需要测试用例，以及常用的测试用例设计方法。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-20
+                                <i class="far fa-clock fa-fw icon-date"></i>2021-05-23
                             </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E6%8E%A5%E5%8F%A3%E6%B5%8B%E8%AF%95/" class="post-category">
-                                    接口测试
+                            <a href="/categories/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/" class="post-category">
+                                    测试用例
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/Postman/">
-                        <span class="chip bg-color">Postman</span>
+                    <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">
+                        <span class="chip bg-color">测试用例</span>
                     </a>
                     
                 </div>

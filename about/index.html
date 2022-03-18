@@ -262,21 +262,21 @@
                     <div class="post-statis col l4 hide-on-med-and-down" data-aos="zoom-in-right">
                         
 <div class="statis">
-    <span class="count"><a href="/">5</a></span>
+    <span class="count"><a href="/">9</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">3</a></span>
+    <span class="count"><a href="/categories">5</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">8</a></span>
+    <span class="count"><a href="/tags">15</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -292,21 +292,21 @@
                                 <div class="post-statis hide-on-large-only" data-aos="zoom-in-right">
                                     
 <div class="statis">
-    <span class="count"><a href="/">5</a></span>
+    <span class="count"><a href="/">9</a></span>
     <span class="name">文章</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/categories">3</a></span>
+    <span class="count"><a href="/categories">5</a></span>
     <span class="name">分类</span>
 </div>
 
 
 
 <div class="statis">
-    <span class="count"><a href="/tags">8</a></span>
+    <span class="count"><a href="/tags">15</a></span>
     <span class="name">标签</span>
 </div>
 
@@ -448,7 +448,7 @@
         },
         xAxis: {
             type: 'category',
-            data: ["2021-01","2021-02","2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2021-12","2022-01"]
+            data: ["2021-03","2021-04","2021-05","2021-06","2021-07","2021-08","2021-09","2021-10","2021-11","2021-12","2022-01","2022-02","2022-03"]
         },
         yAxis: {
             type: 'value',
@@ -458,7 +458,7 @@
                 name: '文章篇数',
                 type: 'line',
                 color: ['#6772e5'],
-                data: [0,0,0,0,0,0,0,0,0,0,0,0,5],
+                data: [0,0,1,0,0,2,0,0,0,0,5,0,1],
                 markPoint: {
                     symbolSize: 45,
                     color: ['#fa755a','#3ecf8e','#82d3f4'],
@@ -500,7 +500,7 @@
                 type: 'pie',
                 radius: '50%',
                 color: ['#6772e5', '#ff9e0f', '#fa755a', '#3ecf8e', '#82d3f4', '#ab47bc', '#525f7f', '#f51c47', '#26A69A'],
-                data: [{"name":"Daily Cost","value":1},{"name":"接口测试","value":3},{"name":"性能测试","value":1}],
+                data: [{"name":"Daily Cost","value":1},{"name":"接口测试","value":3},{"name":"性能测试","value":2},{"name":"软件测试","value":1},{"name":"测试用例","value":2}],
                 itemStyle: {
                     emphasis: {
                         shadowBlur: 10,
@@ -524,7 +524,7 @@
         xAxis: [
             {
                 type: 'category',
-                data: ["API TEST","Daily Cost","Postman","服务端性能测试","性能指标","Python","Pytest","Allure"]
+                data: ["服务端性能测试","测试用例","Daily Cost","Postman","Python","Pytest","Requests","Allure","实施流程","性能指标"]
             }
         ],
         yAxis: [
@@ -537,7 +537,7 @@
                 type: 'bar',
                 color: ['#82d3f4'],
                 barWidth : 18,
-                data: [2,1,1,1,1,1,1,1],
+                data: [2,2,1,1,1,1,1,1,1,1],
                 markPoint: {
                     symbolSize: 45,
                     data: [{
@@ -693,24 +693,6 @@
             
             
             
-            <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
-                <span class="chip center-align waves-effect waves-light chip-default">服务端性能测试</span>
-            </a>
-            
-            
-            
-            <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
-                <span class="chip center-align waves-effect waves-light chip-default">性能指标</span>
-            </a>
-            
-            
-            
-            <a href="/tags/API-TEST/">
-                <span class="chip center-align waves-effect waves-light chip-default">API TEST</span>
-            </a>
-            
-            
-            
             <a href="/tags/Python/">
                 <span class="chip center-align waves-effect waves-light chip-default">Python</span>
             </a>
@@ -723,8 +705,68 @@
             
             
             
+            <a href="/tags/Requests/">
+                <span class="chip center-align waves-effect waves-light chip-default">Requests</span>
+            </a>
+            
+            
+            
             <a href="/tags/Allure/">
                 <span class="chip center-align waves-effect waves-light chip-default">Allure</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
+                <span class="chip center-align waves-effect waves-light chip-default">服务端性能测试</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
+                <span class="chip center-align waves-effect waves-light chip-default">实施流程</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
+                <span class="chip center-align waves-effect waves-light chip-default">性能指标</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%95%8F%E6%8D%B7/">
+                <span class="chip center-align waves-effect waves-light chip-default">敏捷</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/">
+                <span class="chip center-align waves-effect waves-light chip-default">学习资料</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%8D%95%E6%8E%A5%E5%8F%A3/">
+                <span class="chip center-align waves-effect waves-light chip-default">单接口</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%82%B9/">
+                <span class="chip center-align waves-effect waves-light chip-default">测试点</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%94%A8%E4%BE%8B/">
+                <span class="chip center-align waves-effect waves-light chip-default">测试用例</span>
+            </a>
+            
+            
+            
+            <a href="/tags/%E5%BE%AE%E4%BF%A1%E7%BA%A2%E5%8C%85/">
+                <span class="chip center-align waves-effect waves-light chip-default">微信红包</span>
             </a>
             
             
