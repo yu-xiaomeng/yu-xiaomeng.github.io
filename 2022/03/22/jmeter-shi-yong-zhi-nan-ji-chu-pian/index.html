@@ -4,8 +4,8 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="性能测试实施流程, 余小梦">
-    <meta name="description" content="性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。">
+    <meta name="keywords" content="Jmeter使用指南-基础篇, 余小梦">
+    <meta name="description" content="本文将介绍Jmeter的基础使用方法，并以实际的接口为例说明部分常用组件的使用方法。">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -17,7 +17,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>性能测试实施流程 | 余小梦</title>
+    <title>Jmeter使用指南-基础篇 | 余小梦</title>
     <link rel="icon" type="image/x-icon, image/vnd.microsoft.icon" href="/m.ico">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
@@ -202,12 +202,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/6.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/9.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">性能测试实施流程</h1>
+                    <h1 class="description center-align post-title">Jmeter使用指南-基础篇</h1>
                 </div>
             </div>
         </div>
@@ -323,12 +323,8 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
-                                <span class="chip bg-color">服务端性能测试</span>
-                            </a>
-                        
-                            <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
-                                <span class="chip bg-color">实施流程</span>
+                            <a href="/tags/Jmeter/">
+                                <span class="chip bg-color">Jmeter</span>
                             </a>
                         
                     </div>
@@ -352,7 +348,7 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2022-03-18
+                    2022-03-22
                 </div>
                 
 
@@ -361,14 +357,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.5k
+                    2k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    15 分
+                    6 分
                 </div>
                 
 
@@ -391,188 +387,104 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <blockquote>
-<p>性能测试是通过自动化的测试工具模拟多种正常、峰值以及异常负载条件来对系统的各项性能指标进行测试。</p>
-</blockquote>
-<p>高楼老师对性能测试的定义十分明确得描述了性能测试的方法和流程：</p>
-<blockquote>
-<p>性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。   —— <a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/178068">高楼 《性能测试实战30讲》</a></p>
-</blockquote>
-<p>我将其与自己的实践经验结合，重新整理了项目中通用的性能测试实施流程。</p>
-<h2 id="0-前期准备"><a href="#0-前期准备" class="headerlink" title="0. 前期准备"></a>0. 前期准备</h2><p>在正式开始性能测试之前，至少完成以下几个方面的准备工作</p>
-<ul>
-<li><p>系统基础功能验证</p>
-<ul>
-<li>性能测试一般是软件系统已经基本完成开发或部署之后的测试活动，要求被测对象在功能上基本满足需求，且具有一定的稳定性。必须保证在性能测试之前至少进行一次系统的功能覆盖测试。</li>
-</ul>
-</li>
-<li><p>预先的业务和架构分析</p>
-<p>为了对系统性能建立直观上的认识和分析，应对系统较重要和常用的业务场景模块进行针对性的分析，以对接下来的测试计划设计进行准备。</p>
-</li>
-<li><p>组建性能团队</p>
-<ul>
-<li>根据需求组建性能测试团队，至少要报括性能测试设计和执行人员、开发和运维人员。</li>
-</ul>
-</li>
-</ul>
-<h2 id="1-性能需求分析"><a href="#1-性能需求分析" class="headerlink" title="1. 性能需求分析"></a>1. 性能需求分析</h2><p>和做功能测试一样，我们需要花费一定的精力弄清楚<strong>性能需求</strong>到底是什么的。在这一步，我们需要与客户、项目经理、产品、开发等相关人员进行沟通，收集各种资料，对被测系统进行分析，确认性能测试目标，确定需要覆盖的性能场景，并最终将其转化为可衡量的性能指标和监控策略。</p>
-<h3 id="1-1-性能测试目的分析"><a href="#1-1-性能测试目的分析" class="headerlink" title="1.1 性能测试目的分析"></a>1.1 性能测试目的分析</h3><p>我曾经负责过一个新系统上线前的性能测试工作，客户对这个系统的性能需求很明确：关键业务流程上的接口能达到100TPS，响应时间在200ms内，且在所有接口都达到100TPS的情况下能够稳定运行24小时。</p>
-<p>显然，这一次的我是幸运的，但很难一直这么幸运。很多时候做出<strong>要做性能测试</strong>这个决定时，其目的通常并没有这么明确，需要我们持续追问并挖掘出性能测试要达到的目的。测试目的通常逃不出下面列举的范围：</p>
+                <p>Jmeter详细的官方文档地址为：<a target="_blank" rel="noopener" href="https://jmeter.apache.org/usermanual/get-started.html">https://jmeter.apache.org/usermanual/get-started.html</a> ，有需求的朋友可以在这里进行更深入的研究。</p>
+<p>本文将介绍Jmeter的基础使用方法，并以实际的接口为例说明部分常用组件的使用方法。</p>
+<h2 id="1-下载Jmeter"><a href="#1-下载Jmeter" class="headerlink" title="1. 下载Jmeter"></a>1. 下载Jmeter</h2><p>   到官网的下载地址 <a target="_blank" rel="noopener" href="https://jmeter.apache.org/download_jmeter.cgi">https://jmeter.apache.org/download_jmeter.cgi</a> 下载最新的release版本。我下载时是 apache-jmeter-5.4.1_src.zip。</p>
+<h2 id="2-运行Jmeter"><a href="#2-运行Jmeter" class="headerlink" title="2. 运行Jmeter"></a>2. 运行Jmeter</h2><p>   解压下载的压缩包，进入其<strong>bin</strong>目录，在terminal中输入命令<code>jmeter</code>即可以GUI模式运行Jmeter，如下图所示：</p>
+<p>   <img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220318175003561.png" alt="以GUI模式运行Jmeter"></p>
+<p>   其他的运行方式将会在有需要时再介绍。</p>
+<h2 id="3-Jmeter主要组件介绍"><a href="#3-Jmeter主要组件介绍" class="headerlink" title="3. Jmeter主要组件介绍"></a>3. Jmeter主要组件介绍</h2><p> 要想在Jmeter中运行测试，至少需要包括测试计划（Test Plan）、线程组（Thread Group）和一个或多个采样器（Sampler）。更为详细的介绍如下，或直接查看<a target="_blank" rel="noopener" href="https://jmeter.apache.org/usermanual/test_plan.html">官方文档</a>。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320224953683.png" alt="Jmeter主要组件"></p>
 <ol>
-<li>测试出系统的最大容量，上线后心里有底</li>
-<li>新版本和旧版本对比，性能不下降</li>
-<li>验证系统在一定的负载压力下能稳定运行</li>
-<li>系统性能调优到可接受范围内</li>
+<li><p>测试计划（Test Plan）</p>
+<p>测试计划描述了JMeter运行时将执行的一系列步骤。一个完整的测试计划将由一个或多个线程组、逻辑控制器、样本生成控制器、侦听器、计时器、断言和配置元素组成。</p>
+</li>
+<li><p>线程组（Thread Group）</p>
+<p>所有的控制器和采样器必须在线程组下，其他元素，例如监听器，可以直接放在测试计划下，在这种情况下，它们将应用于所有线程组。顾名思义，线程组用于控制JMeter执行测试的线程数，可以在线程组中：设置线程数、设定加速期、设置执行测试的次数。</p>
+<p>每个线程都将完整地执行测试计划，并且完全独立于其他测试线程。多线程用于模拟与服务器应用程序的并发连接。</p>
+</li>
+<li><p>控制器（Controllers）</p>
+<p>JMeter有两种类型的控制器：采样器和逻辑控制器。</p>
+<p>采样器用于向服务器发送请求。例如，如果希望JMeter发送HTTP请求，请添加HTTP请求采样器，并在采样器中添加一个或多个配置元素来定制请求。</p>
+<p>逻辑控制器用于控制何时发送请求的逻辑。例如，您可以添加一个IF控制器，满足特定条件时才发送HTTP请求。</p>
+</li>
+<li><p>测试片段（Test Fragments）</p>
+<p>测试片段纯粹用于测试计划中的代码重用，它与线程组元素位于测试计划的同一级别。除非有控制器引用它，否则它不会被执行。</p>
+</li>
+<li><p>监听器（Listeners）</p>
+<p>监听器将在JMeter运行时收集并展示关于测试用例的运行信息。例如，“图形结果”将响应时间绘制在图表上，“查看结果树”显示采样器请求和响应的详细信息，并可以显示响应的基本HTML和XML表示形式。<br>此外，监听器可以将数据定向到一个文件以供以后使用。JMeter中的每个侦听器都提供一个字段来指示要存储数据的文件。还有一个配置按钮，可用于选择要保存的字段，以及是否使用CSV或XML格式。</p>
+</li>
+<li><p>定时器（Timers）</p>
+<p>默认情况下，JMeter线程按顺序执行采样器，期间不暂停。这会使Jmeter在短时间内发出大量请求，可能导致服务器崩溃，因此建议向线程组添加一个计时器来增加延迟。</p>
+</li>
+<li><p>断言（Assertions）</p>
+<p>通过添加断言可以“测试”应用程序是否返回了预期的结果。可以向任何采样器添加断言。例如，向HTTP请求添加一个断言，以检查文本“</HTML>”。然后，JMeter将检查HTTP响应中是否存在文本。如果JMeter找不到文本，那么它会将此标记为失败的请求。</p>
+</li>
+<li><p>配置元件</p>
+<p>配置元件与采样器密切配合。配置元素只能从放置该元素的树分支内部访问。尽管它不发送请求（HTTP（S）测试脚本记录器除外），但它可以添加或修改请求。</p>
+</li>
+<li><p>Pre-Processor 和Post-Processor</p>
+<p>Pre-Processor在发出采样器请求之前执行一些操作，post-Processor则在发出采样器请求之后执行一些操作。</p>
+</li>
+<li><p>组件执行顺序</p>
+<ol>
+<li>Configuration elements</li>
+<li>Pre-Processors</li>
+<li>Timers</li>
+<li>Sampler</li>
+<li>Post-Processors (unless SampleResult is <strong>null</strong>)</li>
+<li>Assertions (unless SampleResult is <strong>null</strong>)</li>
+<li>Listeners (unless SampleResult is <strong>null</strong>)</li>
 </ol>
-<p>也可以用<strong>应用领域</strong>来更为简洁得归纳总结性能测试目的：</p>
-<ul>
-<li>能力验证：验证系统在给定环境中的性能能力，就是针对给定的指标，只做性能验证。</li>
-<li>规划能力：测试出系统的最大容量，验证系统的性能扩展力，找出系统能力扩充的关键点，给出改善其性能扩展能力的建议。</li>
-<li>性能调优：针对给定的系统，做全面的性能测试，同时提高系统的性能表现。</li>
-</ul>
-<h3 id="1-2-业务模型"><a href="#1-2-业务模型" class="headerlink" title="1.2 业务模型"></a>1.2 业务模型</h3><p>在前期准备中，我们已经对系统所涉及的多种业务有了基本的了解。一般而言，性能测试不会针对系统所有功能来进行，选取重点的、具备足够代表性的业务功能，确定并建立起相应的业务模型是必不可少的。每种业务的逻辑、业务量、消耗的系统资源都存在差别，例如电商系统在不同的促销形式下，用户使用不同功能的配比是完全不一样的，系统承受的压力自然也不一样，因此业务模型直接影响着我们对系统的处理能力的判断。如果业务模型中业务和占比的选取跟生产差异非常大，将直接导致测试结果没有任何参考价值。 </p>
-<p>系统中的代表性业务如何选取呢？一般情况下遵循的规则是选取业务量高的、用户经常使用的、有风险的、未来有增长趋势的业务。已上线的系统可以<a target="_blank" rel="noopener" href="https://time.geekbang.org/column/article/358483">通过系统日志分析</a>出高峰时间段内的接口请求和所占比例，再结合系统业务逻辑梳理出业务种类和业务占比，以便更真实的模拟生产业务场景；不同时间段内的业务种类和业务占比存在较大差异时，需要选用多个代表性的业务模型。未上线的新系统则可以结合业务团队的判断和用户调研来确定业务种类和业务占比。</p>
-<p>通用的业务模型如下，部分比例为0的业务未在表格中列出：</p>
-<table>
-<thead>
-<tr>
-<th align="center">业务名</th>
-<th align="center">测试场景业务比例</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">业务1</td>
-<td align="center">2.56%</td>
-</tr>
-<tr>
-<td align="center">业务2</td>
-<td align="center">20.34%</td>
-</tr>
-<tr>
-<td align="center">业务5</td>
-<td align="center">40.25%</td>
-</tr>
-<tr>
-<td align="center">业务7</td>
-<td align="center">36.85%</td>
-</tr>
-</tbody></table>
-<h3 id="1-3-性能目标"><a href="#1-3-性能目标" class="headerlink" title="1.3 性能目标"></a>1.3 性能目标</h3><p>对于不同的性能测试应用领域，性能目标也会存在差异，下面是对各领域性能目标的类似描述：</p>
-<ul>
-<li>能力验证领域：该应用能够以1秒的最大响应时间处理200个并发用户对用户A的访问；峰值时刻有400用户，允许响应时间延长为2秒；</li>
-<li>规划能力领域：系统的A业务在未来的3个月内每天的业务吞吐量达到4000笔，找出系统的性能瓶颈并给出可支持这种业务量的建议；</li>
-<li>性能调优领域：通过性能调优测试，本系统的A业务和B业务在200个并发用户的条件下，响应时间提高到1秒。</li>
-</ul>
-<p>在这些性能目标描述中，对具体系统业务的响应时间、并发用户数、吞吐量等性能测试指标都进行了明确的定义，当然，还应该加上此时对系统资源的定义，如：该应用能够以1秒的最大响应时间处理200个并发用户对用户A的访问，此时服务器的CPU占用不超过70%，内存使用率不超过80%；峰值时刻有400用户，允许响应时间延长为2秒，此时此时服务器的CPU占用不超过85%，内存使用率不超过90%。</p>
-<p>在《性能测试指标》一文中，已经对性能测试中常用的业务指标和资源指标进行了详细的介绍，在实际确定性能测试目标时可从中选取恰当的指标，并根据业务需要确定各指标的具体取值，确定好后可以最终可以得出下表：</p>
-<table>
-<thead>
-<tr>
-<th align="center">业务名</th>
-<th align="center">测试场景业务比例</th>
-<th align="center">业务目标TPS</th>
-<th align="center">业务响应时间(ms)</th>
-<th align="center">CPU占用率</th>
-<th align="center">内存使用率</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">业务1</td>
-<td align="center">2.56%</td>
-<td align="center">150</td>
-<td align="center">&lt;= 1000</td>
-<td align="center">&lt;= 70%</td>
-<td align="center">&lt;= 80%</td>
-</tr>
-<tr>
-<td align="center">业务2</td>
-<td align="center">20.34%</td>
-<td align="center">520</td>
-<td align="center">&lt;= 1000</td>
-<td align="center">&lt;= 70%</td>
-<td align="center">&lt;= 80%</td>
-</tr>
-<tr>
-<td align="center">业务5</td>
-<td align="center">40.25%</td>
-<td align="center">730</td>
-<td align="center">&lt;= 1000</td>
-<td align="center">&lt;= 70%</td>
-<td align="center">&lt;= 80%</td>
-</tr>
-<tr>
-<td align="center">业务7</td>
-<td align="center">36.85%</td>
-<td align="center">600</td>
-<td align="center">&lt;= 1000</td>
-<td align="center">&lt;= 70%</td>
-<td align="center">&lt;= 80%</td>
-</tr>
-</tbody></table>
-<h2 id="2-性能测试设计和准备"><a href="#2-性能测试设计和准备" class="headerlink" title="2. 性能测试设计和准备"></a>2. 性能测试设计和准备</h2><h3 id="2-1-性能测试环境"><a href="#2-1-性能测试环境" class="headerlink" title="2.1 性能测试环境"></a>2.1 性能测试环境</h3><p>通常来讲，性能测试需要有独立的测试环境，其配置生产环境保持一致，但通常由于成本较高，会采用等比构建（1/2，1/4等）。但由于资源申请、预算、环境搭建步骤繁多的限制，可能没有办法拥有独立的测试环境，这个时候可以考虑使用的已有的测试环境或生产环境来进行测试，并提前识别出使用这些环境面临的风险。同时还需要考虑涉及到第三方服务的业务是否需要使用Mock来代替，如果不能则需要提前与第三方服务负责人沟通排期。</p>
-<p>在我所参与过的一个性能测试项目中，我们最终采用了这样的环境策略：To C业务相关的服务采用独立、1/2等比构建的性能测试环境，To B业务则在功能测试环境中进行。这样做，虽然终于能够有环境来进行测试，但显然最后的测试结果参考意义降低了，而且由于功能测试环境还用于新功能的测试，我们的性能测试与功能测试在产生了严重的冲突，当压测开始之后，由于系统承受不住那么大量的请求，崩溃了，为了不影响功能测试的进度，性能测试的执行基本都要等到功能测试执行人员下班之后才能进行。</p>
-<p>性能测试环境方案确定后就可以让运维同事开始部署性能环境了，性能环境部署完成后要先验证环境可用性。</p>
-<h3 id="2-2-性能场景设计"><a href="#2-2-性能场景设计" class="headerlink" title="2.2 性能场景设计"></a>2.2 性能场景设计</h3><p>场景来源于英文scenario，本意是指：影视剧情中的人物在特定时间与空间内发生的行动。</p>
-<p>对性能场景中的“场景”比较正宗的描述是：在既定的环境（包括动态扩展等策略）、既定的数据（包括场景执行中的数据变化）、既定的执行策略、既定的监控之下，执行性能脚本，同时观察系统各层级的性能状态参数变化，并实时判断分析场景是否符合预期。</p>
-<p>性能场景不会超出下面这几个分类：</p>
-<table>
-<thead>
-<tr>
-<th align="center">场景</th>
-<th>作用</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">基准性能场景</td>
-<td>也可称为单交易容量。将每一个业务都压到最大TPS，从而为后续场景做数据对比。</td>
-</tr>
-<tr>
-<td align="center">容量性能场景</td>
-<td>也可称为混合容量性能场景。将所有业务根据比例加到一个场景中，在数据、软硬件环境、监控等的配合下，分析瓶颈并调优。</td>
-</tr>
-<tr>
-<td align="center">稳定性性能场景</td>
-<td>核心是时长。在长时间的运行下，观察系统的性能表现，分析瓶颈并调优。</td>
-</tr>
-<tr>
-<td align="center">异常性能场景</td>
-<td>其中异常的定义最为重要。常用的手段包括宕主机、宕应用、宕容器、宕缓存、宕流控等。实际需要根据系统的业务架构和部署架构分析得出。</td>
-</tr>
-</tbody></table>
-<p>在实际测试执行时，我们要对涉及的业务一个一个地做基准，找出每个业务在系统中的最大TPS和对应的响应时间；接下来是容量性能场景，根据性能目标中各业务的比例，不断增加压力，在加压过程中需要注意始终保持各业务的业务比例，最终得出混合业务的最大TPS及响应时间，当然，如果在你的项目中存在多个不同的业务比例的场景，也是需要都测试一遍的；然后是稳定性性能场景，这需要业务和运维部门联合给出一个指标：系统要稳定运行一周、支持2000万业务量，据此我们可以计算出<strong>稳定性性能场景中的时长</strong>：2000万 ➗根据容量性能场景中得到的容量TPS（所有业务TPS之和）；最后是异常性能场景，这时可以采用容量性能场景中最大 TPS 的 50%来做，然后对业务服务器、数据库服务器等做异常操作。</p>
-<h3 id="2-3-性能测试数据"><a href="#2-3-性能测试数据" class="headerlink" title="2.3 性能测试数据"></a>2.3 性能测试数据</h3><p>在性能测试中，我们要关注的数据主要有基础铺底数据和参数化数据。</p>
-<ol>
-<li><p>基础铺底数据</p>
-<p>在生产环境中，系统肯定不会一直是一个刚部署的空系统，会有一定量的数据已经存储在数据库、文件CDN、Redis缓存等中。因此在性能测试执行开始前，我们需要模拟出真实场景中业务操作的实际数据量。</p>
-</li>
-<li><p>参数化数据</p>
-<p>在性能场景运行过程中，我们会用到两类数据：唯一性数据和可重复使用的数据。参数化数据量取决于场景运行时间和TPS。</p>
-<p>对于唯一性数据，比如删除操作所需要的数据，在被删除后是不可再次被使用的。所需的数据量计算方式很简单，比如一个运行20分钟的场景，TPS 如果是 100 的话，那就至少需要20min * 60s * 100 = 12 万条数据。</p>
-<p>对于可重复使用的数据，比如查询单条记录，重复使用同一个参数（ID）进行查询显然是不符合真实场景的。这种场景下没有固定的条数限制，只能根据实际的业务进行判断。当然了，也可以先按唯一性数据的数据量计算方法计算，然后在实际执行中按需使用。</p>
-<p>除了数据量要能满足性能场景的运行外，也要满足生产环境中的数据分布。比如记账应用中，用户每天记账的笔数通常会在5-20之间，上千甚至上万的数据量肯定是不合理的。</p>
-<p>那么如何将设计好的参数化数据放到系统中呢？参数化数据可以分为两类：第一类是已存在后台数据库中，第二类是脚本执行成功后才会将数据Insert到数据库中；</p>
-<p>对于第一类数据，以用户登录为例，登陆接口需要将其中的参数与后台数据库中的数据对比，这就要求数据库中要先存在这些数据，且压力工具也能够知道具体数据取值。实际项目中，通常会涉及多个数据库表，要先梳理清楚表之间的关联。</p>
-<p>对于第二类数据，以记账应用的记一笔功能为例，只需要在压力工具中将相应数据参数化即可。</p>
 </li>
 </ol>
-<h3 id="2-4-监控设计"><a href="#2-4-监控设计" class="headerlink" title="2.4 监控设计"></a>2.4 监控设计</h3><p>在性能测试中，监控是非常重要的环节，监控是做性能分析的前提。</p>
-<p>首先要分析系统的架构，在知道架构中使用的组件、服务之后，再有针对性的找对应的监控手段和方式。具体在设计时，可以使用从全局到定向的思路，列出要采用的计数器，形成可供分析证据链。</p>
-<p>至于使用什么监控工具来获取这些计数器的值，推荐采用Prometheus + Exporter的思路。具体方案还是需要跟运维同事进一步确认，并由运维同事来实施监控工具的部署。</p>
-<p>性能监控是一个很大的话题，真的要做好还是需要花费较大的精力去学习和实践，本文只能作为一个引子，还是需要大家自己去仔细钻研。</p>
-<h3 id="2-5-性能测试脚本"><a href="#2-5-性能测试脚本" class="headerlink" title="2.5 性能测试脚本"></a>2.5 性能测试脚本</h3><p>首先要确定性能测试的工具，比如Jmeter、Gatling、Locust等，这些工具的对比及具体使用教程在网上已经有很多有用的资料了，本文就不介绍具体工具的使用方法了。</p>
-<p>选定工具之后就可以开始写对应的脚本并调试啦，这部分内容我会单独再出一篇文章做示例。</p>
-<p>在这里还有一个步骤需要强调的是，性能脚本执行时是需要<strong>执行机</strong>的，具体需要几台需要大家根据自己的实际情况判断。而执行机通常也是需要提前申请的，配置高的为佳。</p>
-<p>在性能测试设计完成后就可以开始编写《性能测试方案》的文档了。</p>
-<h2 id="3-性能测试执行"><a href="#3-性能测试执行" class="headerlink" title="3. 性能测试执行"></a>3. 性能测试执行</h2><p>有了前面的设计和准备工作，终于可以开始执行性能场景了。</p>
-<p>这部分没有太多要说的内容，只需要关注下执行过程中的业务指标和监控的资源指标是否都记录上即可。</p>
-<h2 id="4-性能测试结果分析及调优"><a href="#4-性能测试结果分析及调优" class="headerlink" title="4. 性能测试结果分析及调优"></a>4. 性能测试结果分析及调优</h2><p>每一个性能场景执行完后，要先从压力工具和监控工具中整理输出相应的结果，通常是表格和图表形式的。然后根据这些结果，判断测试是否通过。若性能不达标，需要针对性得进一步分析出影响性能的根本原因，但性能问题通常是相互关联相互影响的，表面上看到的现象很可能不是根本问题，而是另一处出现问题后引起的反应，这就要求监控收集数据时的证据链要完整，能帮助我们一步步得探寻到真相。</p>
-<p>调优可能是一个漫长的过程，需要我们不断去尝试，要有耐心也要有信心。</p>
-<p>影响性能的点及调优的方法如下，仅供参考：</p>
-<ol>
-<li>数据库：检查索引设置，检查SQL语句是否可以优化</li>
-<li>业务接口：流程是否有冗余；返回的数据是否有冗余；数据处理逻辑是否可以优化</li>
-</ol>
-<h2 id="5-性能测试报告"><a href="#5-性能测试报告" class="headerlink" title="5. 性能测试报告"></a>5. 性能测试报告</h2><p>最后就可以输出性能测试报告了，阐明性能测试目标、测试环境、数据构造规则、性能结果、风险等内容。</p>
+<h2 id="4-举个例子"><a href="#4-举个例子" class="headerlink" title="4. 举个例子"></a>4. 举个例子</h2><p>首次打开Jmeter后，我们在右侧看到有一个空白的测试计划，下面我们就从这里开始一步步添加组件，完成<a href="https://yuxiaomeng.me/2022/01/13/daily-cost-jie-shao/">Daily Cost</a>的 “登陆 - 新增一笔支出记录” 这一简短的业务流程为例，先在Jmeter中调通接口。</p>
+<h3 id="1-登陆接口"><a href="#1-登陆接口" class="headerlink" title="1. 登陆接口"></a>1. 登陆接口</h3><ul>
+<li>在测试计划下添加<strong>线程组</strong>，各参数保持默认数值 1 即可</li>
+</ul>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320225426059.png" alt="新建线程组"></p>
+<ul>
+<li>在线程组下添加 <strong>取样器 - HTTP请求</strong>，根据API文档完成登陆接口</li>
+</ul>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320225647384.png" alt="登陆接口"></p>
+<p>由于接口的Request Body为Json格式，为此我们还需要添加 <strong>配置元件 - HTTP信息头管理器</strong>，并添加Header <code>Content-Type: application/json</code>:</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320230340891.png" alt="添加Header"></p>
+<ul>
+<li>添加<strong>监听器 - 察看结果树</strong> 后运行</li>
+</ul>
+<p>运行前需要先保存测试计划。点击运行后可在察看结果树页面看到请求是否成功发送及Request和Response的具体数据。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320230755701.png" alt="察看结果树"></p>
+<ul>
+<li>为登陆接口添加断言</li>
+</ul>
+<p>根据登陆接口的定义，登陆成功后接口会返回code为100，我们断言code值为100即可。</p>
+<p>首先在察看结果树中进行Json语法测试，如下所示，从Text切换到Json Path Tester，然后输入表达式<code>$.code</code>，其中<code>$</code>表示根节点，点击Test，可以看到下方列出了提取结果为<code>Result[0]=100</code>，是我们想要的值。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320232852177.png" alt="Json语法测试"></p>
+<p>然后就可以在登陆请求下添加 <strong>断言 - JSON断言</strong>，并填入上面已经测试通过的表达式，记得要勾选Additionally assert value，在期望值输入框中填入100。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320232953056.png" alt="Json断言"></p>
+<p>为了更明显得看到断言的效果，我们可以先在HTTP请求中将登陆用户的密码改为错误的再运行，并能在察看结果树中看到断言结果。当测试通过时不展示JSON断言详情。</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320233625111.png" alt="失败时查看Json断言结果"></p>
+<p>如果需要同时对多个字段进行断言，只需要添加多个JSON断言组件。</p>
+<h3 id="2-新增一笔支出记录接口"><a href="#2-新增一笔支出记录接口" class="headerlink" title="2. 新增一笔支出记录接口"></a>2. 新增一笔支出记录接口</h3><p>   我们要添加第2个接口了，在此之前我们先将配置了登陆接口的HTTP请求的名称修改为“登陆”。然后再在线程组下添加 <strong>取样器 - HTTP请求</strong>。</p>
+<ul>
+<li><p>在配置请求的详细信息时，我们发现<strong>Web服务器</strong>信息又需要重新配置一遍。会用Postman的同学要抢答了：加个环境变量吧。这在Jmeter中如何实现呢？</p>
+<p>   添加 <strong>配置元件 - HTTP请求默认值</strong>，并在其中填写Web服务器信息，登陆和新增一笔支出记录接口中的Web服务器信息留空即可。这里需要注意下作用范围，如果HTTP请求默认值在测试计划下面，那么该配置会影响测试计划下的所有HTTP请求取样器；如果在线程组中，那么其影响范围是线程组。</p>
+<p>   <img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220320235437984.png" alt="HTTP请求默认值设置服务器信息"></p>
+</li>
+<li><p>完善新增一笔支出记录接口</p>
+<p>   <img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220321000919231.png" alt="新增一笔支出记录接口"></p>
+<p> 完善后可以先运行试一下，我们从察看结果树页面可以看到接口请求URL是正确的，但接口请求失败了，响应为403，这是因为没有在Header中带上登陆成功后返回的token。</p>
+<p> <img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220321001059983.png" alt="未带token请求失败"></p>
+</li>
+<li><p>从登陆接口传递token参数到后续请求</p>
+<p>首先从在登陆接口中提取出token的值：添加 <strong>后置处理器 - JSON提取器</strong>，并按需配置</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220321002035834.png" alt="Json提取器"></p>
+</li>
+</ul>
+<p>然后在新增一笔支出记录接口中使用：</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220321002404210.png" alt="添加Authorization"></p>
+<p>再次运行，可以看到Header中已携带了token，且请求成功：</p>
+<p><img src="https://xmzines.oss-cn-shenzhen.aliyuncs.com/img/image-20220321002529207.png" alt="请求成功"></p>
 
                 
             </div>
@@ -599,7 +511,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="https://yuxiaomeng.me/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/">https://yuxiaomeng.me/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/</a>
+                    <a href="https://yuxiaomeng.me/2022/03/22/jmeter-shi-yong-zhi-nan-ji-chu-pian/">https://yuxiaomeng.me/2022/03/22/jmeter-shi-yong-zhi-nan-ji-chu-pian/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -637,12 +549,8 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95/">
-                                    <span class="chip bg-color">服务端性能测试</span>
-                                </a>
-                            
-                                <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
-                                    <span class="chip bg-color">实施流程</span>
+                                <a href="/tags/Jmeter/">
+                                    <span class="chip bg-color">Jmeter</span>
                                 </a>
                             
                         </div>
@@ -687,9 +595,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2022/03/22/jmeter-shi-yong-zhi-nan-ji-chu-pian/">
                     <div class="card-image">
@@ -707,9 +616,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2022-03-22
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-22
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
@@ -722,6 +631,7 @@
                         </span>
                     </div>
                 </div>
+
                 
                 <div class="card-action article-tags">
                     
@@ -740,24 +650,24 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2022/01/22/fu-wu-duan-xing-neng-ce-shi-xing-neng-ce-shi-zhi-biao/">
+                <a href="/2022/03/18/xing-neng-ce-shi-shi-shi-liu-cheng/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="性能测试指标">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="性能测试实施流程">
                         
-                        <span class="card-title">性能测试指标</span>
+                        <span class="card-title">性能测试实施流程</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            接触过性能测试的小伙伴一定都听过响应时间（Response Time）、TPS、CPU资源利用率等术语，它们都属于性能测试的指标。本文对性能测试中涉及到的指标做了较为详细的整理。
+                            性能测试针对系统的性能指标，建立性能测试模型，制定性能测试方案，制定监控策略，在场景条件之下执行性能场景，分析判断性能瓶颈并调优，最终得出性能结果来评估系统的性能指标是否满足既定值。
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2022-01-22
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-03-18
                             </span>
                         <span class="publish-author">
                             
@@ -778,8 +688,8 @@
                         <span class="chip bg-color">服务端性能测试</span>
                     </a>
                     
-                    <a href="/tags/%E6%80%A7%E8%83%BD%E6%8C%87%E6%A0%87/">
-                        <span class="chip bg-color">性能指标</span>
+                    <a href="/tags/%E5%AE%9E%E6%96%BD%E6%B5%81%E7%A8%8B/">
+                        <span class="chip bg-color">实施流程</span>
                     </a>
                     
                 </div>
