@@ -1338,8 +1338,8 @@ thead {
 /* archive page. */
 #cd-timeline .year {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 90px;
+    height: 60px;
     margin: 10px 0 50px -20px;
     padding: 21px 10px;
     background-color: #ff5722;
@@ -1370,9 +1370,16 @@ thead {
 
 #cd-timeline .day {
     position: relative;
+    height: 70px;
+    margin: 10px 0 10px 30px;
     padding: 8px 10px;
-    background-color: #ffa726;
-    color: #fff;
+    color: #777777;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+#cd-timeline .day a {
+    color:#31ad47;
     font-size: 1.2rem;
     font-weight: 500;
 }
@@ -1403,13 +1410,13 @@ thead {
     }
 
     #cd-timeline::before {
-        left: 50%;
+        /* left: 00%; */
         margin-left: -2px;
     }
 
     #cd-timeline .year {
-        margin: 10px 0 50px -40px;
-        padding: 22px 11px;
+        margin: 10px 0 50px -20px;
+        padding: 11px 11px;
     }
 
     #cd-timeline .month {
